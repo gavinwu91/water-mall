@@ -1,76 +1,25 @@
-public List searchPhoneNo(LinkinfoQuery linkinfoQuery) {
-        //分为三种情况
-        String[] queryTimes = linkinfoQuery.getQueryTimes();
-        String startYmdTime = "";
-        String endYmdTime = "";
-        LocalDate now = LocalDate.now();
-        String format = now.format(DatePattern.NORM_DATE_FORMATTER);
-        String nowStartStrTime = format + " 00:00:00";
-        String nowEndStrTime = format + " 23:59:59";
-        LambdaQueryWrapper<LinkinfoDay> wrapper = Wrappers.lambdaQuery(LinkinfoDay.class)
-                .select(LinkinfoDay::getGrekey)
-                ;
-
-        List<String> list = ListUtil.list(false);
-        if(StrUtil.isNotBlank(linkinfoQuery.getAppname()) && !linkinfoQuery.getAppname().equals("All")){
-            String[] appNames = linkinfoQuery.getAppname().split(",");
-            wrapper.and( s -> {
-                for (int i =0;i<appNames.length;i++){
-                    String app = appNames[i];
-                    if(app.contains("...")){
-                        app = app.replace("...","");
-                    }
-                    list.add(app);
-                    s.like(LinkinfoDay::getAppName, app);
-                    if(i != appNames.length - 1){
-                        s.or();
-                    }
-                }
-            });
-        }
-        linkinfoQuery.setAppList(list);
-        if (queryTimes != null && queryTimes.length > 0) {
-            //第二种: 如果有日期的情况下，纯用day的表情况
-            String dateStart = queryTimes[0].substring(0,queryTimes[0].indexOf(" "));
-            String dateEnd = queryTimes[1].substring(0,queryTimes[1].indexOf(" "));
-            //判断给定的起始日期是否包含当天
-            if(dateStart.equals(format)){
-                //如果在没有日期的情况下，就是当天的数据
-                linkinfoQuery.setTimeInterval("hour");
-                linkinfoQuery.setStartStrTime(nowStartStrTime);
-                linkinfoQuery.setEndStrTime(nowEndStrTime);
-                List<LinkinfoDay> xList = iLinkinfoService.grekeyByAppMobile(linkinfoQuery);
-                return xList.stream().map( x -> AppMobileNumberResult.builder().phoneNo(x.getGrekey()).build()).collect(Collectors.toList());
-            }else if(dateEnd.equals(format)){
-                //第三种:又有day表情况，还有全量表情况
-                //判定给定的结束日期是否包含当天，如果包含当天就需要查询day 和全量数据
-                //1 先执行day的数据
-                startYmdTime = dateStart.replaceAll("-","");
-                //计算昨天
-                String minusDate = now.minusDays(1).format(DatePattern.PURE_DATE_FORMATTER);
-                wrapper.between(LinkinfoDay::getEventDate, startYmdTime, minusDate);
-                List<LinkinfoDay> firstList = iLinkinfoService.list(wrapper);
-                //2 再执行全量的数据查询
-                linkinfoQuery.setStartStrTime(nowStartStrTime);
-                linkinfoQuery.setEndStrTime(nowEndStrTime);
-                List<LinkinfoDay> linkinfoDays = iLinkinfoService.grekeyByAppMobile(linkinfoQuery);
-                Set<String> collect1 = firstList.stream().map(x -> x.getGrekey()).collect(Collectors.toSet());
-                Set<String> collect2 = linkinfoDays.stream().map(x -> x.getGrekey()).collect(Collectors.toSet());
-                collect1.addAll(collect2);
-                return collect1.stream().map( x -> AppMobileNumberResult.builder().phoneNo(x).build()).collect(Collectors.toList());
-            }
-            //如果都不包含当天，则说明只查day表数据就可以
-            startYmdTime = dateStart.replaceAll("-","");
-            endYmdTime = dateEnd.replaceAll("-","");
-            wrapper.between(LinkinfoDay::getEventDate, startYmdTime, endYmdTime);
-            wrapper.groupBy(LinkinfoDay::getGrekey);
-            List<LinkinfoDay> xList = iLinkinfoService.list(wrapper);
-            return xList.stream().map( x -> AppMobileNumberResult.builder().phoneNo(x.getGrekey()).build()).collect(Collectors.toList());
-        } else {
-            //第一种:如果在没有日期的情况下，就是当天的数据
-            linkinfoQuery.setStartStrTime(nowStartStrTime);
-            linkinfoQuery.setEndStrTime(nowEndStrTime);
-            List<LinkinfoDay> xList = iLinkinfoService.grekeyByAppMobile(linkinfoQuery);
-            return  xList.stream().map( x -> AppMobileNumberResult.builder().phoneNo(x.getGrekey()).build()).collect(Collectors.toList());
-        }
-    }
+CREATE TABLE `sys_operate_log` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT '日志ID',
+  `system_code` varchar(128) NOT NULL COMMENT '系统编码',
+  `system_name` varchar(256) NOT NULL COMMENT '系统名称',
+  `operator_id` varchar(128) DEFAULT NULL COMMENT '操作人ID',
+  `operator_account` varchar(128) DEFAULT NULL COMMENT '操作人账号',
+  `operator_name` varchar(128) NOT NULL COMMENT '操作人姓名',
+  `operator_mobile` varchar(64) DEFAULT NULL COMMENT '操作人联系方式',
+  `operator_role_name` varchar(64) DEFAULT NULL COMMENT '操作人角色名称',
+  `operator_ip` varchar(64) NOT NULL COMMENT '操作人IP',
+  `operate_model` varchar(256) DEFAULT NULL COMMENT '操作模块',
+  `operate_start_time` datetime NOT NULL COMMENT '操作开始时间（yyyy-MM-dd HH:mm:ss）',
+  `operate_end_time` datetime NOT NULL COMMENT '操作结束时间（yyyy-MM-dd HH:mm:ss）',
+  `operate_date` date NOT NULL COMMENT '操作日期（yyyy-MM-dd）',
+  `operate_type` varchar(32) NOT NULL COMMENT '操作类别（add、modify、search）',
+  `operate_expend_time` bigint(20) DEFAULT NULL COMMENT '操作耗时（毫秒）',
+  `operate_url` varchar(256) DEFAULT NULL COMMENT '操作路径url',
+  `operate_input` varchar(4000) NOT NULL COMMENT '操作入参',
+  `operate_output` varchar(4000) DEFAULT NULL COMMENT '操作出参',
+  `method` varchar(256) DEFAULT NULL COMMENT 'Controller方法',
+  `request_method` varchar(64) DEFAULT NULL COMMENT '请求方法(GET/POST/PUT...)',
+  `operate_result` varchar(32) DEFAULT NULL COMMENT '操作结果',
+  `operate_result_desc` text COMMENT '操作结果描述(失败原因等)',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE=InnoDB AUTO_INCREMENT=157275 DEFAULT CHARSET=utf8mb4 COMMENT='Sys operate log';
