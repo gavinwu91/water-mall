@@ -1,0 +1,39 @@
+public static String newTrans(String text,String toLanguage,String llmTransUrl) {
+        if(StrUtil.isBlank(text)) {return "";}
+        //如果大于5000字 分批翻译
+        if (text.length() > maxSize) {
+            StringBuffer sb = new StringBuffer();
+            int totalLength = text.length();
+            int i = totalLength / maxSize;
+            if (totalLength % maxSize > 0) {
+                i++;
+            }
+            for (int a = 0; a < i; a++) {
+                String text1 = "";
+                if (a < i - 1) {
+                    text1 = text.substring(0, maxSize);
+                    text = text.substring(maxSize);
+                }else{
+                    text1 = text;
+                }
+                System.out.println("====进入了===" + totalLength + "循环：" + i + "/" + (a + 1) + "次," + text1);
+                long s = System.currentTimeMillis();
+                sb.append(newTransApi(text1,toLanguage,llmTransUrl));
+                System.out.println("耗时：======="+(System.currentTimeMillis() - s) / 1000);
+            }
+            return sb.toString();
+        } else {
+            return newTransApi(text,toLanguage,llmTransUrl);
+        }
+    }
+
+    private static String newTransApi(String text,String toLanguage,String llmTransUrl){
+        Map paramMap = new HashMap(){{
+            put("text",text);
+            put("source_lang","auto");
+            put("target_lang",toLanguage);
+        }};
+        String post = HttpUtil.post(llmTransUrl,JSONUtil.toJsonStr(paramMap));
+        LlmTransResult llmTransResult = JSONUtil.toBean(post, LlmTransResult.class);
+        return llmTransResult.getTranslatedText();
+    }
