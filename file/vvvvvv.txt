@@ -23,3 +23,6 @@ CREATE TABLE `sys_operate_log` (
   `operate_result_desc` text COMMENT '操作结果描述(失败原因等)',
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=157275 DEFAULT CHARSET=utf8mb4 COMMENT='Sys operate log';
+
+
+https://github.com/gavinwu91/vms-esct.git
