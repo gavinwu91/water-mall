@@ -1,0 +1,9 @@
+with date_range as (select trunc(sysdate) - LEVEL + 1 AS date_unit from dual connect by level <= 14)
+        SELECT 'PX' AS engineType,
+        to_char(dr.date_unit,'MM-DD') AS date_unit,
+        COALESCE(sum(audio_len)/60,0) AS unit_count
+        FROM date_range dr
+        left join (select * from voiceprint_phonexia where ctime between to_date('2026-04-14','YYYY-MM-DD') and to_date('2026-04-27','YYYY-MM-DD')) pv
+        on trunc(pv.ctime) = dr.date_unit
+        GROUP BY dr.date_unit
+        ORDER BY dr.date_unit
