@@ -7,3 +7,6 @@ with date_range as (select trunc(sysdate) - LEVEL + 1 AS date_unit from dual con
         on trunc(pv.ctime) = dr.date_unit
         GROUP BY dr.date_unit
         ORDER BY dr.date_unit
+
+
+        npm i -g opencode-ai
