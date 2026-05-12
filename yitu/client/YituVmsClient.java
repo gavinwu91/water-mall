@@ -27,7 +27,7 @@ public interface YituVmsClient {
      * 列出所有库
      */
     @GetMapping("/api/v1/repositories")
-    BaseResponse<GeneratedModels.ListReposResponse> listReposApiV1RepositoriesGet(@RequestParam(value = "repo_type", required = false) GeneratedModels.RepositoryType repoType, @RequestParam(value = "data_type", required = false) GeneratedModels.DataType dataType, @RequestParam(value = "page", required = false) Integer page, @RequestParam(value = "limit", required = false) Integer limit);
+    BaseResponse<GeneratedModels.ListReposResponse> listReposApiV1RepositoriesGet(@RequestParam(value = "repo_type", required = false) GeneratedModels.RepositoryType repoType, @RequestParam(value = "data_type", required = false) GeneratedModels.DataType dataType, @RequestParam(value = "name", required = false) String name, @RequestParam(value = "page", required = false) Integer page, @RequestParam(value = "limit", required = false) Integer limit);
 
     /**
      * 搜索库
@@ -70,6 +70,12 @@ public interface YituVmsClient {
      */
     @PostMapping("/api/v1/repositories/{uri}/records/delete")
     BaseResponse<GeneratedModels.BasicResponse> deleteRecordsApiV1RepositoriesUriRecordsDeletePost(@PathVariable("uri") String uri, @RequestBody GeneratedModels.BatchDeleteRecordsRequest body);
+
+    /**
+     * 批量同步上传记录
+     */
+    @PostMapping("/api/v1/repositories/{uri}/records/synchronized/batch")
+    BaseResponse<GeneratedModels.BatchSyncUploadResponse> batchSyncUploadRecordsApiV1RepositoriesUriRecordsSynchronizedBatchPost(@PathVariable("uri") String uri, @RequestBody GeneratedModels.BatchSyncUploadRequest body);
 
     /**
      * [NOT IMPLEMENTED] 批量更新记录标签
@@ -123,7 +129,25 @@ public interface YituVmsClient {
      * 搜索摄像头
      */
     @GetMapping("/api/v1/cameras")
-    BaseResponse<GeneratedModels.ListCamerasResponse> listCamerasApiV1CamerasGet(@RequestParam(value = "page", required = false) Integer page, @RequestParam(value = "limit", required = false) Integer limit, @RequestParam(value = "tags", required = false) List<Integer> tags, @RequestParam(value = "status", required = false) List<String> status, @RequestParam(value = "name", required = false) String name, @RequestParam(value = "code", required = false) String code, @RequestParam(value = "sort_by", required = false) GeneratedModels.CameraSortField sortBy, @RequestParam(value = "order", required = false) GeneratedModels.ModelsCameraSortOrder order);
+    BaseResponse<GeneratedModels.ListCamerasResponse> listCamerasApiV1CamerasGet(@RequestParam(value = "page", required = false) Integer page, @RequestParam(value = "limit", required = false) Integer limit, @RequestParam(value = "tags", required = false) List<Integer> tags, @RequestParam(value = "tag_name", required = false) String tagName, @RequestParam(value = "status", required = false) List<String> status, @RequestParam(value = "name", required = false) String name, @RequestParam(value = "code", required = false) String code, @RequestParam(value = "device_type", required = false) Integer deviceType, @RequestParam(value = "after_id", required = false) Integer afterId, @RequestParam(value = "sort_by", required = false) GeneratedModels.CameraSortField sortBy, @RequestParam(value = "order", required = false) GeneratedModels.ModelsCameraSortOrder order);
+
+    /**
+     * 批量创建摄像头
+     */
+    @PostMapping("/api/v1/cameras/bulk")
+    BaseResponse<GeneratedModels.BulkCreateCamerasResponse> bulkCreateCamerasApiV1CamerasBulkPost(@RequestBody GeneratedModels.BulkCreateCamerasBody body);
+
+    /**
+     * 按国标编码批量 upsert 摄像头
+     */
+    @PostMapping("/api/v1/cameras/bulk-upsert")
+    BaseResponse<GeneratedModels.BulkUpsertCamerasResponse> bulkUpsertCamerasApiV1CamerasBulkUpsertPost(@RequestBody GeneratedModels.BulkCreateCamerasBody body);
+
+    /**
+     * GIS 视口查询摄像头
+     */
+    @PostMapping("/api/v1/cameras/gis/viewport-query")
+    BaseResponse<GeneratedModels.CameraViewportQueryResponse> queryCamerasByViewportApiV1CamerasGisViewportQueryPost(@RequestBody GeneratedModels.CameraViewportQueryRequest body);
 
     /**
      * 获取摄像头详情
@@ -153,7 +177,13 @@ public interface YituVmsClient {
      * 列出标签
      */
     @GetMapping("/api/v1/tags")
-    BaseResponse<GeneratedModels.TagListResponse> listTagsApiV1TagsGet(@RequestParam(value = "resource_type", required = false) String resourceType, @RequestParam(value = "parent_id", required = false) Integer parentId, @RequestParam(value = "depth", required = false) Integer depth, @RequestParam(value = "page", required = false) Integer page, @RequestParam(value = "limit", required = false) Integer limit);
+    BaseResponse<GeneratedModels.TagListResponse> listTagsApiV1TagsGet(@RequestParam(value = "resource_type", required = false) String resourceType, @RequestParam(value = "parent_id", required = false) Integer parentId, @RequestParam(value = "name", required = false) String name, @RequestParam(value = "depth", required = false) Integer depth, @RequestParam(value = "page", required = false) Integer page, @RequestParam(value = "limit", required = false) Integer limit);
+
+    /**
+     * 批量补建标签路径（idempotent）
+     */
+    @PostMapping("/api/v1/tags/ensure-paths")
+    BaseResponse<GeneratedModels.EnsureTagPathsResponse> ensureTagPathsApiV1TagsEnsurePathsPost(@RequestBody GeneratedModels.EnsureTagPathsBody body);
 
     /**
      * 更新标签
@@ -267,7 +297,7 @@ public interface YituVmsClient {
      * 获取图片（GET）
      */
     @GetMapping("/api/v1/storage/image")
-    BaseResponse<Object> getStorageImageApiV1StorageImageGet(@RequestParam(value = "uri", required = false) String uri, @RequestParam(value = "uri_base64", required = false) String uriBase64);
+    BaseResponse<Object> getStorageImageApiV1StorageImageGet(@RequestParam(value = "uri", required = false) String uri, @RequestParam(value = "uri_base64", required = false) String uriBase64, @RequestParam(value = "cluster_id", required = false) String clusterId);
 
     /**
      * 图片特征抽取
@@ -276,7 +306,7 @@ public interface YituVmsClient {
     BaseResponse<GeneratedModels.FeatureExtractionResponse> featureExtractionApiV1FeatureExtractionPost(@RequestBody GeneratedModels.FeatureExtractionRequest body);
 
     /**
-     * Batch Feature Extraction
+     * 批量图片特征抽取
      */
     @PostMapping("/api/v1/feature-extraction/batch")
     BaseResponse<GeneratedModels.BatchFeatureExtractionResponse> batchFeatureExtractionApiV1FeatureExtractionBatchPost(@RequestBody GeneratedModels.BatchFeatureExtractionRequest body);
@@ -288,6 +318,12 @@ public interface YituVmsClient {
     BaseResponse<Object> healthCheckApiV1FeatureExtractionHealthGet();
 
     /**
+     * 1:1 图片比对 (1v1)
+     */
+    @PostMapping("/api/v1/feature-extraction/compare")
+    BaseResponse<GeneratedModels.Compare1v1Response> compare1v1ApiV1FeatureExtractionComparePost(@RequestBody GeneratedModels.Compare1v1Request body);
+
+    /**
      * 创建布控任务
      */
     @PostMapping("/api/v1/surveillance-tasks")
@@ -297,13 +333,13 @@ public interface YituVmsClient {
      * 列出布控任务
      */
     @GetMapping("/api/v1/surveillance-tasks")
-    BaseResponse<GeneratedModels.ListTasksResponse> listTasksApiV1SurveillanceTasksGet(@RequestParam(value = "tag_path", required = false) String tagPath, @RequestParam(value = "cluster_id", required = false) String clusterId, @RequestParam(value = "enabled", required = false) Boolean enabled, @RequestParam(value = "surveillance_mode", required = false) GeneratedModels.SurveillanceMode surveillanceMode, @RequestParam(value = "surveillance_type", required = false) Integer surveillanceType, @RequestParam(value = "process_type", required = false) Integer processType, @RequestParam(value = "keyword", required = false) String keyword, @RequestParam(value = "page", required = false) Integer page, @RequestParam(value = "limit", required = false) Integer limit);
+    BaseResponse<GeneratedModels.RoutersSurveillanceTaskListTasksResponse> listTasksApiV1SurveillanceTasksGet(@RequestParam(value = "tag_path", required = false) String tagPath, @RequestParam(value = "cluster_id", required = false) String clusterId, @RequestParam(value = "enabled", required = false) Boolean enabled, @RequestParam(value = "surveillance_mode", required = false) GeneratedModels.SurveillanceMode surveillanceMode, @RequestParam(value = "surveillance_type", required = false) Integer surveillanceType, @RequestParam(value = "process_type", required = false) Integer processType, @RequestParam(value = "keyword", required = false) String keyword, @RequestParam(value = "sort_by", required = false) String sortBy, @RequestParam(value = "sort_order", required = false) String sortOrder, @RequestParam(value = "page", required = false) Integer page, @RequestParam(value = "limit", required = false) Integer limit);
 
     /**
      * 获取布控任务详情
      */
     @GetMapping("/api/v1/surveillance-tasks/{uri}")
-    BaseResponse<GeneratedModels.GetTaskResponse> getTaskByUriApiV1SurveillanceTasksUriGet(@PathVariable("uri") String uri);
+    BaseResponse<GeneratedModels.RoutersSurveillanceTaskGetTaskResponse> getTaskByUriApiV1SurveillanceTasksUriGet(@PathVariable("uri") String uri);
 
     /**
      * 基于 URI 更新布控任务
@@ -342,16 +378,16 @@ public interface YituVmsClient {
     BaseResponse<GeneratedModels.RetrievalResponse> retrievalDynamicApiV1RetrievalDynamicPost(@RequestBody GeneratedModels.DynamicRetrievalRequest body);
 
     /**
-     * L5 档案检索
+     * L4 档案检索
      */
     @PostMapping("/api/v1/retrieval/dossier")
     BaseResponse<GeneratedModels.DossierRetrievalResponse> retrievalDossierApiV1RetrievalDossierPost(@RequestBody GeneratedModels.DossierRetrievalRequest body);
 
     /**
-     * [NOT IMPLEMENTED] L5 语义检索（文本+时空过滤）
+     * L5 语义检索（文搜图/图搜图/特征搜图）
      */
     @PostMapping("/api/v1/retrieval/semantic")
-    BaseResponse<GeneratedModels.SemanticRetrievalResponse> retrievalSemanticApiV1RetrievalSemanticPost(@RequestBody GeneratedModels.SemanticRetrievalRequest body);
+    BaseResponse<GeneratedModels.SemanticSearchResponse> retrievalSemanticApiV1RetrievalSemanticPost(@RequestBody GeneratedModels.SemanticSearchParams body);
 
     /**
      * [NOT IMPLEMENTED] L4 档案结构化检索
@@ -360,10 +396,40 @@ public interface YituVmsClient {
     BaseResponse<GeneratedModels.L4DossierRetrievalResponse> retrievalDossierL4ApiV1RetrievalDossierL4Post(@RequestBody GeneratedModels.L4DossierRetrievalRequest body);
 
     /**
+     * 列出所有档案标签定义
+     */
+    @GetMapping("/api/v1/dossiers/tags")
+    BaseResponse<GeneratedModels.DossierTagDefListResponse> listDossierTagDefsApiV1DossiersTagsGet();
+
+    /**
+     * 创建档案标签定义
+     */
+    @PostMapping("/api/v1/dossiers/tags")
+    BaseResponse<GeneratedModels.DossierTagDefResponse> createDossierTagDefApiV1DossiersTagsPost(@RequestBody GeneratedModels.CreateDossierTagBody body);
+
+    /**
+     * 删除档案标签定义
+     */
+    @DeleteMapping("/api/v1/dossiers/tags/{tag_id}")
+    BaseResponse<GeneratedModels.BasicResponse> deleteDossierTagDefApiV1DossiersTagsTagIdDelete(@PathVariable("tag_id") String tagId);
+
+    /**
+     * 批量关联档案到标签
+     */
+    @PostMapping("/api/v1/dossiers/tags/{tag_id}/dossiers")
+    BaseResponse<GeneratedModels.BasicResponse> batchAddDossiersToTagApiV1DossiersTagsTagIdDossiersPost(@PathVariable("tag_id") String tagId, @RequestBody GeneratedModels.BatchAddDossiersByTagBody body);
+
+    /**
+     * 按标签ID查询全量档案ID
+     */
+    @GetMapping("/api/v1/dossiers/tags/{tag_id}/dossier-ids")
+    BaseResponse<GeneratedModels.DossierIdsByTagResponse> getDossierIdsByTagApiV1DossiersTagsTagIdDossierIdsGet(@PathVariable("tag_id") String tagId);
+
+    /**
      * 列出所有档案
      */
     @GetMapping("/api/v1/dossiers")
-    BaseResponse<GeneratedModels.DossierListResponse> listDossiersApiV1DossiersGet(@RequestParam(value = "dossier_type", required = false) String dossierType, @RequestParam(value = "status", required = false) String status, @RequestParam(value = "priority", required = false) String priority, @RequestParam(value = "page", required = false) Integer page, @RequestParam(value = "limit", required = false) Integer limit);
+    BaseResponse<GeneratedModels.DossierListResponse> listDossiersApiV1DossiersGet(@RequestParam(value = "dossier_type", required = false) String dossierType, @RequestParam(value = "status", required = false) String status, @RequestParam(value = "priority", required = false) String priority, @RequestParam(value = "tag_ids", required = false) String tagIds, @RequestParam(value = "tag_match_mode", required = false) String tagMatchMode, @RequestParam(value = "page", required = false) Integer page, @RequestParam(value = "limit", required = false) Integer limit);
 
     /**
      * 查询单个档案详情
@@ -378,10 +444,16 @@ public interface YituVmsClient {
     BaseResponse<GeneratedModels.DossierListResponse> searchDossiersApiV1DossiersSearchPost(@RequestBody GeneratedModels.DossierQueryRequest body);
 
     /**
-     * [NOT IMPLEMENTED] 更新档案标签
+     * 更新档案标签
      */
     @PostMapping("/api/v1/dossiers/{uri}/tags")
-    BaseResponse<Object> updateDossierTagsApiV1DossiersUriTagsPost(@PathVariable("uri") String uri, @RequestBody GeneratedModels.DossierTagUpdateBody body);
+    BaseResponse<GeneratedModels.BasicResponse> updateDossierTagsApiV1DossiersUriTagsPost(@PathVariable("uri") String uri, @RequestBody GeneratedModels.DossierTagUpdateBody body);
+
+    /**
+     * 删除档案标签关联
+     */
+    @DeleteMapping("/api/v1/dossiers/{uri}/tags")
+    BaseResponse<GeneratedModels.BasicResponse> deleteDossierTagsApiV1DossiersUriTagsDelete(@PathVariable("uri") String uri, @RequestBody GeneratedModels.DossierTagDeleteBody body);
 
     /**
      * 获取所有静态人像库（旧版兼容）
@@ -568,60 +640,6 @@ public interface YituVmsClient {
      */
     @PostMapping("/lagency/face/v1/framework/log/fetch")
     BaseResponse<GeneratedModels.QueryResponse> fetchLogLagencyFaceV1FrameworkLogFetchPost(@RequestBody GeneratedModels.FetchLogRequest body);
-
-    /**
-     * 创建视觉解析任务
-     */
-    @PostMapping("/api/v1/vision-tasks")
-    BaseResponse<GeneratedModels.CreateTaskResponse> createTaskApiV1VisionTasksPost(@RequestBody GeneratedModels.VisionTaskInput body);
-
-    /**
-     * 列出视觉解析任务
-     */
-    @GetMapping("/api/v1/vision-tasks")
-    BaseResponse<GeneratedModels.VisionTaskListResponse> listTasksApiV1VisionTasksGet(@RequestParam(value = "page", required = false) Integer page, @RequestParam(value = "limit", required = false) Integer limit, @RequestParam(value = "status", required = false) Integer status, @RequestParam(value = "filter", required = false) String filter);
-
-    /**
-     * 获取视觉解析任务详情
-     */
-    @GetMapping("/api/v1/vision-tasks/{task_id}")
-    BaseResponse<GeneratedModels.VisionTaskResponse> getTaskApiV1VisionTasksTaskIdGet(@PathVariable("task_id") String taskId);
-
-    /**
-     * 更新视觉解析任务
-     */
-    @PatchMapping("/api/v1/vision-tasks/{task_id}")
-    BaseResponse<GeneratedModels.BasicResponse> updateTaskApiV1VisionTasksTaskIdPatch(@PathVariable("task_id") String taskId, @RequestBody GeneratedModels.VisionTaskUpdateInput body);
-
-    /**
-     * 删除视觉解析任务
-     */
-    @DeleteMapping("/api/v1/vision-tasks/{task_id}")
-    BaseResponse<GeneratedModels.BasicResponse> deleteTaskApiV1VisionTasksTaskIdDelete(@PathVariable("task_id") String taskId, @RequestParam(value = "hard_delete", required = false) Boolean hardDelete);
-
-    /**
-     * 控制视觉解析任务
-     */
-    @PostMapping("/api/v1/vision-tasks/{task_id}/control")
-    BaseResponse<GeneratedModels.ControlTaskResponse> controlTaskApiV1VisionTasksTaskIdControlPost(@PathVariable("task_id") String taskId, @RequestBody GeneratedModels.ControlTaskInput body);
-
-    /**
-     * 同步任务状态
-     */
-    @PostMapping("/api/v1/vision-tasks/sync-status")
-    BaseResponse<GeneratedModels.BasicResponse> syncTaskStatusApiV1VisionTasksSyncStatusPost(@RequestParam(value = "task_id", required = false) String taskId);
-
-    /**
-     * 发现 VF Master 上的任务
-     */
-    @GetMapping("/api/v1/vision-tasks/vf-master/discover")
-    BaseResponse<GeneratedModels.DiscoverRemoteTasksResponse> discoverRemoteTasksApiV1VisionTasksVfMasterDiscoverGet();
-
-    /**
-     * 从 VF Master 同步任务
-     */
-    @PostMapping("/api/v1/vision-tasks/vf-master/sync")
-    BaseResponse<GeneratedModels.SyncFromVfMasterResponse> syncFromVfMasterApiV1VisionTasksVfMasterSyncPost(@RequestBody GeneratedModels.SyncFromVfMasterInput body);
 
     /**
      * 获取算法详情
@@ -816,6 +834,12 @@ public interface YituVmsClient {
     BaseResponse<GeneratedModels.TrainingJobStatsResponse> clearCompletedJobsApiV1TrainingJobsCompletedDelete();
 
     /**
+     * 创建事件
+     */
+    @PostMapping("/api/v1/events")
+    BaseResponse<GeneratedModels.CreateEventResponse> createEventApiV1EventsPost(@RequestBody GeneratedModels.CreateEventRequest body);
+
+    /**
      * 搜索事件列表
      */
     @PostMapping("/api/v1/events/search")
@@ -844,6 +868,18 @@ public interface YituVmsClient {
      */
     @GetMapping("/api/v1/events/stream")
     BaseResponse<Object> streamEventsApiV1EventsStreamGet(@RequestParam(value = "event_class", required = false) String eventClass, @RequestParam(value = "level", required = false) String level);
+
+    /**
+     * 时间线事件聚合查询
+     */
+    @PostMapping("/api/v1/timeline/events/query")
+    BaseResponse<GeneratedModels.TimelineEventsResponse> queryTimelineEventsApiV1TimelineEventsQueryPost(@RequestBody GeneratedModels.TimelineEventsQueryRequest body);
+
+    /**
+     * 时间轴场景查询
+     */
+    @PostMapping("/api/v1/timeline/scenarios/query")
+    BaseResponse<GeneratedModels.TimelineScenariosResponse> queryTimelineScenariosApiV1TimelineScenariosQueryPost(@RequestBody GeneratedModels.TimelineScenariosQueryRequest body);
 
     /**
      * 搜索算法模型列表
@@ -900,86 +936,434 @@ public interface YituVmsClient {
     BaseResponse<GeneratedModels.SpatiotemporalCollisionResponse> spatiotemporalCollisionApiV1TacticalMethodsSpatiotemporalCollisionPost(@RequestBody GeneratedModels.SpatiotemporalCollisionRequest body);
 
     /**
-     * Chat Stream
+     * 创建任务
      */
-    @PostMapping("/aip/v1/chat/stream")
-    BaseResponse<Object> chatStreamAipV1ChatStreamPost(@RequestBody GeneratedModels.ChatRequest body);
+    @PostMapping("/api/v1/vatask/tasks")
+    BaseResponse<GeneratedModels.CreateTaskResponse> createTaskApiV1VataskTasksPost(@RequestBody GeneratedModels.CreateTaskInput body);
 
     /**
-     * Chat
+     * 列出任务
      */
-    @PostMapping("/aip/v1/chat")
-    BaseResponse<GeneratedModels.ChatResponse> chatAipV1ChatPost(@RequestBody GeneratedModels.ChatRequest body);
+    @GetMapping("/api/v1/vatask/tasks")
+    BaseResponse<GeneratedModels.RoutersVataskV2ListTasksResponse> listTasksApiV1VataskTasksGet(@RequestParam(value = "page", required = false) Integer page, @RequestParam(value = "limit", required = false) Integer limit, @RequestParam(value = "status", required = false) Integer status, @RequestParam(value = "display_status", required = false) String displayStatus, @RequestParam(value = "name_filter", required = false) String nameFilter);
 
     /**
-     * Omni Agent Chat
+     * 获取任务
      */
-    @PostMapping("/aip/v1/agents/omni/chat")
-    BaseResponse<Object> omniAgentChatAipV1AgentsOmniChatPost(@RequestBody GeneratedModels.ChatRequest body);
+    @GetMapping("/api/v1/vatask/tasks/{task_id}")
+    BaseResponse<GeneratedModels.RoutersVataskV2GetTaskResponse> getTaskApiV1VataskTasksTaskIdGet(@PathVariable("task_id") String taskId);
 
     /**
-     * Omni Agent Chat Stream
+     * 删除任务
      */
-    @PostMapping("/aip/v1/agents/omni/chat/stream")
-    BaseResponse<Object> omniAgentChatStreamAipV1AgentsOmniChatStreamPost(@RequestBody GeneratedModels.ChatRequest body);
+    @DeleteMapping("/api/v1/vatask/tasks/{task_id}")
+    BaseResponse<GeneratedModels.BasicResponse> deleteTaskApiV1VataskTasksTaskIdDelete(@PathVariable("task_id") String taskId, @RequestParam(value = "hard_delete", required = false) Boolean hardDelete);
 
     /**
-     * Copilot Chat Stream
+     * 更新任务
      */
-    @PostMapping("/aip/v1/copilot/chat/stream")
-    BaseResponse<Object> copilotChatStreamAipV1CopilotChatStreamPost(@RequestBody GeneratedModels.CopilotChatRequest body);
+    @PutMapping("/api/v1/vatask/tasks/{task_id}")
+    BaseResponse<GeneratedModels.UpdateTaskResponse> updateTaskApiV1VataskTasksTaskIdPut(@PathVariable("task_id") String taskId, @RequestBody GeneratedModels.UpdateTaskInput body);
 
     /**
-     * Copilot Chat
+     * 查询离线解析进度
      */
-    @PostMapping("/aip/v1/copilot/chat")
-    BaseResponse<Object> copilotChatAipV1CopilotChatPost(@RequestBody GeneratedModels.CopilotChatRequest body);
+    @GetMapping("/api/v1/vatask/tasks/{task_id}/progress")
+    BaseResponse<GeneratedModels.ProgressResponse> getTaskProgressApiV1VataskTasksTaskIdProgressGet(@PathVariable("task_id") String taskId);
 
     /**
-     * Dispatch L4O Task
+     * 获取任务详情
      */
-    @PostMapping("/aip/v1/tasks/l4o/dispatch")
-    BaseResponse<GeneratedModels.TaskResponse> dispatchL4oTaskAipV1TasksL4oDispatchPost(@RequestBody GeneratedModels.L4oTaskRequest body);
+    @GetMapping("/api/v1/vatask/tasks/{task_id}/detail")
+    BaseResponse<GeneratedModels.GetTaskDetailResponse> getTaskDetailApiV1VataskTasksTaskIdDetailGet(@PathVariable("task_id") String taskId);
 
     /**
-     * Dispatch L5 Task
+     * 控制任务
      */
-    @PostMapping("/aip/v1/tasks/l5/dispatch")
-    BaseResponse<GeneratedModels.TaskResponse> dispatchL5TaskAipV1TasksL5DispatchPost(@RequestBody GeneratedModels.L5TaskRequest body);
+    @PostMapping("/api/v1/vatask/tasks/{task_id}/control")
+    BaseResponse<GeneratedModels.ControlTaskResponse> controlTaskApiV1VataskTasksTaskIdControlPost(@PathVariable("task_id") String taskId, @RequestBody GeneratedModels.ControlTaskInput body);
 
     /**
-     * Start Realtime Tracking
+     * 批量添加设备
      */
-    @PostMapping("/aip/v1/tasks/realtime-tracking")
-    BaseResponse<GeneratedModels.TaskResponse> startRealtimeTrackingAipV1TasksRealtimeTrackingPost(@RequestBody GeneratedModels.RealtimeTrackingRequest body);
+    @PostMapping("/api/v1/vatask/tasks/{task_id}/devices")
+    BaseResponse<GeneratedModels.BatchAddDevicesResponse> batchAddDevicesApiV1VataskTasksTaskIdDevicesPost(@PathVariable("task_id") String taskId, @RequestBody GeneratedModels.BatchAddDevicesInput body);
 
     /**
-     * List Tasks
+     * 批量删除设备
      */
-    @GetMapping("/aip/v1/tasks")
-    BaseResponse<Object> listTasksAipV1TasksGet(@RequestParam(value = "limit", required = false) Integer limit, @RequestParam(value = "offset", required = false) Integer offset);
+    @DeleteMapping("/api/v1/vatask/tasks/{task_id}/devices")
+    BaseResponse<GeneratedModels.BatchRemoveDevicesResponse> batchRemoveDevicesApiV1VataskTasksTaskIdDevicesDelete(@PathVariable("task_id") String taskId, @RequestBody GeneratedModels.BatchRemoveDevicesInput body);
 
     /**
-     * Get Task
+     * 列出设备
      */
-    @GetMapping("/aip/v1/tasks/{task_id}")
-    BaseResponse<Object> getTaskAipV1TasksTaskIdGet(@PathVariable("task_id") String taskId);
+    @GetMapping("/api/v1/vatask/tasks/{task_id}/devices")
+    BaseResponse<GeneratedModels.ListDevicesResponse> listDevicesApiV1VataskTasksTaskIdDevicesGet(@PathVariable("task_id") String taskId, @RequestParam(value = "page", required = false) Integer page, @RequestParam(value = "limit", required = false) Integer limit, @RequestParam(value = "status", required = false) Integer status, @RequestParam(value = "shard", required = false) Integer shard);
 
     /**
-     * Delete Task
+     * 获取设备
      */
-    @DeleteMapping("/aip/v1/tasks/{task_id}")
-    BaseResponse<Object> deleteTaskAipV1TasksTaskIdDelete(@PathVariable("task_id") String taskId);
+    @GetMapping("/api/v1/vatask/tasks/{task_id}/devices/{device_id}")
+    BaseResponse<GeneratedModels.GetDeviceResponse> getDeviceApiV1VataskTasksTaskIdDevicesDeviceIdGet(@PathVariable("task_id") String taskId, @PathVariable("device_id") String deviceId);
 
     /**
-     * Orchestrate Task
+     * 列出模板
      */
-    @PostMapping("/aip/v1/orchestrate")
-    BaseResponse<Object> orchestrateTaskAipV1OrchestratePost(@RequestBody GeneratedModels.OrchestrationRequest body);
+    @GetMapping("/api/v1/vatask/templates")
+    BaseResponse<GeneratedModels.RoutersVataskV2ListTemplatesResponse> listTemplatesApiV1VataskTemplatesGet(@RequestParam(value = "category", required = false) String category);
 
     /**
-     * Batch Orchestrate Tasks
+     * 获取模板
      */
-    @PostMapping("/aip/v1/orchestrate/batch")
-    BaseResponse<Object> batchOrchestrateTasksAipV1OrchestrateBatchPost(@RequestBody List<GeneratedModels.OrchestrationRequest> body);
+    @GetMapping("/api/v1/vatask/templates/{template_id}")
+    BaseResponse<GeneratedModels.GetTemplateResponse> getTemplateApiV1VataskTemplatesTemplateIdGet(@PathVariable("template_id") String templateId);
+
+    /**
+     * 解析模板或表达式
+     */
+    @PostMapping("/api/v2/algomgr/resolve")
+    BaseResponse<GeneratedModels.ResolveResponse> resolveApiV2AlgomgrResolvePost(@RequestBody GeneratedModels.ResolveInput body);
+
+    /**
+     * 列出模板
+     */
+    @GetMapping("/api/v2/algomgr/templates")
+    BaseResponse<GeneratedModels.RoutersAlgomgrV2ListTemplatesResponse> listTemplatesApiV2AlgomgrTemplatesGet(@RequestParam(value = "category", required = false) String category, @RequestParam(value = "name_filter", required = false) String nameFilter, @RequestParam(value = "page", required = false) Integer page, @RequestParam(value = "limit", required = false) Integer limit);
+
+    /**
+     * 列出算法
+     */
+    @GetMapping("/api/v2/algomgr/algorithms")
+    BaseResponse<GeneratedModels.ListAlgorithmsResponse> listAlgorithmsApiV2AlgomgrAlgorithmsGet(@RequestParam(value = "type", required = false) String type, @RequestParam(value = "name_filter", required = false) String nameFilter, @RequestParam(value = "page", required = false) Integer page, @RequestParam(value = "limit", required = false) Integer limit);
+
+    /**
+     * 刷新缓存
+     */
+    @PostMapping("/api/v2/algomgr/cache/refresh")
+    BaseResponse<GeneratedModels.RefreshCacheResponse> refreshCacheApiV2AlgomgrCacheRefreshPost(@RequestParam(value = "full_refresh", required = false) Boolean fullRefresh, @RequestParam(value = "template_id", required = false) String templateId);
+
+    /**
+     * 健康检查
+     */
+    @GetMapping("/api/v2/algomgr/health")
+    BaseResponse<GeneratedModels.HealthCheckResponse> healthCheckApiV2AlgomgrHealthGet();
+
+    /**
+     * 列出原子任务
+     */
+    @GetMapping("/api/v2/algomgr/atomic_tasks")
+    BaseResponse<GeneratedModels.ListAtomicTasksResponse> listAtomicTasksApiV2AlgomgrAtomicTasksGet(@RequestParam(value = "limit", required = false) Integer limit, @RequestParam(value = "offset", required = false) Integer offset, @RequestParam(value = "is_builtin", required = false) Integer isBuiltin);
+
+    /**
+     * 创建原子任务
+     */
+    @PostMapping("/api/v2/algomgr/atomic_tasks")
+    BaseResponse<GeneratedModels.CreateAtomicTaskResponse> createAtomicTaskApiV2AlgomgrAtomicTasksPost(@RequestBody GeneratedModels.CreateAtomicTaskInput body);
+
+    /**
+     * 获取原子任务
+     */
+    @GetMapping("/api/v2/algomgr/atomic_tasks/{atomic_task_id}")
+    BaseResponse<GeneratedModels.GetAtomicTaskResponse> getAtomicTaskApiV2AlgomgrAtomicTasksAtomicTaskIdGet(@PathVariable("atomic_task_id") String atomicTaskId);
+
+    /**
+     * 删除原子任务
+     */
+    @DeleteMapping("/api/v2/algomgr/atomic_tasks/{atomic_task_id}")
+    BaseResponse<GeneratedModels.DeleteAtomicTaskResponse> deleteAtomicTaskApiV2AlgomgrAtomicTasksAtomicTaskIdDelete(@PathVariable("atomic_task_id") String atomicTaskId);
+
+    /**
+     * 搜索原子任务列表（含训练数据）
+     */
+    @PostMapping("/api/v2/algomgr/atomic-tasks/search")
+    BaseResponse<GeneratedModels.AtomicTaskListResponse> searchAtomicTasksV2ApiV2AlgomgrAtomicTasksSearchPost(@RequestBody GeneratedModels.AtomicTaskQueryRequest body);
+
+    /**
+     * 搜索算法模型列表
+     */
+    @PostMapping("/api/v2/algomgr/models/search")
+    BaseResponse<GeneratedModels.AlgorithmModelListResponse> searchModelsV2ApiV2AlgomgrModelsSearchPost(@RequestBody GeneratedModels.AlgorithmModelQueryRequest body);
+
+    /**
+     * Proxy Ontology
+     */
+    @PostMapping("/api/v1/ontology/{path}")
+    BaseResponse<Object> proxyOntologyApiV1OntologyPathPost(@PathVariable("path") String path);
+
+    /**
+     * Proxy Ontology
+     */
+    @PutMapping("/api/v1/ontology/{path}")
+    BaseResponse<Object> proxyOntologyApiV1OntologyPathPost(@PathVariable("path") String path);
+
+    /**
+     * Proxy Ontology
+     */
+    @GetMapping("/api/v1/ontology/{path}")
+    BaseResponse<Object> proxyOntologyApiV1OntologyPathPost(@PathVariable("path") String path);
+
+    /**
+     * Proxy Ontology
+     */
+    @PatchMapping("/api/v1/ontology/{path}")
+    BaseResponse<Object> proxyOntologyApiV1OntologyPathPost(@PathVariable("path") String path);
+
+    /**
+     * Proxy Ontology
+     */
+    @DeleteMapping("/api/v1/ontology/{path}")
+    BaseResponse<Object> proxyOntologyApiV1OntologyPathPost(@PathVariable("path") String path);
+
+    /**
+     * 计算任务服务健康检查
+     */
+    @GetMapping("/api/v1/compute-tasks/health")
+    BaseResponse<Object> healthCheckApiV1ComputeTasksHealthGet();
+
+    /**
+     * 获取可选 Topic 列表
+     */
+    @GetMapping("/api/v1/compute-tasks/topic-options")
+    BaseResponse<Object> getTopicOptionsApiV1ComputeTasksTopicOptionsGet();
+
+    /**
+     * 列出计算任务
+     */
+    @GetMapping("/api/v1/compute-tasks")
+    BaseResponse<Object> listTasksApiV1ComputeTasksGet();
+
+    /**
+     * 创建计算任务
+     */
+    @PostMapping("/api/v1/compute-tasks")
+    BaseResponse<Object> createTaskApiV1ComputeTasksPost();
+
+    /**
+     * 获取计算任务详情
+     */
+    @GetMapping("/api/v1/compute-tasks/{task_id}")
+    BaseResponse<Object> getTaskApiV1ComputeTasksTaskIdGet(@PathVariable("task_id") String taskId);
+
+    /**
+     * 更新计算任务
+     */
+    @PutMapping("/api/v1/compute-tasks/{task_id}")
+    BaseResponse<Object> updateTaskApiV1ComputeTasksTaskIdPut(@PathVariable("task_id") String taskId);
+
+    /**
+     * 删除计算任务
+     */
+    @DeleteMapping("/api/v1/compute-tasks/{task_id}")
+    BaseResponse<Object> deleteTaskApiV1ComputeTasksTaskIdDelete(@PathVariable("task_id") String taskId);
+
+    /**
+     * 启动计算任务
+     */
+    @PostMapping("/api/v1/compute-tasks/{task_id}/start")
+    BaseResponse<Object> startTaskApiV1ComputeTasksTaskIdStartPost(@PathVariable("task_id") String taskId);
+
+    /**
+     * 停止计算任务
+     */
+    @PostMapping("/api/v1/compute-tasks/{task_id}/stop")
+    BaseResponse<Object> stopTaskApiV1ComputeTasksTaskIdStopPost(@PathVariable("task_id") String taskId);
+
+    /**
+     * 写入审计日志
+     */
+    @PostMapping("/api/v1/admin/audit/logs")
+    BaseResponse<GeneratedModels.AuditLogCreateResponse> createAuditLogApiV1AdminAuditLogsPost(@RequestBody GeneratedModels.CreateAuditLogRequest body);
+
+    /**
+     * 查询审计日志
+     */
+    @GetMapping("/api/v1/admin/audit/logs")
+    BaseResponse<GeneratedModels.AuditLogListResponse> listAuditLogsApiV1AdminAuditLogsGet(@RequestParam(value = "page", required = false) Integer page, @RequestParam(value = "page_size", required = false) Integer pageSize, @RequestParam(value = "start_time", required = false) String startTime, @RequestParam(value = "end_time", required = false) String endTime, @RequestParam(value = "user_name", required = false) String userName, @RequestParam(value = "source_module", required = false) String sourceModule, @RequestParam(value = "action_category", required = false) String actionCategory, @RequestParam(value = "action_name", required = false) String actionName, @RequestParam(value = "target_type", required = false) String targetType, @RequestParam(value = "target_id", required = false) String targetId, @RequestParam(value = "result_status", required = false) String resultStatus, @RequestParam(value = "keyword", required = false) String keyword);
+
+    /**
+     * 导出审计日志
+     */
+    @GetMapping("/api/v1/admin/audit/logs/export")
+    BaseResponse<Object> exportAuditLogsApiV1AdminAuditLogsExportGet(@RequestParam(value = "start_time", required = false) String startTime, @RequestParam(value = "end_time", required = false) String endTime, @RequestParam(value = "user_name", required = false) String userName, @RequestParam(value = "source_module", required = false) String sourceModule, @RequestParam(value = "action_category", required = false) String actionCategory, @RequestParam(value = "action_name", required = false) String actionName, @RequestParam(value = "target_type", required = false) String targetType, @RequestParam(value = "target_id", required = false) String targetId, @RequestParam(value = "result_status", required = false) String resultStatus, @RequestParam(value = "keyword", required = false) String keyword);
+
+    /**
+     * 获取审计日志详情
+     */
+    @GetMapping("/api/v1/admin/audit/logs/{log_id}")
+    BaseResponse<GeneratedModels.AuditLogDetailResponse> getAuditLogApiV1AdminAuditLogsLogIdGet(@PathVariable("log_id") String logId);
+
+    /**
+     * 获取上传 URL
+     */
+    @PostMapping("/api/v2/offline-files/upload-url")
+    BaseResponse<GeneratedModels.UploadUrlResponse> getUploadUrlApiV2OfflineFilesUploadUrlPost(@RequestBody GeneratedModels.UploadUrlRequest body);
+
+    /**
+     * 初始化分片上传
+     */
+    @PostMapping("/api/v2/offline-files/multipart/init")
+    BaseResponse<GeneratedModels.InitMultipartResponse> initMultipartUploadApiV2OfflineFilesMultipartInitPost(@RequestBody GeneratedModels.InitMultipartRequest body);
+
+    /**
+     * 获取分片上传 URL
+     */
+    @PostMapping("/api/v2/offline-files/multipart/presign-part")
+    BaseResponse<GeneratedModels.PresignPartResponse> presignPartApiV2OfflineFilesMultipartPresignPartPost(@RequestBody GeneratedModels.PresignPartRequest body);
+
+    /**
+     * 完成分片上传
+     */
+    @PostMapping("/api/v2/offline-files/multipart/complete")
+    BaseResponse<GeneratedModels.OfflineFileResponse> completeMultipartApiV2OfflineFilesMultipartCompletePost(@RequestBody GeneratedModels.CompleteMultipartRequest body);
+
+    /**
+     * 查询已上传分片
+     */
+    @GetMapping("/api/v2/offline-files/multipart/parts/{upload_id}")
+    BaseResponse<GeneratedModels.ListPartsResponse> listUploadedPartsApiV2OfflineFilesMultipartPartsUploadIdGet(@PathVariable("upload_id") String uploadId, @RequestParam(value = "bucket", required = false) String bucket, @RequestParam(value = "key", required = false) String key);
+
+    /**
+     * 取消分片上传
+     */
+    @DeleteMapping("/api/v2/offline-files/multipart/abort/{upload_id}")
+    BaseResponse<GeneratedModels.BasicResponse> abortMultipartApiV2OfflineFilesMultipartAbortUploadIdDelete(@PathVariable("upload_id") String uploadId, @RequestParam(value = "bucket", required = false) String bucket, @RequestParam(value = "key", required = false) String key);
+
+    /**
+     * 确认上传
+     */
+    @PostMapping("/api/v2/offline-files/confirm")
+    BaseResponse<GeneratedModels.OfflineFileResponse> confirmUploadApiV2OfflineFilesConfirmPost(@RequestBody GeneratedModels.ConfirmUploadRequest body);
+
+    /**
+     * 列出离线文件
+     */
+    @GetMapping("/api/v2/offline-files/")
+    BaseResponse<GeneratedModels.ListOfflineFilesResponse> listFilesApiV2OfflineFilesGet(@RequestParam(value = "prefix", required = false) String prefix, @RequestParam(value = "offset", required = false) Integer offset, @RequestParam(value = "limit", required = false) Integer limit);
+
+    /**
+     * 获取文件详情
+     */
+    @GetMapping("/api/v2/offline-files/{file_id}")
+    BaseResponse<GeneratedModels.OfflineFileResponse> getFileApiV2OfflineFilesFileIdGet(@PathVariable("file_id") String fileId);
+
+    /**
+     * 删除文件
+     */
+    @DeleteMapping("/api/v2/offline-files/{file_id}")
+    BaseResponse<GeneratedModels.BasicResponse> deleteFileApiV2OfflineFilesFileIdDelete(@PathVariable("file_id") String fileId);
+
+    /**
+     * 更新文件元信息
+     */
+    @PatchMapping("/api/v2/offline-files/{file_id}")
+    BaseResponse<GeneratedModels.OfflineFileResponse> updateFileApiV2OfflineFilesFileIdPatch(@PathVariable("file_id") String fileId, @RequestBody GeneratedModels.UpdateFileRequest body);
+
+    /**
+     * 查询存储用量
+     */
+    @GetMapping("/api/v2/offline-files/storage/usage")
+    BaseResponse<GeneratedModels.StorageUsageResponse> getStorageUsageApiV2OfflineFilesStorageUsageGet();
+
+    /**
+     * 触发存储清理
+     */
+    @PostMapping("/api/v2/offline-files/storage/cleanup")
+    BaseResponse<GeneratedModels.BasicResponse> triggerCleanupApiV2OfflineFilesStorageCleanupPost(@RequestParam(value = "retention_days", required = false) Integer retentionDays);
+
+    /**
+     * List Components
+     */
+    @GetMapping("/api/v1/ops/components")
+    BaseResponse<GeneratedModels.ComponentListResponse> listComponentsApiV1OpsComponentsGet(@RequestParam(value = "component_type", required = false) String componentType, @RequestParam(value = "status", required = false) String status);
+
+    /**
+     * Get Component
+     */
+    @GetMapping("/api/v1/ops/components/{component_id}")
+    BaseResponse<GeneratedModels.ComponentResponse> getComponentApiV1OpsComponentsComponentIdGet(@PathVariable("component_id") String componentId);
+
+    /**
+     * Get Component Metrics
+     */
+    @GetMapping("/api/v1/ops/components/{component_id}/metrics")
+    BaseResponse<GeneratedModels.ComponentMetricsResponse> getComponentMetricsApiV1OpsComponentsComponentIdMetricsGet(@PathVariable("component_id") String componentId, @RequestParam(value = "start_time", required = false) Integer startTime, @RequestParam(value = "end_time", required = false) Integer endTime);
+
+    /**
+     * List Alerts
+     */
+    @GetMapping("/api/v1/ops/alerts")
+    BaseResponse<GeneratedModels.AlertListResponse> listAlertsApiV1OpsAlertsGet(@RequestParam(value = "level", required = false) String level, @RequestParam(value = "status", required = false) String status, @RequestParam(value = "component_id", required = false) String componentId, @RequestParam(value = "start_time", required = false) Integer startTime, @RequestParam(value = "end_time", required = false) Integer endTime);
+
+    /**
+     * Get Alert
+     */
+    @GetMapping("/api/v1/ops/alerts/{alert_id}")
+    BaseResponse<GeneratedModels.AlertResponse> getAlertApiV1OpsAlertsAlertIdGet(@PathVariable("alert_id") String alertId);
+
+    /**
+     * Update Alert
+     */
+    @PatchMapping("/api/v1/ops/alerts/{alert_id}")
+    BaseResponse<GeneratedModels.AlertResponse> updateAlertApiV1OpsAlertsAlertIdPatch(@PathVariable("alert_id") String alertId, @RequestBody GeneratedModels.AlertUpdateRequest body);
+
+    /**
+     * Get System Overview
+     */
+    @GetMapping("/api/v1/ops/overview")
+    BaseResponse<GeneratedModels.SystemOverviewResponse> getSystemOverviewApiV1OpsOverviewGet();
+
+    /**
+     * Start Retrieval Upgrade
+     */
+    @PostMapping("/api/v1/ops/retrieval-upgrade/start")
+    BaseResponse<GeneratedModels.UpgradeStartResponse> startRetrievalUpgradeApiV1OpsRetrievalUpgradeStartPost(@RequestBody GeneratedModels.UpgradeStartRequest body);
+
+    /**
+     * Get Retrieval Upgrade Status
+     */
+    @GetMapping("/api/v1/ops/retrieval-upgrade/status")
+    BaseResponse<GeneratedModels.UpgradeStatusResponse> getRetrievalUpgradeStatusApiV1OpsRetrievalUpgradeStatusGet();
+
+    /**
+     * Validate Retrieval Upgrade
+     */
+    @PostMapping("/api/v1/ops/retrieval-upgrade/validate")
+    BaseResponse<GeneratedModels.UpgradeValidateResponse> validateRetrievalUpgradeApiV1OpsRetrievalUpgradeValidatePost(@RequestBody GeneratedModels.UpgradeValidateRequest body);
+
+    /**
+     * Stop Retrieval Upgrade
+     */
+    @PostMapping("/api/v1/ops/retrieval-upgrade/stop")
+    BaseResponse<GeneratedModels.UpgradeStopResponse> stopRetrievalUpgradeApiV1OpsRetrievalUpgradeStopPost();
+
+    /**
+     * 获取 License 状态
+     */
+    @GetMapping("/api/v1/license/status")
+    BaseResponse<GeneratedModels.LicenseStatusResponse> getLicenseStatusApiV1LicenseStatusGet();
+
+    /**
+     * 获取集群所有 Pod 的健康状态
+     */
+    @GetMapping("/api/v1/diagnostics/pods")
+    BaseResponse<GeneratedModels.PodsHealthResponse> listPodHealthApiV1DiagnosticsPodsGet(@RequestParam(value = "namespace", required = false) String namespace, @RequestParam(value = "only_unhealthy", required = false) Boolean onlyUnhealthy);
+
+    /**
+     * 下载系统诊断包
+     */
+    @GetMapping("/api/v1/diagnostics/bundle")
+    BaseResponse<Object> downloadBundleApiV1DiagnosticsBundleGet(@RequestParam(value = "log_tail_lines", required = false) Integer logTailLines, @RequestParam(value = "namespaces", required = false) String namespaces, @RequestParam(value = "include_previous", required = false) Boolean includePrevious);
+
+    /**
+     * [旧3.x兼容] 第三方系统登录
+     */
+    @PostMapping("/business/api/login")
+    BaseResponse<Object> businessLoginBusinessApiLoginPost(@RequestBody GeneratedModels.BusinessLoginInput body);
+
+    /**
+     * [旧3.x兼容] 第三方系统登出
+     */
+    @PostMapping("/business/api/logout")
+    BaseResponse<Object> businessLogoutBusinessApiLogoutPost();
 }

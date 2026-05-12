@@ -33,6 +33,144 @@ public class GeneratedModels {
         public Object getValue() { return value; }
     }
 
+    /** 告警 */
+    @Data
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class Alert {
+        /** 告警 ID */
+        private String id;
+        /** 组件 ID */
+        @JsonProperty("component_id")
+        private String componentId;
+        /** 组件名称 */
+        @JsonProperty("component_name")
+        private String componentName;
+        /** 告警级别 */
+        private String level;
+        /** 告警状态 */
+        private String status;
+        /** 告警标题 */
+        private String title;
+        /** 告警消息 */
+        private String message;
+        /** 创建时间 */
+        @JsonProperty("created_at")
+        private Integer createdAt;
+        /** 更新时间 */
+        @JsonProperty("updated_at")
+        private Integer updatedAt;
+        /** 解决时间 */
+        @JsonProperty("resolved_at")
+        private Integer resolvedAt;
+        /** 指标名称 */
+        @JsonProperty("metric_name")
+        private String metricName;
+        /** 指标值 */
+        @JsonProperty("metric_value")
+        private Double metricValue;
+        /** 阈值 */
+        private Double threshold;
+        /** 历史记录 */
+        private List<AlertHistoryItem> history;
+        /** 建议操作 */
+        @JsonProperty("suggested_actions")
+        private List<String> suggestedActions;
+    }
+
+    /** 告警历史项 */
+    @Data
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class AlertHistoryItem {
+        /** 时间戳 */
+        private Integer timestamp;
+        /** 值 */
+        private Double value;
+    }
+
+    /** 告警列表响应 */
+    @Data
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class AlertListResponse {
+        /** 接收状态。0表示接收正常，非0表示接收异常 */
+        private Integer rtn;
+        /** 接收状态描述 */
+        private String message;
+        private List<Alert> data;
+        private Integer total;
+    }
+
+    /** 单个告警响应 */
+    @Data
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class AlertResponse {
+        /** 接收状态。0表示接收正常，非0表示接收异常 */
+        private Integer rtn;
+        /** 接收状态描述 */
+        private String message;
+        private Alert data;
+    }
+
+    /** 告警摘要 */
+    @Data
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class AlertSummary {
+        /** 严重告警数 */
+        private Integer critical;
+        /** 警告数 */
+        private Integer warning;
+        /** 信息数 */
+        private Integer info;
+    }
+
+    /** 告警更新请求 */
+    @Data
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class AlertUpdateRequest {
+        /** 告警状态 */
+        private String status;
+        /** 备注 */
+        private String comment;
+    }
+
+    /** 算法信息 */
+    @Data
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class AlgoMgrAlgorithm {
+        @JsonProperty("algorithm_id")
+        private String algorithmId;
+        private String name;
+        private String type;
+        private String version;
+        @JsonProperty("is_available")
+        private Boolean isAvailable;
+        @JsonProperty("display_name")
+        private String displayName;
+    }
+
+    /** 模板信息 */
+    @Data
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class AlgoMgrTemplate {
+        @JsonProperty("template_id")
+        private String templateId;
+        private String name;
+        private String category;
+        private String description;
+        private String expression;
+        @JsonProperty("is_builtin")
+        private Boolean isBuiltin;
+        @JsonProperty("input_mode")
+        private String inputMode;
+    }
+
     /** 算法资源  算法是模型的定义，包含检测目标、版本等元信息。 */
     @Data
     @NoArgsConstructor
@@ -366,6 +504,11 @@ public class GeneratedModels {
         private String trainingDuration;
         @JsonProperty("related_task_count")
         private Integer relatedTaskCount;
+        /** 代表该任务模型的 VATask task_id，可用于构造训练任务 */
+        @JsonProperty("source_task_id")
+        private String sourceTaskId;
+        /** 是否可训练（ANY/TINY=true, BUILT_IN=false） */
+        private Boolean trainable;
         private List<Integer> tags;
         @JsonProperty("created_at")
         private String createdAt;
@@ -382,6 +525,25 @@ public class GeneratedModels {
         private Object parameterOverrides;
     }
 
+    /** 原子任务信息 */
+    @Data
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class AtomicTaskInfo {
+        @JsonProperty("atomic_task_id")
+        private String atomicTaskId;
+        @JsonProperty("atomic_task_name")
+        private String atomicTaskName;
+        @JsonProperty("atomic_task_expr")
+        private String atomicTaskExpr;
+        @JsonProperty("atomic_task_config")
+        private String atomicTaskConfig;
+        @JsonProperty("atomic_task_dag")
+        private String atomicTaskDag;
+        @JsonProperty("atomic_task_meta")
+        private AtomicTaskMeta atomicTaskMeta;
+    }
+
     @Data
     @NoArgsConstructor
     @AllArgsConstructor
@@ -392,6 +554,18 @@ public class GeneratedModels {
         private String message;
         private List<AtomicTask> tasks;
         private Pagination pagination;
+    }
+
+    /** 原子任务元信息 */
+    @Data
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class AtomicTaskMeta {
+        @JsonProperty("is_builtin")
+        private Boolean isBuiltin;
+        private Boolean visible;
+        @JsonProperty("support_protocols")
+        private List<String> supportProtocols;
     }
 
     @Data
@@ -415,11 +589,183 @@ public class GeneratedModels {
     @Data
     @NoArgsConstructor
     @AllArgsConstructor
+    public static class AuditLogAction {
+        private String category;
+        private String name;
+        @JsonProperty("target_type")
+        private String targetType;
+        @JsonProperty("target_id")
+        private String targetId;
+        @JsonProperty("target_name")
+        private String targetName;
+    }
+
+    @Data
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class AuditLogActor {
+        @JsonProperty("user_id")
+        private String userId;
+        @JsonProperty("user_name")
+        private String userName;
+        @JsonProperty("tenant_id")
+        private String tenantId;
+        private List<String> roles;
+    }
+
+    @Data
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class AuditLogChanges {
+        private Object before;
+        private Object after;
+        private List<String> fields;
+    }
+
+    @Data
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class AuditLogCreateResponse {
+        /** 接收状态。0表示接收正常，非0表示接收异常 */
+        private Integer rtn;
+        /** 接收状态描述 */
+        private String message;
+        private Object data;
+    }
+
+    @Data
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class AuditLogDetailResponse {
+        /** 接收状态。0表示接收正常，非0表示接收异常 */
+        private Integer rtn;
+        /** 接收状态描述 */
+        private String message;
+        private AuditLogRecord data;
+    }
+
+    @Data
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class AuditLogListDataInput {
+        private List<AuditLogRecord> items;
+        private Integer page;
+        @JsonProperty("page_size")
+        private Integer pageSize;
+        private Integer total;
+    }
+
+    @Data
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class AuditLogListDataOutput {
+        private List<AuditLogRecord> items;
+        private Integer page;
+        @JsonProperty("page_size")
+        private Integer pageSize;
+        private Integer total;
+    }
+
+    @Data
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class AuditLogListResponse {
+        /** 接收状态。0表示接收正常，非0表示接收异常 */
+        private Integer rtn;
+        /** 接收状态描述 */
+        private String message;
+        private AuditLogListDataOutput data;
+    }
+
+    @Data
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class AuditLogRecord {
+        private String id;
+        @JsonProperty("event_id")
+        private String eventId;
+        @JsonProperty("occurred_at")
+        private String occurredAt;
+        @JsonProperty("created_at")
+        private String createdAt;
+        private AuditLogActor actor;
+        private AuditLogSource source;
+        private AuditLogAction action;
+        private AuditLogResult result;
+        private AuditLogChanges changes;
+        private Object metadata;
+        @JsonProperty("request_id")
+        private String requestId;
+        @JsonProperty("trace_id")
+        private String traceId;
+        @JsonProperty("client_ip")
+        private String clientIp;
+        @JsonProperty("user_agent")
+        private String userAgent;
+    }
+
+    @Data
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class AuditLogResult {
+        private String status;
+        private String code;
+        private String message;
+    }
+
+    @Data
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class AuditLogSource {
+        private String system;
+        private String module;
+        private String page;
+        @JsonProperty("route_group")
+        private String routeGroup;
+    }
+
+    @Data
+    @NoArgsConstructor
+    @AllArgsConstructor
     public static class BasicResponse {
         /** 接收状态。0表示接收正常，非0表示接收异常 */
         private Integer rtn;
         /** 接收状态描述 */
         private String message;
+    }
+
+    /** 批量添加设备输入 */
+    @Data
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class BatchAddDevicesInput {
+        private List<DeviceBinding> devices;
+    }
+
+    /** 批量添加设备响应 */
+    @Data
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class BatchAddDevicesResponse {
+        /** 接收状态。0表示接收正常，非0表示接收异常 */
+        private Integer rtn;
+        /** 接收状态描述 */
+        private String message;
+        @JsonProperty("added_count")
+        private Integer addedCount;
+        @JsonProperty("failed_count")
+        private Integer failedCount;
+        @JsonProperty("failed_device_ids")
+        private List<String> failedDeviceIds;
+    }
+
+    @Data
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class BatchAddDossiersByTagBody {
+        /** 档案ID列表（纯ID或URI均可） */
+        @JsonProperty("dossier_ids")
+        private List<String> dossierIds;
     }
 
     @Data
@@ -535,7 +881,7 @@ public class GeneratedModels {
     @NoArgsConstructor
     @AllArgsConstructor
     public static class BatchImageInput {
-        /** 图片标识符 */
+        /** 图片标识符（可选，不传时自动生成 UUID） */
         @JsonProperty("image_id")
         private String imageId;
         /** Base64编码的图片数据 */
@@ -544,6 +890,30 @@ public class GeneratedModels {
         /** 图片URL */
         @JsonProperty("image_url")
         private String imageUrl;
+    }
+
+    /** 批量删除设备输入 */
+    @Data
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class BatchRemoveDevicesInput {
+        @JsonProperty("device_ids")
+        private List<String> deviceIds;
+    }
+
+    /** 批量删除设备响应 */
+    @Data
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class BatchRemoveDevicesResponse {
+        /** 接收状态。0表示接收正常，非0表示接收异常 */
+        private Integer rtn;
+        /** 接收状态描述 */
+        private String message;
+        @JsonProperty("removed_count")
+        private Integer removedCount;
+        @JsonProperty("not_found_count")
+        private Integer notFoundCount;
     }
 
     /** 批量处理单个结果 */
@@ -582,6 +952,27 @@ public class GeneratedModels {
         private Double totalTimeMs;
         @JsonProperty("avg_time_ms")
         private Double avgTimeMs;
+    }
+
+    @Data
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class BatchSyncUploadRequest {
+        /** 待上传记录列表 */
+        private List<SyncUploadRecordInput> records;
+    }
+
+    @Data
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class BatchSyncUploadResponse {
+        /** 接收状态。0表示接收正常，非0表示接收异常 */
+        private Integer rtn;
+        /** 接收状态描述 */
+        private String message;
+        /** 成功导入数量 */
+        @JsonProperty("imported_count")
+        private Integer importedCount;
     }
 
     /** 批量更新记录标签请求 */
@@ -738,6 +1129,78 @@ public class GeneratedModels {
         private List<String> images;
     }
 
+    /** 批量创建摄像头请求 */
+    @Data
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class BulkCreateCamerasBody {
+        /** 摄像头列表，最多 10000 条 */
+        private List<CameraCreate> cameras;
+    }
+
+    @Data
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class BulkCreateCamerasResponse {
+        /** 接收状态。0表示接收正常，非0表示接收异常 */
+        private Integer rtn;
+        /** 接收状态描述 */
+        private String message;
+        @JsonProperty("created_count")
+        private Integer createdCount;
+        @JsonProperty("failed_count")
+        private Integer failedCount;
+        private List<BulkCreateResult> results;
+    }
+
+    @Data
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class BulkCreateResult {
+        /** 在请求列表中的位置 */
+        private Integer index;
+        private String name;
+        /** 成功时的 camera URI */
+        private String uri;
+        /** 失败时的错误信息 */
+        private String error;
+    }
+
+    @Data
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class BulkUpsertCamerasResponse {
+        /** 接收状态。0表示接收正常，非0表示接收异常 */
+        private Integer rtn;
+        /** 接收状态描述 */
+        private String message;
+        /** 新建成功的数量 */
+        @JsonProperty("created_count")
+        private Integer createdCount;
+        /** 更新成功的数量 */
+        @JsonProperty("updated_count")
+        private Integer updatedCount;
+        /** 失败数量 */
+        @JsonProperty("failed_count")
+        private Integer failedCount;
+        private List<BulkUpsertResult> results;
+    }
+
+    @Data
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class BulkUpsertResult {
+        /** 在请求列表中的位置 */
+        private Integer index;
+        private String name;
+        /** 行级动作：created / updated / failed */
+        private String action;
+        /** 成功时的 camera URI */
+        private String uri;
+        /** 失败时的错误信息 */
+        private String error;
+    }
+
     /** 摄像头资源模型  继承自 StandardResourceBase，包含 reference、created_at、updated_at 等基础字段。 */
     @Data
     @NoArgsConstructor
@@ -800,6 +1263,9 @@ public class GeneratedModels {
         /** 边缘设备ID */
         @JsonProperty("edge_device_id")
         private String edgeDeviceId;
+        /** 录制/启用开始时间 (ISO-8601). 选填. 离线: 视频录制开始; 在线: 设备投入使用 */
+        @JsonProperty("recorded_start_time")
+        private String recordedStartTime;
         @JsonProperty("point_type")
         private PointType pointType;
         /** 管理单位名称 */
@@ -890,6 +1356,9 @@ public class GeneratedModels {
         /** 边缘设备ID */
         @JsonProperty("edge_device_id")
         private String edgeDeviceId;
+        /** 录制/启用开始时间 (ISO-8601). 选填. 离线: 视频录制开始; 在线: 设备投入使用 */
+        @JsonProperty("recorded_start_time")
+        private String recordedStartTime;
         @JsonProperty("point_type")
         private PointType pointType;
         /** 管理单位名称 */
@@ -1005,6 +1474,9 @@ public class GeneratedModels {
         private List<Object> additionalInfo;
         /** 其他自定义元数据 */
         private Object metadata;
+        /** 录制/启用开始时间 (ISO-8601). 选填. 离线: 视频录制开始; 在线: 设备投入使用 */
+        @JsonProperty("recorded_start_time")
+        private String recordedStartTime;
     }
 
     /** 摄像头查询响应 */
@@ -1140,6 +1612,68 @@ public class GeneratedModels {
         private List<Object> additionalInfo;
         /** 其他自定义元数据 */
         private Object metadata;
+        /** 录制/启用开始时间 (ISO-8601). 选填. 离线: 视频录制开始; 在线: 设备投入使用 */
+        @JsonProperty("recorded_start_time")
+        private String recordedStartTime;
+    }
+
+    /** 摄像头 GIS 视口边界（矩形） */
+    @Data
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class CameraViewportBBox {
+        /** 视口最小经度 */
+        @JsonProperty("min_lng")
+        private Double minLng;
+        /** 视口最小纬度 */
+        @JsonProperty("min_lat")
+        private Double minLat;
+        /** 视口最大经度 */
+        @JsonProperty("max_lng")
+        private Double maxLng;
+        /** 视口最大纬度 */
+        @JsonProperty("max_lat")
+        private Double maxLat;
+    }
+
+    /** 摄像头 GIS 视口查询请求 */
+    @Data
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class CameraViewportQueryRequest {
+        /** 视口矩形边界 */
+        private CameraViewportBBox bbox;
+        /** 列表返回阈值，超过阈值仅返回数量 */
+        @JsonProperty("limit_threshold")
+        private Integer limitThreshold;
+        /** 集群 ID（默认使用当前集群） */
+        @JsonProperty("cluster_id")
+        private String clusterId;
+        /** 标签过滤（标签ID列表） */
+        private List<Integer> tags;
+        /** 状态过滤: active, inactive, trashed */
+        private List<String> status;
+        /** 名称模糊搜索 */
+        private String name;
+        /** 编码精确匹配 */
+        private String code;
+    }
+
+    /** 摄像头 GIS 视口查询响应 */
+    @Data
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class CameraViewportQueryResponse {
+        /** 接收状态。0表示接收正常，非0表示接收异常 */
+        private Integer rtn;
+        /** 接收状态描述 */
+        private String message;
+        /** 是否超过阈值 */
+        private Boolean overflow;
+        /** 命中总数 */
+        private Integer total;
+        /** 摄像头列表 */
+        private List<CameraOutput> cameras;
     }
 
     /** 行人抓拍/静态记录  可用于静态库与动态抓拍库 */
@@ -1390,6 +1924,11 @@ public class GeneratedModels {
         /** 发型：-1=未知，0=长发，1=短发，2=光头 */
         @JsonProperty("hair_style")
         private Integer hairStyle;
+        /** 实名化定制：底库人员唯一标识（与 user_type 联用查询中间库实名信息） */
+        private String guid;
+        /** 实名化定制：底库人员类型（与 guid 联用查询中间库实名信息） */
+        @JsonProperty("user_type")
+        private String userType;
         /** 图片类型，0表示未知 */
         @JsonProperty("face_image_type")
         private Integer faceImageType;
@@ -1471,6 +2010,11 @@ public class GeneratedModels {
         /** 发型：-1=未知，0=长发，1=短发，2=光头 */
         @JsonProperty("hair_style")
         private Integer hairStyle;
+        /** 实名化定制：底库人员唯一标识（与 user_type 联用查询中间库实名信息） */
+        private String guid;
+        /** 实名化定制：底库人员类型（与 guid 联用查询中间库实名信息） */
+        @JsonProperty("user_type")
+        private String userType;
         /** 图片类型，0表示未知 */
         @JsonProperty("face_image_type")
         private Integer faceImageType;
@@ -1546,7 +2090,7 @@ public class GeneratedModels {
         /** 证件号 */
         @JsonProperty("person_id")
         private String personId;
-        /** 出生日期，格式 YYYY-MM-DD */
+        /** 出生日期，格式 YYYY-MM-DD（例如 1994-01-01） */
         private String birthday;
         /** 性别，0 未知，1 男，2 女 */
         private Integer gender;
@@ -1562,36 +2106,253 @@ public class GeneratedModels {
         private List<String> personFlag;
     }
 
-    /** 聊天请求 */
+    /** 车辆抓拍/静态记录  可用于静态库与动态抓拍库 */
     @Data
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class ChatRequest {
-        /** 用户输入的自然语言 */
-        @JsonProperty("user_input")
-        private String userInput;
-        /** 会话 ID（用于多轮对话） */
-        @JsonProperty("session_id")
-        private String sessionId;
-        /** 额外上下文信息 */
-        private Object context;
+    public static class CaptureVehicleRecordInput {
+        private ResourceReferenceFull reference;
+        /** 资源全局唯一标识符（type:id@cluster_id） */
+        private String uri;
+        @JsonProperty("created_at")
+        private String createdAt;
+        @JsonProperty("updated_at")
+        private String updatedAt;
+        /** 场景图URL/URI（完整的原始场景图片） */
+        @JsonProperty("scene_image_uri")
+        private String sceneImageUri;
+        /** 抓拍小图URL/URI（裁剪后的目标图片） */
+        @JsonProperty("capture_image_uri")
+        private String captureImageUri;
+        /** 外部数据源ID */
+        @JsonProperty("external_id")
+        private String externalId;
+        private String type;
+        /** 车辆特征（加密后Base64） */
+        @JsonProperty("vehicle_feature_base64")
+        private String vehicleFeatureBase64;
+        /** 车辆记录ID */
+        @JsonProperty("record_id")
+        private String recordId;
+        /** 集群ID */
+        @JsonProperty("cluster_id")
+        private String clusterId;
+        /** 摄像头ID */
+        @JsonProperty("camera_id")
+        private Integer cameraId;
+        /** 抓拍时间戳（秒级） */
+        private Integer timestamp;
+        /** 摄像头URI标识，格式：camera:ID@cluster_id */
+        @JsonProperty("camera_uri")
+        private String cameraUri;
+        /** 抓拍时间戳（Unix时间戳，秒级） */
+        @JsonProperty("capture_at")
+        private Integer captureAt;
+        /** 车身颜色编码 */
+        private Integer color;
+        /** 车型/类别编码 */
+        private Integer category;
+        /** 行驶方向编码 */
+        private Integer direction;
+        /** 机动车品牌名称 */
+        @JsonProperty("brand_name")
+        private String brandName;
+        /** 机动车子品牌 */
+        @JsonProperty("sub_brand")
+        private String subBrand;
+        /** 机动车年款 */
+        @JsonProperty("year_brand")
+        private String yearBrand;
+        /** 车牌号 */
+        @JsonProperty("plate_chars")
+        private String plateChars;
+        /** 车牌类型 */
+        @JsonProperty("plate_type")
+        private Integer plateType;
+        /** 车牌颜色 */
+        @JsonProperty("plate_color")
+        private Integer plateColor;
+        /** 是否有车牌 */
+        @JsonProperty("has_plate")
+        private Integer hasPlate;
+        /** 是否临时车牌 */
+        @JsonProperty("is_provisional_plate")
+        private Integer isProvisionalPlate;
+        /** 特殊车辆类型 */
+        @JsonProperty("special_category")
+        private Integer specialCategory;
+        /** 主驾安全带状态 */
+        @JsonProperty("driver_safebelt")
+        private Integer driverSafebelt;
+        /** 副驾安全带状态 */
+        @JsonProperty("copilot_safebelt")
+        private Integer copilotSafebelt;
+        /** 主驾遮阳板状态 */
+        @JsonProperty("driver_sun_visor")
+        private Integer driverSunVisor;
+        /** 副驾遮阳板状态 */
+        @JsonProperty("copilot_sun_visor")
+        private Integer copilotSunVisor;
+        /** 主驾打电话状态 */
+        @JsonProperty("driver_is_calling")
+        private Integer driverIsCalling;
+        /** 挂件状态 */
+        private Integer pendant;
+        /** 机动车小图URI */
+        @JsonProperty("motor_vehicle_image_uri")
+        private String motorVehicleImageUri;
+        /** 是否戴头盔 */
+        private Integer hat;
+        /** 头盔样式 */
+        @JsonProperty("hat_style")
+        private Integer hatStyle;
+        /** 是否多人骑行 */
+        @JsonProperty("multi_person")
+        private Integer multiPerson;
+        /** 是否载人 */
+        @JsonProperty("has_person")
+        private Integer hasPerson;
+        /** 非机动车小图URI */
+        @JsonProperty("non_motor_vehicle_image_uri")
+        private String nonMotorVehicleImageUri;
+        /** 返回的特征key列表 */
+        @JsonProperty("feature_keys")
+        private List<String> featureKeys;
+        /** 原始特征映射 */
+        @JsonProperty("rec_feature_base64")
+        private Object recFeatureBase64;
+        /** 数据处理链路时间戳profiling信息 */
+        private Object profiling;
+        /** 轨迹元数据类型：0=正常，1=其他 */
+        @JsonProperty("track_meta_type")
+        private Integer trackMetaType;
+        /** 链路追踪ID */
+        @JsonProperty("trace_id")
+        private String traceId;
     }
 
-    /** 聊天响应（非流式） */
+    /** 车辆抓拍/静态记录  可用于静态库与动态抓拍库 */
     @Data
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class ChatResponse {
-        /** 助手回复 */
-        private String response;
-        /** 会话 ID */
-        @JsonProperty("session_id")
-        private String sessionId;
-        /** 工具调用记录 */
-        @JsonProperty("tool_calls")
-        private List<Object> toolCalls;
-        /** 前端动作 */
-        private List<Object> actions;
+    public static class CaptureVehicleRecordOutput {
+        /** 资源全局唯一标识符（type:id@cluster_id） */
+        private String uri;
+        @JsonProperty("created_at")
+        private String createdAt;
+        @JsonProperty("updated_at")
+        private String updatedAt;
+        /** 场景图URL/URI（完整的原始场景图片） */
+        @JsonProperty("scene_image_uri")
+        private String sceneImageUri;
+        /** 抓拍小图URL/URI（裁剪后的目标图片） */
+        @JsonProperty("capture_image_uri")
+        private String captureImageUri;
+        /** 外部数据源ID */
+        @JsonProperty("external_id")
+        private String externalId;
+        private String type;
+        /** 车辆特征（加密后Base64） */
+        @JsonProperty("vehicle_feature_base64")
+        private String vehicleFeatureBase64;
+        /** 车辆记录ID */
+        @JsonProperty("record_id")
+        private String recordId;
+        /** 集群ID */
+        @JsonProperty("cluster_id")
+        private String clusterId;
+        /** 摄像头ID */
+        @JsonProperty("camera_id")
+        private Integer cameraId;
+        /** 抓拍时间戳（秒级） */
+        private Integer timestamp;
+        /** 摄像头URI标识，格式：camera:ID@cluster_id */
+        @JsonProperty("camera_uri")
+        private String cameraUri;
+        /** 抓拍时间戳（Unix时间戳，秒级） */
+        @JsonProperty("capture_at")
+        private Integer captureAt;
+        /** 车身颜色编码 */
+        private Integer color;
+        /** 车型/类别编码 */
+        private Integer category;
+        /** 行驶方向编码 */
+        private Integer direction;
+        /** 机动车品牌名称 */
+        @JsonProperty("brand_name")
+        private String brandName;
+        /** 机动车子品牌 */
+        @JsonProperty("sub_brand")
+        private String subBrand;
+        /** 机动车年款 */
+        @JsonProperty("year_brand")
+        private String yearBrand;
+        /** 车牌号 */
+        @JsonProperty("plate_chars")
+        private String plateChars;
+        /** 车牌类型 */
+        @JsonProperty("plate_type")
+        private Integer plateType;
+        /** 车牌颜色 */
+        @JsonProperty("plate_color")
+        private Integer plateColor;
+        /** 是否有车牌 */
+        @JsonProperty("has_plate")
+        private Integer hasPlate;
+        /** 是否临时车牌 */
+        @JsonProperty("is_provisional_plate")
+        private Integer isProvisionalPlate;
+        /** 特殊车辆类型 */
+        @JsonProperty("special_category")
+        private Integer specialCategory;
+        /** 主驾安全带状态 */
+        @JsonProperty("driver_safebelt")
+        private Integer driverSafebelt;
+        /** 副驾安全带状态 */
+        @JsonProperty("copilot_safebelt")
+        private Integer copilotSafebelt;
+        /** 主驾遮阳板状态 */
+        @JsonProperty("driver_sun_visor")
+        private Integer driverSunVisor;
+        /** 副驾遮阳板状态 */
+        @JsonProperty("copilot_sun_visor")
+        private Integer copilotSunVisor;
+        /** 主驾打电话状态 */
+        @JsonProperty("driver_is_calling")
+        private Integer driverIsCalling;
+        /** 挂件状态 */
+        private Integer pendant;
+        /** 机动车小图URI */
+        @JsonProperty("motor_vehicle_image_uri")
+        private String motorVehicleImageUri;
+        /** 是否戴头盔 */
+        private Integer hat;
+        /** 头盔样式 */
+        @JsonProperty("hat_style")
+        private Integer hatStyle;
+        /** 是否多人骑行 */
+        @JsonProperty("multi_person")
+        private Integer multiPerson;
+        /** 是否载人 */
+        @JsonProperty("has_person")
+        private Integer hasPerson;
+        /** 非机动车小图URI */
+        @JsonProperty("non_motor_vehicle_image_uri")
+        private String nonMotorVehicleImageUri;
+        /** 返回的特征key列表 */
+        @JsonProperty("feature_keys")
+        private List<String> featureKeys;
+        /** 原始特征映射 */
+        @JsonProperty("rec_feature_base64")
+        private Object recFeatureBase64;
+        /** 数据处理链路时间戳profiling信息 */
+        private Object profiling;
+        /** 轨迹元数据类型：0=正常，1=其他 */
+        @JsonProperty("track_meta_type")
+        private Integer trackMetaType;
+        /** 链路追踪ID */
+        @JsonProperty("trace_id")
+        private String traceId;
     }
 
     /** 卡口类型（枚举值）  - unknown: 未知 - face: 人像 - security: 治安 */
@@ -1743,6 +2504,206 @@ public class GeneratedModels {
         private DossierInfo dossierInfo;
     }
 
+    /** 1:1 比对响应数据 */
+    @Data
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class Compare1v1Data {
+        /** 比对余弦相似度 (0.0 - 1.0) */
+        private Double similarity;
+        /** 特征维度 */
+        @JsonProperty("feature_dimension")
+        private Integer featureDimension;
+        /** 比对处理总耗时(ms) */
+        @JsonProperty("processing_time_ms")
+        private Double processingTimeMs;
+    }
+
+    /** 1:1 比对请求 */
+    @Data
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class Compare1v1Request {
+        /** 抽取类型：默认为 face_det_fe（人脸） */
+        private FeatureExtractionType type;
+        /** 【必填】第一张图片数据 */
+        private ImageInput image1;
+        /** 【必填】第二张图片数据 */
+        private ImageInput image2;
+        /** 抽取选项配置（一般不需要） */
+        private FeatureExtractionOptions options;
+    }
+
+    /** 1:1 比对响应 */
+    @Data
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class Compare1v1Response {
+        private String message;
+        private Integer rtn;
+        private Compare1v1Data data;
+    }
+
+    /** 完成分片上传请求 */
+    @Data
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class CompleteMultipartRequest {
+        @JsonProperty("file_name")
+        private String fileName;
+        private String bucket;
+        private String key;
+        @JsonProperty("upload_id")
+        private String uploadId;
+        private List<Object> parts;
+    }
+
+    /** 组件 */
+    @Data
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class Component {
+        /** 组件 ID */
+        private String id;
+        /** 组件名称 */
+        private String name;
+        /** 组件类型 */
+        private String type;
+        /** 组件状态 */
+        private String status;
+        /** 版本 */
+        private String version;
+        /** 主机地址 */
+        private String host;
+        /** 端口 */
+        private Integer port;
+        /** 最后心跳时间 */
+        @JsonProperty("last_heartbeat")
+        private Integer lastHeartbeat;
+        /** 运行时间 (秒) */
+        @JsonProperty("uptime_seconds")
+        private Integer uptimeSeconds;
+        /** 启动时间 */
+        @JsonProperty("start_time")
+        private Integer startTime;
+        /** 配置信息 */
+        private Object config;
+        /** 依赖组件列表 */
+        private List<String> dependencies;
+        /** 警告信息 */
+        private String warning;
+    }
+
+    /** 组件列表响应 */
+    @Data
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class ComponentListResponse {
+        /** 接收状态。0表示接收正常，非0表示接收异常 */
+        private Integer rtn;
+        /** 接收状态描述 */
+        private String message;
+        private List<Component> data;
+    }
+
+    /** 组件指标 */
+    @Data
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class ComponentMetrics {
+        /** 组件 ID */
+        @JsonProperty("component_id")
+        private String componentId;
+        /** 时间戳 */
+        private Integer timestamp;
+        /** CPU 使用率 (%) */
+        @JsonProperty("cpu_usage_percent")
+        private Double cpuUsagePercent;
+        /** 内存使用 (MB) */
+        @JsonProperty("memory_usage_mb")
+        private Double memoryUsageMb;
+        /** 总内存 (MB) */
+        @JsonProperty("memory_total_mb")
+        private Double memoryTotalMb;
+        /** 内存使用率 (%) */
+        @JsonProperty("memory_usage_percent")
+        private Double memoryUsagePercent;
+        /** 磁盘使用率 (%) */
+        @JsonProperty("disk_usage_percent")
+        private Double diskUsagePercent;
+        /** 网络入流量 (bytes/s) */
+        @JsonProperty("network_in_bytes_per_sec")
+        private Double networkInBytesPerSec;
+        /** 网络出流量 (bytes/s) */
+        @JsonProperty("network_out_bytes_per_sec")
+        private Double networkOutBytesPerSec;
+        /** 活跃连接数 */
+        @JsonProperty("active_connections")
+        private Integer activeConnections;
+        /** QPS */
+        @JsonProperty("requests_per_second")
+        private Double requestsPerSecond;
+        /** 平均延迟 (ms) */
+        @JsonProperty("avg_latency_ms")
+        private Double avgLatencyMs;
+        /** P99 延迟 (ms) */
+        @JsonProperty("p99_latency_ms")
+        private Double p99LatencyMs;
+        /** 错误率 (%) */
+        @JsonProperty("error_rate_percent")
+        private Double errorRatePercent;
+    }
+
+    /** 组件指标响应 */
+    @Data
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class ComponentMetricsResponse {
+        /** 接收状态。0表示接收正常，非0表示接收异常 */
+        private Integer rtn;
+        /** 接收状态描述 */
+        private String message;
+        private ComponentMetrics data;
+        @JsonProperty("time_series")
+        private List<ComponentMetrics> timeSeries;
+    }
+
+    /** 单个组件响应 */
+    @Data
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class ComponentResponse {
+        /** 接收状态。0表示接收正常，非0表示接收异常 */
+        private Integer rtn;
+        /** 接收状态描述 */
+        private String message;
+        private Component data;
+    }
+
+    /** 上传确认请求 */
+    @Data
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class ConfirmUploadRequest {
+        @JsonProperty("file_name")
+        private String fileName;
+        private String bucket;
+        private String key;
+    }
+
+    @Data
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class ContainerHealth {
+        private String name;
+        private Boolean ready;
+        private Integer restarts;
+        private String state;
+        private String reason;
+        @JsonProperty("last_terminated_reason")
+        private String lastTerminatedReason;
+    }
+
     /** 任务控制输入 */
     @Data
     @NoArgsConstructor
@@ -1761,57 +2722,110 @@ public class GeneratedModels {
         /** 接收状态描述 */
         private String message;
         @JsonProperty("new_status")
-        private String newStatus;
+        private Integer newStatus;
+        @JsonProperty("new_intent")
+        private Integer newIntent;
     }
 
-    /** Copilot 聊天请求（OpenAI 兼容格式） */
+    /** 创建原子任务请求 */
     @Data
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class CopilotChatRequest {
-        /** 消息历史 */
-        private List<CopilotMessage> messages;
-        /** 会话 ID */
-        @JsonProperty("session_id")
-        private String sessionId;
-        /** 是否流式响应 */
-        private Boolean stream;
-        /** 温度参数 */
-        private Double temperature;
-        /** 最大 token 数 */
-        @JsonProperty("max_tokens")
-        private Integer maxTokens;
+    public static class CreateAtomicTaskInput {
+        @JsonProperty("atomic_task_id")
+        private String atomicTaskId;
+        @JsonProperty("atomic_task_name")
+        private String atomicTaskName;
+        @JsonProperty("atomic_task_expr")
+        private String atomicTaskExpr;
+        @JsonProperty("atomic_task_config")
+        private String atomicTaskConfig;
+        @JsonProperty("atomic_task_dag")
+        private String atomicTaskDag;
+        @JsonProperty("is_builtin")
+        private Boolean isBuiltin;
+        private Boolean visible;
     }
 
-    /** Copilot 消息格式（OpenAI 兼容） */
+    /** 创建原子任务响应 */
     @Data
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class CopilotMessage {
-        /** 角色: system, user, assistant, tool */
-        private String role;
-        /** 消息内容，可以是文本或多模态内容数组 */
-        private String content;
-        /** 工具调用（assistant 消息） */
-        @JsonProperty("tool_calls")
-        private List<Object> toolCalls;
-        /** 工具调用 ID（tool 消息） */
-        @JsonProperty("tool_call_id")
-        private String toolCallId;
+    public static class CreateAtomicTaskResponse {
+        /** 接收状态。0表示接收正常，非0表示接收异常 */
+        private Integer rtn;
+        /** 接收状态描述 */
+        private String message;
+        @JsonProperty("atomic_task")
+        private AtomicTaskInfo atomicTask;
     }
 
-    /** 消息内容部分（支持多模态） */
     @Data
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class CopilotMessageContentPart {
-        /** 内容类型: text 或 image_url */
+    public static class CreateAuditLogRequest {
+        @JsonProperty("event_id")
+        private String eventId;
+        @JsonProperty("occurred_at")
+        private String occurredAt;
+        private AuditLogActor actor;
+        private AuditLogSource source;
+        private AuditLogAction action;
+        private AuditLogResult result;
+        private AuditLogChanges changes;
+        private Object metadata;
+        @JsonProperty("request_id")
+        private String requestId;
+        @JsonProperty("trace_id")
+        private String traceId;
+    }
+
+    @Data
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class CreateDossierTagBody {
+        /** 标签名称 */
+        @JsonProperty("tag_name")
+        private String tagName;
+        /** 标签描述 */
+        private String description;
+        /** 标签颜色（如 #FF0000） */
+        private String color;
+        /** 排序权重 */
+        @JsonProperty("sort_order")
+        private Integer sortOrder;
+    }
+
+    /** 创建事件请求（用于 create_alert / 组合事件） */
+    @Data
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class CreateEventRequest {
+        /** 集群 ID */
+        @JsonProperty("cluster_id")
+        private String clusterId;
+        /** 事件类型，如 group_activity, surveillance_hit */
         private String type;
-        /** 文本内容（type=text 时） */
-        private String text;
-        /** 图片 URL 或 base64（type=image_url 时） */
-        @JsonProperty("image_url")
-        private Object imageUrl;
+        /** 事件记录/聚合信息 */
+        private Object record;
+        /** 关联布控任务 URI */
+        @JsonProperty("task_uri")
+        private String taskUri;
+    }
+
+    /** 创建事件响应 */
+    @Data
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class CreateEventResponse {
+        /** 接收状态。0表示接收正常，非0表示接收异常 */
+        private Integer rtn;
+        /** 接收状态描述 */
+        private String message;
+        /** 创建的事件详情 */
+        private Object event;
+        /** 事件 ID */
+        private Integer id;
     }
 
     /** 创建权限请求 */
@@ -1875,6 +2889,40 @@ public class GeneratedModels {
         private Object metadata;
     }
 
+    /** 创建任务输入 */
+    @Data
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class CreateTaskInput {
+        private String name;
+        @JsonProperty("template_id")
+        private String templateId;
+        private String expression;
+        private List<DeviceBinding> devices;
+        @JsonProperty("custom_params")
+        private String customParams;
+        @JsonProperty("target_worker_type")
+        private String targetWorkerType;
+        @JsonProperty("input_type")
+        private String inputType;
+        @JsonProperty("kafka_config")
+        private KafkaInputConfig kafkaConfig;
+        @JsonProperty("offline_start_time")
+        private Double offlineStartTime;
+        @JsonProperty("offline_end_time")
+        private Double offlineEndTime;
+        @JsonProperty("offline_playback_speed")
+        private Double offlinePlaybackSpeed;
+        @JsonProperty("offline_decode_step")
+        private Integer offlineDecodeStep;
+        @JsonProperty("slice_duration_sec")
+        private Double sliceDurationSec;
+        @JsonProperty("overlap_sec")
+        private Double overlapSec;
+        @JsonProperty("device_tags")
+        private List<String> deviceTags;
+    }
+
     /** 创建任务响应 */
     @Data
     @NoArgsConstructor
@@ -1886,6 +2934,10 @@ public class GeneratedModels {
         private String message;
         @JsonProperty("task_id")
         private String taskId;
+        @JsonProperty("device_count")
+        private Integer deviceCount;
+        @JsonProperty("source_type")
+        private Integer sourceType;
     }
 
     /** 创建用户请求 */
@@ -2230,6 +3282,17 @@ public class GeneratedModels {
         private List<DatasetVersion> data;
     }
 
+    /** 删除原子任务响应 */
+    @Data
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class DeleteAtomicTaskResponse {
+        /** 接收状态。0表示接收正常，非0表示接收异常 */
+        private Integer rtn;
+        /** 接收状态描述 */
+        private String message;
+    }
+
     /** 删除权限请求 */
     @Data
     @NoArgsConstructor
@@ -2259,6 +3322,11 @@ public class GeneratedModels {
         private Integer latencyMs;
         /** 错误信息（如果有） */
         private String error;
+        /** 依赖后端地址 host:port 或 URL（来自配置） */
+        private String endpoint;
+        /** endpoint 中 host 的 DNS 解析 IP；若 endpoint 本身是 IP 则相同 */
+        @JsonProperty("resolved_ip")
+        private String resolvedIp;
     }
 
     /** 检测结果 */
@@ -2274,19 +3342,40 @@ public class GeneratedModels {
         private Double confidence;
     }
 
-    /** 发现远程任务响应 */
+    /** 设备聚合信息 */
     @Data
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class DiscoverRemoteTasksResponse {
-        /** 接收状态。0表示接收正常，非0表示接收异常 */
-        private Integer rtn;
-        /** 接收状态描述 */
-        private String message;
-        @JsonProperty("remote_tasks")
-        private List<RemoteTask> remoteTasks;
+    public static class DeviceAggregation {
         @JsonProperty("total_count")
         private Integer totalCount;
+        @JsonProperty("pending_count")
+        private Integer pendingCount;
+        @JsonProperty("starting_count")
+        private Integer startingCount;
+        @JsonProperty("running_count")
+        private Integer runningCount;
+        @JsonProperty("stopping_count")
+        private Integer stoppingCount;
+        @JsonProperty("stopped_count")
+        private Integer stoppedCount;
+        @JsonProperty("failed_count")
+        private Integer failedCount;
+    }
+
+    /** 设备绑定 */
+    @Data
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class DeviceBinding {
+        @JsonProperty("device_id")
+        private String deviceId;
+        @JsonProperty("source_uri")
+        private String sourceUri;
+        @JsonProperty("camera_id")
+        private Integer cameraId;
+        @JsonProperty("external_id")
+        private String externalId;
     }
 
     /** 档案完整模型 */
@@ -2304,6 +3393,17 @@ public class GeneratedModels {
         private String dossierNo;
         /** 档案名称 */
         private String name;
+        /** 中间库实名化标识（脱敏后用户GUID，从档案首条 record 透传） */
+        private String guid;
+        /** 中间库实名化用户类型（从档案首条 record 透传） */
+        @JsonProperty("user_type")
+        private String userType;
+        /** 身份证号（脱敏，原始来源 OPOD DossierMeta.citizen_id） */
+        @JsonProperty("citizen_id")
+        private String citizenId;
+        /** 档案封面图URI（用于中间库取图） */
+        @JsonProperty("cover_image_url")
+        private String coverImageUrl;
         /** 档案类型 */
         @JsonProperty("dossier_type")
         private String dossierType;
@@ -2356,6 +3456,17 @@ public class GeneratedModels {
         private String dossierNo;
         /** 档案名称 */
         private String name;
+        /** 中间库实名化标识（脱敏后用户GUID，从档案首条 record 透传） */
+        private String guid;
+        /** 中间库实名化用户类型（从档案首条 record 透传） */
+        @JsonProperty("user_type")
+        private String userType;
+        /** 身份证号（脱敏，原始来源 OPOD DossierMeta.citizen_id） */
+        @JsonProperty("citizen_id")
+        private String citizenId;
+        /** 档案封面图URI（用于中间库取图） */
+        @JsonProperty("cover_image_url")
+        private String coverImageUrl;
         /** 档案类型 */
         @JsonProperty("dossier_type")
         private String dossierType;
@@ -2398,7 +3509,7 @@ public class GeneratedModels {
     @NoArgsConstructor
     @AllArgsConstructor
     public static class DossierCondition {
-        /** 档案类型：1为实名档案，0为非实名档案 */
+        /** 档案类型：0为非实名档案，1为实名档案，2为全部档案 */
         @JsonProperty("dossier_type")
         private Integer dossierType;
         /** 档案姓名 */
@@ -2424,6 +3535,25 @@ public class GeneratedModels {
         /** 摄像头ID列表 */
         @JsonProperty("camera_ids")
         private List<String> cameraIds;
+        /** 摄像头标签ID列表，按区域筛选（gateway 层展开为 camera_ids） */
+        @JsonProperty("camera_tag_ids")
+        private List<Integer> cameraTagIds;
+    }
+
+    /** 按标签查询全量档案 ID 的响应 */
+    @Data
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class DossierIdsByTagResponse {
+        /** 接收状态。0表示接收正常，非0表示接收异常 */
+        private Integer rtn;
+        /** 接收状态描述 */
+        private String message;
+        /** 档案ID列表 */
+        @JsonProperty("dossier_ids")
+        private List<String> dossierIds;
+        /** 总数 */
+        private Integer total;
     }
 
     /** 档案基础信息  包含人员的基本信息，由外部服务从档案库查询返回 */
@@ -2560,7 +3690,7 @@ public class GeneratedModels {
         private DossierOutput dossier;
     }
 
-    /** L5 档案检索请求  **检索模式**： - 特征检索：提供 retrieval.image_content_base64 或 retrieval.feature_base64 - 结构化检索：提供 condition（可不提供 retrieval） - 混合检索：同时提供 retrieval 和 condition */
+    /** L4 档案检索请求  **检索模式**： - 特征检索：提供 retrieval.image_content_base64 或 retrieval.feature_base64 - 结构化检索：提供 condition（可不提供 retrieval） - 混合检索：同时提供 retrieval 和 condition */
     @Data
     @NoArgsConstructor
     @AllArgsConstructor
@@ -2634,6 +3764,75 @@ public class GeneratedModels {
         /** 是否实名档案 */
         @JsonProperty("is_realname_dossier")
         private Boolean isRealnameDossier;
+        /** 中间库实名化用 GUID（来源：dossier.citizen_id） */
+        private String guid;
+        /** 中间库实名化用 user_type（来源：静态库 record） */
+        @JsonProperty("user_type")
+        private String userType;
+    }
+
+    /** 档案标签定义 */
+    @Data
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class DossierTagDef {
+        /** 标签ID */
+        private Integer id;
+        /** 集群ID */
+        @JsonProperty("cluster_id")
+        private String clusterId;
+        /** 标签名称 */
+        @JsonProperty("tag_name")
+        private String tagName;
+        /** 标签描述 */
+        private String description;
+        /** 标签颜色 */
+        private String color;
+        /** 排序权重 */
+        @JsonProperty("sort_order")
+        private Integer sortOrder;
+        /** 关联的档案数量 */
+        @JsonProperty("dossier_count")
+        private Integer dossierCount;
+        /** 创建时间 */
+        @JsonProperty("created_at")
+        private String createdAt;
+        /** 更新时间 */
+        @JsonProperty("updated_at")
+        private String updatedAt;
+    }
+
+    @Data
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class DossierTagDefListResponse {
+        /** 接收状态。0表示接收正常，非0表示接收异常 */
+        private Integer rtn;
+        /** 接收状态描述 */
+        private String message;
+        /** 标签定义列表 */
+        private List<DossierTagDef> tags;
+    }
+
+    @Data
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class DossierTagDefResponse {
+        /** 接收状态。0表示接收正常，非0表示接收异常 */
+        private Integer rtn;
+        /** 接收状态描述 */
+        private String message;
+        /** 标签定义 */
+        private DossierTagDef tag;
+    }
+
+    @Data
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class DossierTagDeleteBody {
+        /** 要移除的标签ID列表 */
+        @JsonProperty("tag_ids")
+        private List<Integer> tagIds;
     }
 
     @Data
@@ -2646,6 +3845,9 @@ public class GeneratedModels {
         private List<Integer> addTagIds;
         @JsonProperty("remove_tag_ids")
         private List<Integer> removeTagIds;
+        /** 兼容 gateway_proxy: 等价于 set_tag_ids */
+        @JsonProperty("tag_ids")
+        private List<Integer> tagIds;
     }
 
     /** L2动态库检索 - 查询过人记录/轨迹数据  **用途**：查询摄像头抓拍的人脸/人体过人记录，支持按时间、摄像头筛选。  **两种检索模式**： 1. 结构化检索（查询过人记录）：使用 spatial_temporal_condition 指定时间和摄像头 2. 特征检索（以图搜图）：使用 retrieval.feature_base64 提供人脸/人体特征  **调用示例**：  1. 查询今天上午9点的过人记录： ```json {   "data_type": "face",   "cluster_id": "bodhi-229-dev",   "spatial_temporal_condition": {     "time_start": "2026-01-27T09:00:00",     "time_end": "2026-01-27T10:00:00"   } } ```  2. 查询指定摄像头的过人记录： ```json {   "data_type": "face",   "cluster_id": "bodhi-229-dev",   "spatial_temporal_condition": {     "time_start": "2026-01-27T00:00:00",     "time_end": "2026-01-27T23:59:59",     "camera_uris": ["camera:2@bodhi-229-dev"]   } } ``` */
@@ -2653,7 +3855,7 @@ public class GeneratedModels {
     @NoArgsConstructor
     @AllArgsConstructor
     public static class DynamicRetrievalRequest {
-        /** 数据类型：face=人脸（默认），body=人体 */
+        /** 数据类型：face=人脸，body=人体，motor_vehicle=机动车，non_motor_vehicle=非机动车 */
         @JsonProperty("data_type")
         private String dataType;
         /** 集群ID（如 bodhi-229-dev），可通过 /api/v1/cluster 获取 */
@@ -2664,10 +3866,10 @@ public class GeneratedModels {
         private Integer retrievalQueryId;
         /** 特征检索参数（以图搜图时必填，纯结构化检索时可省略） */
         private RetrievalParams retrieval;
-        /** 时空检索条件（查询过人记录时使用，指定时间范围和/或摄像头） */
+        /** 时空检索条件（查询过人/过车记录时使用，指定时间范围和/或摄像头） */
         @JsonProperty("spatial_temporal_condition")
         private SpatialTemporalCondition spatialTemporalCondition;
-        /** 结构化过滤条件（按性别、年龄等属性筛选） */
+        /** 结构化过滤条件（按属性筛选，类型须与 data_type 匹配） */
         private FaceRecordCondition condition;
         /** 排序参数 */
         private OrderParams order;
@@ -2681,6 +3883,54 @@ public class GeneratedModels {
         /** 是否记录检索日志 */
         @JsonProperty("enable_log_query_result")
         private Boolean enableLogQueryResult;
+    }
+
+    @Data
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class EnsureTagPathResult {
+        /** 原始输入路径 */
+        private List<String> path;
+        /** 路径叶子节点的 tag id（全空则等于 root_id） */
+        @JsonProperty("tag_id")
+        private Integer tagId;
+        /** 实际匹配到的叶子节点名称 */
+        @JsonProperty("leaf_name")
+        private String leafName;
+    }
+
+    /** 批量 lookup-or-create 标签路径请求体。 */
+    @Data
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class EnsureTagPathsBody {
+        /** 资源类型，如 camera */
+        @JsonProperty("resource_type")
+        private String resourceType;
+        /** 目标根节点名称（parent_id 为 NULL），如 camera 的行政区划根 'region' */
+        @JsonProperty("root_name")
+        private String rootName;
+        /** 路径列表，每条路径为自上而下的节点名称。空串段会被跳过；全空路径返回 root tag_id */
+        private List<List<String>> paths;
+    }
+
+    @Data
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class EnsureTagPathsResponse {
+        /** 接收状态。0表示接收正常，非0表示接收异常 */
+        private Integer rtn;
+        /** 接收状态描述 */
+        private String message;
+        @JsonProperty("root_id")
+        private Integer rootId;
+        /** 本次新建的 tag 节点数（节点级，去重后） */
+        @JsonProperty("created_count")
+        private Integer createdCount;
+        /** 本次复用已存在的 tag 节点数（节点级，去重后） */
+        @JsonProperty("reused_count")
+        private Integer reusedCount;
+        private List<EnsureTagPathResult> results;
     }
 
     /** 通用错误响应模型 */
@@ -2850,7 +4100,8 @@ public class GeneratedModels {
         GROUP_ACTIVITY("group_activity"),
         ABNORMAL_BEHAVIOR("abnormal_behavior"),
         STALKING("stalking"),
-        THEFT_RISK("theft_risk");
+        THEFT_RISK("theft_risk"),
+        L4O_HIT("l4o_hit");
 
         private final Object value;
         EventType(Object value) { this.value = value; }
@@ -3171,6 +4422,10 @@ public class GeneratedModels {
         private List<FaceResultInput> faceResults;
         @JsonProperty("body_results")
         private List<BodyResult> bodyResults;
+        @JsonProperty("motor_vehicle_results")
+        private List<VehicleResult> motorVehicleResults;
+        @JsonProperty("non_motor_vehicle_results")
+        private List<VehicleResult> nonMotorVehicleResults;
     }
 
     /** 特征抽取响应数据 */
@@ -3191,6 +4446,10 @@ public class GeneratedModels {
         private List<FaceResultOutput> faceResults;
         @JsonProperty("body_results")
         private List<BodyResult> bodyResults;
+        @JsonProperty("motor_vehicle_results")
+        private List<VehicleResult> motorVehicleResults;
+        @JsonProperty("non_motor_vehicle_results")
+        private List<VehicleResult> nonMotorVehicleResults;
     }
 
     /** 特征抽取选项 */
@@ -3249,7 +4508,11 @@ public class GeneratedModels {
         FACE_DET_FE_CENTER("face_det_fe_center"),
         BODY_DET_FE_CENTER("body_det_fe_center"),
         FACE_DET("face_det"),
-        BODY_DET("body_det");
+        BODY_DET("body_det"),
+        MV_DET_FE("mv_det_fe"),
+        MV_DET_FE_CENTER("mv_det_fe_center"),
+        NMV_DET_FE("nmv_det_fe"),
+        NMV_DET_FE_CENTER("nmv_det_fe_center");
 
         private final Object value;
         FeatureExtractionType(Object value) { this.value = value; }
@@ -3406,15 +4669,15 @@ public class GeneratedModels {
         private List<FootholdItem> results;
     }
 
-    /** 落脚点分析请求  功能：分析特定人群在夜间等时段的聚集热点地点  字段说明： - date_start/date_end: 日期范围（YYYY-MM-DD 格式） - hour_list: 分析的小时列表（0-23） - person_uris: 目标人群档案 URI 列表（转换后为 person_list） */
+    /** 落脚点分析请求  功能：分析特定人群在夜间等时段的聚集热点地点  字段说明： - date_start/date_end: 日期范围（YYYY-MM-DD 格式），兼容旧版 time_start/time_end 字段名 - hour_list: 分析的小时列表（0-23） - person_uris: 目标人群档案 URI 列表（转换后为 person_list） */
     @Data
     @NoArgsConstructor
     @AllArgsConstructor
     public static class FootholdAnalysisRequest {
-        /** 开始日期（YYYY-MM-DD） */
+        /** 开始日期（YYYY-MM-DD），兼容旧字段名 time_start */
         @JsonProperty("date_start")
         private String dateStart;
-        /** 结束日期（YYYY-MM-DD），最大跨度 30 天 */
+        /** 结束日期（YYYY-MM-DD），最大跨度 30 天，兼容旧字段名 time_end */
         @JsonProperty("date_end")
         private String dateEnd;
         /** 小时列表（0-23），如夜间 [22, 23, 0, 1, 2, 3, 4, 5] */
@@ -3460,6 +4723,31 @@ public class GeneratedModels {
         private Integer totalHits;
     }
 
+    /** 获取原子任务响应 */
+    @Data
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class GetAtomicTaskResponse {
+        /** 接收状态。0表示接收正常，非0表示接收异常 */
+        private Integer rtn;
+        /** 接收状态描述 */
+        private String message;
+        @JsonProperty("atomic_task")
+        private AtomicTaskInfo atomicTask;
+    }
+
+    /** 获取设备响应 */
+    @Data
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class GetDeviceResponse {
+        /** 接收状态。0表示接收正常，非0表示接收异常 */
+        private Integer rtn;
+        /** 接收状态描述 */
+        private String message;
+        private VADeviceV2Info device;
+    }
+
     @Data
     @NoArgsConstructor
     @AllArgsConstructor
@@ -3471,15 +4759,61 @@ public class GeneratedModels {
         private RepositoryOutput repository;
     }
 
+    /** 获取任务详情响应 */
     @Data
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class GetTaskResponse {
+    public static class GetTaskDetailResponse {
         /** 接收状态。0表示接收正常，非0表示接收异常 */
         private Integer rtn;
         /** 接收状态描述 */
         private String message;
-        private SurveillanceTaskOutput task;
+        private VATaskV2Info task;
+        @JsonProperty("device_aggregation")
+        private DeviceAggregation deviceAggregation;
+        @JsonProperty("task_health")
+        private String taskHealth;
+    }
+
+    /** 获取模板响应 */
+    @Data
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class GetTemplateResponse {
+        /** 接收状态。0表示接收正常，非0表示接收异常 */
+        private Integer rtn;
+        /** 接收状态描述 */
+        private String message;
+        private VATaskV2Template template;
+    }
+
+    @Data
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class GraphScene {
+        /** 场景 ID */
+        private String id;
+        /** 标题 */
+        private String title;
+        /** 轨道类型 */
+        @JsonProperty("track_type")
+        private String trackType;
+        /** 开始百分比 */
+        private Double start;
+        /** 结束百分比 */
+        private Double end;
+        /** 摘要 */
+        private String summary;
+        /** 判断 */
+        private String judgement;
+        /** 建议 */
+        private List<String> recommendations;
+        /** 焦点节点 */
+        @JsonProperty("focus_node_ids")
+        private List<String> focusNodeIds;
+        /** 焦点边 */
+        @JsonProperty("focus_edge_ids")
+        private List<String> focusEdgeIds;
     }
 
     @Data
@@ -3493,6 +4827,32 @@ public class GeneratedModels {
     @Data
     @NoArgsConstructor
     @AllArgsConstructor
+    public static class HealthCheckResponse {
+        /** 接收状态。0表示接收正常，非0表示接收异常 */
+        private Integer rtn;
+        /** 接收状态描述 */
+        private String message;
+        private String status;
+        @JsonProperty("status_code")
+        private Integer statusCode;
+        @JsonProperty("cache_size")
+        private Integer cacheSize;
+        @JsonProperty("cache_hit_rate")
+        private Double cacheHitRate;
+        @JsonProperty("visionflow_available")
+        private Boolean visionflowAvailable;
+        @JsonProperty("last_sync_timestamp")
+        private Integer lastSyncTimestamp;
+        @JsonProperty("avg_resolve_latency_ms")
+        private Double avgResolveLatencyMs;
+        @JsonProperty("total_resolve_count")
+        private Integer totalResolveCount;
+    }
+
+    /** 健康检查响应 */
+    @Data
+    @NoArgsConstructor
+    @AllArgsConstructor
     public static class HealthResponse {
         /** 服务状态 */
         private String status;
@@ -3500,6 +4860,9 @@ public class GeneratedModels {
         private String version;
         /** 是否为调试模式 */
         private Boolean debug;
+        /** 部署模式: full | saas | cell */
+        @JsonProperty("deploy_mode")
+        private String deployMode;
         /** Git 分支 */
         @JsonProperty("git_branch")
         private String gitBranch;
@@ -3565,6 +4928,15 @@ public class GeneratedModels {
         /** 抓拍小图URI */
         @JsonProperty("face_image_uri")
         private String faceImageUri;
+        /** L4o人脸图URL */
+        @JsonProperty("face_image_url")
+        private String faceImageUrl;
+        /** L4o行人图URL */
+        @JsonProperty("pedes_image_url")
+        private String pedesImageUrl;
+        /** L4o场景图URL */
+        @JsonProperty("scene_image_url")
+        private String sceneImageUrl;
         /** 轨迹开始时间 */
         @JsonProperty("timestamp_begin")
         private Integer timestampBegin;
@@ -3613,6 +4985,12 @@ public class GeneratedModels {
         /** 命中特征（base64） */
         @JsonProperty("hit_face_feature_base64")
         private String hitFaceFeatureBase64;
+        /** 实名化定制：命中底库人员唯一标识（用于查询中间库实名信息） */
+        @JsonProperty("hit_guid")
+        private String hitGuid;
+        /** 实名化定制：命中底库人员类型（与 hit_guid 联用查询中间库实名信息） */
+        @JsonProperty("hit_user_type")
+        private String hitUserType;
         /** 图片MD5是否相同 */
         @JsonProperty("md5_same")
         private Boolean md5Same;
@@ -3629,6 +5007,15 @@ public class GeneratedModels {
         /** 抓拍数据来源类型（0:视频流，>=1:图片流） */
         @JsonProperty("track_meta_type")
         private Integer trackMetaType;
+        /** 时间 HH:mm:ss 格式 */
+        private String time;
+        /** 风险级别（high/medium/low） */
+        private String level;
+        /** 事件名称（用于时间线 title） */
+        @JsonProperty("event_name")
+        private String eventName;
+        /** 描述（用于时间线 description） */
+        private String description;
     }
 
     /** 告警记录模型 */
@@ -3673,6 +5060,15 @@ public class GeneratedModels {
         /** 抓拍小图URI */
         @JsonProperty("face_image_uri")
         private String faceImageUri;
+        /** L4o人脸图URL */
+        @JsonProperty("face_image_url")
+        private String faceImageUrl;
+        /** L4o行人图URL */
+        @JsonProperty("pedes_image_url")
+        private String pedesImageUrl;
+        /** L4o场景图URL */
+        @JsonProperty("scene_image_url")
+        private String sceneImageUrl;
         /** 轨迹开始时间 */
         @JsonProperty("timestamp_begin")
         private Integer timestampBegin;
@@ -3721,6 +5117,12 @@ public class GeneratedModels {
         /** 命中特征（base64） */
         @JsonProperty("hit_face_feature_base64")
         private String hitFaceFeatureBase64;
+        /** 实名化定制：命中底库人员唯一标识（用于查询中间库实名信息） */
+        @JsonProperty("hit_guid")
+        private String hitGuid;
+        /** 实名化定制：命中底库人员类型（与 hit_guid 联用查询中间库实名信息） */
+        @JsonProperty("hit_user_type")
+        private String hitUserType;
         /** 图片MD5是否相同 */
         @JsonProperty("md5_same")
         private Boolean md5Same;
@@ -3737,6 +5139,15 @@ public class GeneratedModels {
         /** 抓拍数据来源类型（0:视频流，>=1:图片流） */
         @JsonProperty("track_meta_type")
         private Integer trackMetaType;
+        /** 时间 HH:mm:ss 格式 */
+        private String time;
+        /** 风险级别（high/medium/low） */
+        private String level;
+        /** 事件名称（用于时间线 title） */
+        @JsonProperty("event_name")
+        private String eventName;
+        /** 描述（用于时间线 description） */
+        private String description;
     }
 
     @Data
@@ -3855,6 +5266,36 @@ public class GeneratedModels {
         private String lastMatchTime;
     }
 
+    /** 初始化分片上传请求 */
+    @Data
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class InitMultipartRequest {
+        @JsonProperty("file_name")
+        private String fileName;
+        @JsonProperty("file_size")
+        private Integer fileSize;
+    }
+
+    /** 初始化分片上传响应 */
+    @Data
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class InitMultipartResponse {
+        /** 接收状态。0表示接收正常，非0表示接收异常 */
+        private Integer rtn;
+        /** 接收状态描述 */
+        private String message;
+        @JsonProperty("upload_id")
+        private String uploadId;
+        private String bucket;
+        private String key;
+        @JsonProperty("part_size")
+        private Integer partSize;
+        @JsonProperty("part_count")
+        private Integer partCount;
+    }
+
     @Data
     @NoArgsConstructor
     @AllArgsConstructor
@@ -3864,6 +5305,18 @@ public class GeneratedModels {
         private String duration;
         private String cafeName;
         private String cafeAddress;
+    }
+
+    /** Kafka 输入配置 (v0.5.0) */
+    @Data
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class KafkaInputConfig {
+        private String topic;
+        @JsonProperty("broker_address")
+        private String brokerAddress;
+        @JsonProperty("broker_port")
+        private Integer brokerPort;
     }
 
     /** L4 档案结构化检索请求 */
@@ -3905,40 +5358,6 @@ public class GeneratedModels {
         private List<Object> result;
     }
 
-    /** L4o 任务下发请求 */
-    @Data
-    @NoArgsConstructor
-    @AllArgsConstructor
-    public static class L4oTaskRequest {
-        /** 任务名称 */
-        @JsonProperty("task_name")
-        private String taskName;
-        /** 身份标签表达式 */
-        @JsonProperty("opod_expr")
-        private List<String> opodExpr;
-        /** 地点标签表达式 */
-        @JsonProperty("ocod_expr")
-        private List<String> ocodExpr;
-        /** 摄像头 ID 列表 */
-        @JsonProperty("camera_ids")
-        private List<String> cameraIds;
-        /** 时间表达式 */
-        @JsonProperty("time_expr")
-        private Object timeExpr;
-    }
-
-    /** L5 任务下发请求 */
-    @Data
-    @NoArgsConstructor
-    @AllArgsConstructor
-    public static class L5TaskRequest {
-        /** 任务名称 */
-        @JsonProperty("task_name")
-        private String taskName;
-        /** 自然语言任务描述 */
-        private String text;
-    }
-
     /** 旧版 API 通用响应格式 */
     @Data
     @NoArgsConstructor
@@ -3948,6 +5367,59 @@ public class GeneratedModels {
         private Integer rtn;
         /** 返回消息 */
         private String message;
+    }
+
+    @Data
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class LicenseStatusResponse {
+        /** 返回码，0 表示成功 */
+        private Integer rtn;
+        /** License 状态: UNKNOWN/VALID/EXPIRED/UP_TO_LIMIT/ERROR */
+        private String state;
+        /** License 状态码 */
+        @JsonProperty("state_code")
+        private Integer stateCode;
+        /** License 是否有效 */
+        private Boolean valid;
+        /** License payload（授权内容） */
+        private String payload;
+        /** License 过期时间戳（Unix 秒） */
+        private Integer expiration;
+        /** 状态说明 */
+        private String message;
+        /** 产品实例 ID */
+        @JsonProperty("instance_id")
+        private String instanceId;
+        /** 是否正在后台检查中 */
+        private Boolean checking;
+    }
+
+    /** 列出算法响应 */
+    @Data
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class ListAlgorithmsResponse {
+        /** 接收状态。0表示接收正常，非0表示接收异常 */
+        private Integer rtn;
+        /** 接收状态描述 */
+        private String message;
+        private List<AlgoMgrAlgorithm> algorithms;
+        private Integer total;
+    }
+
+    /** 列出原子任务响应 */
+    @Data
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class ListAtomicTasksResponse {
+        /** 接收状态。0表示接收正常，非0表示接收异常 */
+        private Integer rtn;
+        /** 接收状态描述 */
+        private String message;
+        @JsonProperty("atomic_tasks")
+        private List<AtomicTaskInfo> atomicTasks;
+        private Integer total;
     }
 
     /** 摄像头列表响应 */
@@ -3963,6 +5435,19 @@ public class GeneratedModels {
         private List<CameraOutput> cameras;
         /** 分页信息 */
         private Pagination pagination;
+    }
+
+    /** 列出设备响应 */
+    @Data
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class ListDevicesResponse {
+        /** 接收状态。0表示接收正常，非0表示接收异常 */
+        private Integer rtn;
+        /** 接收状态描述 */
+        private String message;
+        private List<VADeviceV2Info> devices;
+        private Integer total;
     }
 
     /** 告警记录查询请求  查询示例: - 查询今天的告警: condition={"timestamp": {"gte": 1704067200, "lte": 1704153599}} - 相似度>=60的告警: condition={"hit_similarity": {"gte": 60}} - 组合条件: condition={"timestamp": {"gte": 1704067200, "lte": 1704153599}, "hit_similarity": {"gte": 60}} */
@@ -4001,6 +5486,33 @@ public class GeneratedModels {
         private List<HitRecordOutput> hitRecords;
         /** 分页信息 */
         private Pagination pagination;
+    }
+
+    /** 离线文件列表响应 */
+    @Data
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class ListOfflineFilesResponse {
+        /** 接收状态。0表示接收正常，非0表示接收异常 */
+        private Integer rtn;
+        /** 接收状态描述 */
+        private String message;
+        private List<OfflineFileInfo> files;
+        private Integer total;
+    }
+
+    /** 已上传分片列表响应 */
+    @Data
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class ListPartsResponse {
+        /** 接收状态。0表示接收正常，非0表示接收异常 */
+        private Integer rtn;
+        /** 接收状态描述 */
+        private String message;
+        private List<Object> parts;
+        @JsonProperty("upload_id")
+        private String uploadId;
     }
 
     @Data
@@ -4043,20 +5555,6 @@ public class GeneratedModels {
         private String message;
         /** 库列表 */
         private List<RepositoryOutput> repositories;
-        /** 分页信息 */
-        private Pagination pagination;
-    }
-
-    @Data
-    @NoArgsConstructor
-    @AllArgsConstructor
-    public static class ListTasksResponse {
-        /** 接收状态。0表示接收正常，非0表示接收异常 */
-        private Integer rtn;
-        /** 接收状态描述 */
-        private String message;
-        /** 布控任务列表 */
-        private List<SurveillanceTaskOutput> tasks;
         /** 分页信息 */
         private Pagination pagination;
     }
@@ -4128,6 +5626,32 @@ public class GeneratedModels {
         private String lastHitTime;
     }
 
+    @Data
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class MacroAlert {
+        /** 告警 ID */
+        private String id;
+        /** 人员姓名 */
+        @JsonProperty("person_name")
+        private String personName;
+        /** 位置 */
+        private String location;
+        /** 事件名称 */
+        @JsonProperty("event_name")
+        private String eventName;
+        /** blue|orange|red */
+        private String level;
+        /** 开始百分比 */
+        private Double start;
+        /** 结束百分比 */
+        private Double end;
+        /** 泡泡位置 {x, y} */
+        private Object bubble;
+        /** 轨迹路径 */
+        private List<Object> path;
+    }
+
     /** 标签匹配模式 */
     public enum MatchMode {
         ANY("any"),
@@ -4176,6 +5700,63 @@ public class GeneratedModels {
         private String description;
     }
 
+    /** 机动车结构化查询条件 (18 字段) */
+    @Data
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class MotorVehicleRecordCondition {
+        /** 车身颜色 */
+        private Integer color;
+        /** 车型 */
+        private Integer category;
+        /** 行驶方向 */
+        private Integer direction;
+        /** 品牌名称 */
+        @JsonProperty("brand_name")
+        private String brandName;
+        /** 子品牌 */
+        @JsonProperty("sub_brand")
+        private String subBrand;
+        /** 年款 */
+        @JsonProperty("year_brand")
+        private String yearBrand;
+        /** 车牌号 */
+        @JsonProperty("plate_chars")
+        private String plateChars;
+        /** 车牌类型 */
+        @JsonProperty("plate_type")
+        private Integer plateType;
+        /** 车牌颜色 */
+        @JsonProperty("plate_color")
+        private Integer plateColor;
+        /** 是否有车牌 */
+        @JsonProperty("has_plate")
+        private Integer hasPlate;
+        /** 是否临时车牌 */
+        @JsonProperty("is_provisional_plate")
+        private Integer isProvisionalPlate;
+        /** 特殊车辆类型 */
+        @JsonProperty("special_category")
+        private Integer specialCategory;
+        /** 主驾安全带 */
+        @JsonProperty("driver_safebelt")
+        private Integer driverSafebelt;
+        /** 副驾安全带 */
+        @JsonProperty("copilot_safebelt")
+        private Integer copilotSafebelt;
+        /** 主驾遮阳板 */
+        @JsonProperty("driver_sun_visor")
+        private Integer driverSunVisor;
+        /** 副驾遮阳板 */
+        @JsonProperty("copilot_sun_visor")
+        private Integer copilotSunVisor;
+        /** 驾驶员打电话 */
+        @JsonProperty("driver_is_calling")
+        private Integer driverIsCalling;
+        /** 挂件 */
+        private Integer pendant;
+    }
+
     @Data
     @NoArgsConstructor
     @AllArgsConstructor
@@ -4188,27 +5769,81 @@ public class GeneratedModels {
         private String macLink;
     }
 
-    /** 任务编排请求 */
+    /** 非机动车结构化查询条件 (7 字段) */
     @Data
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class OrchestrationRequest {
-        /** 用户的自然语言任务描述 */
-        @JsonProperty("user_input")
-        private String userInput;
-        /** 会话 ID（可选，用于多轮对话） */
-        @JsonProperty("session_id")
-        private String sessionId;
-        /** 是否流式输出 */
-        private Boolean stream;
+    public static class NonMotorVehicleRecordCondition {
+        /** 车身颜色 */
+        private Integer color;
+        /** 车型 (电动车/自行车/三轮车) */
+        private Integer category;
+        /** 行驶方向 */
+        private Integer direction;
+        /** 是否戴头盔 */
+        private Integer hat;
+        /** 头盔样式 */
+        @JsonProperty("hat_style")
+        private Integer hatStyle;
+        /** 多人骑行 */
+        @JsonProperty("multi_person")
+        private Integer multiPerson;
+        /** 是否载人 */
+        @JsonProperty("has_person")
+        private Integer hasPerson;
     }
 
-    /** 排序参数 */
+    /** 离线文件信息 */
+    @Data
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class OfflineFileInfo {
+        @JsonProperty("file_id")
+        private String fileId;
+        @JsonProperty("file_name")
+        private String fileName;
+        @JsonProperty("minio_bucket")
+        private String minioBucket;
+        @JsonProperty("minio_key")
+        private String minioKey;
+        @JsonProperty("minio_url")
+        private String minioUrl;
+        @JsonProperty("file_size_bytes")
+        private Integer fileSizeBytes;
+        private String status;
+        @JsonProperty("duration_sec")
+        private Double durationSec;
+        @JsonProperty("duration_available")
+        private Boolean durationAvailable;
+        @JsonProperty("upload_time")
+        private Integer uploadTime;
+        private Object tags;
+        @JsonProperty("thumbnail_key")
+        private String thumbnailKey;
+        @JsonProperty("gop_sec")
+        private Double gopSec;
+        @JsonProperty("gop_available")
+        private Boolean gopAvailable;
+    }
+
+    /** 离线文件响应 */
+    @Data
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class OfflineFileResponse {
+        /** 接收状态。0表示接收正常，非0表示接收异常 */
+        private Integer rtn;
+        /** 接收状态描述 */
+        private String message;
+        private OfflineFileInfo file;
+    }
+
+    /** 排序参数  说明： - 特征检索结果常用 `similarity` - 动态库纯结构化查询支持 `timestamp`，并兼容前端字段名 `created_at` */
     @Data
     @NoArgsConstructor
     @AllArgsConstructor
     public static class OrderParams {
-        /** 排序字段 */
+        /** 排序字段；动态库结构化查询支持 timestamp，并兼容 created_at 映射 */
         private String field;
         /** 排序方向 */
         private String direction;
@@ -4261,6 +5896,85 @@ public class GeneratedModels {
         private List<Permission> permissions;
     }
 
+    /** 照片布控目标记录输入，复用静态库入库的核心字段语义。 */
+    @Data
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class PhotoTargetInput {
+        /** 场景图 URI */
+        @JsonProperty("scene_image_uri")
+        private String sceneImageUri;
+        /** 场景图 Base64 编码数据 */
+        @JsonProperty("scene_image_content_base64")
+        private String sceneImageContentBase64;
+        /** 人脸小图 URI */
+        @JsonProperty("capture_image_uri")
+        private String captureImageUri;
+        /** 人脸小图 Base64 编码数据 */
+        @JsonProperty("capture_image_content_base64")
+        private String captureImageContentBase64;
+        /** 人脸特征（Base64 编码） */
+        @JsonProperty("face_feature_base64")
+        private String faceFeatureBase64;
+        /** 多算法特征映射，key 为算法标识，value 为 Base64 编码特征 */
+        @JsonProperty("rec_feature_base64")
+        private Object recFeatureBase64;
+        /** 外部数据源 ID */
+        @JsonProperty("external_id")
+        private String externalId;
+        /** 姓名 */
+        private String name;
+        /** 证件号 */
+        @JsonProperty("person_id")
+        private String personId;
+    }
+
+    @Data
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class PodHealth {
+        private String namespace;
+        private String name;
+        private String phase;
+        private String ready;
+        @JsonProperty("ready_ratio")
+        private Double readyRatio;
+        private Integer restarts;
+        private String node;
+        @JsonProperty("pod_ip")
+        private String podIp;
+        @JsonProperty("start_time_iso")
+        private String startTimeIso;
+        @JsonProperty("age_sec")
+        private Integer ageSec;
+        private String reason;
+        private String message;
+        @JsonProperty("is_healthy")
+        private Boolean isHealthy;
+        private List<ContainerHealth> containers;
+    }
+
+    @Data
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class PodsHealthResponse {
+        @JsonProperty("collected_at_ms")
+        private Integer collectedAtMs;
+        private PodsHealthSummary summary;
+        private List<PodHealth> pods;
+    }
+
+    @Data
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class PodsHealthSummary {
+        private Integer total;
+        private Integer healthy;
+        private Integer unhealthy;
+        @JsonProperty("by_phase")
+        private Object byPhase;
+    }
+
     /** 2D点坐标 */
     @Data
     @NoArgsConstructor
@@ -4285,6 +5999,34 @@ public class GeneratedModels {
         public Object getValue() { return value; }
     }
 
+    /** 获取分片 presigned URL 请求 */
+    @Data
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class PresignPartRequest {
+        private String bucket;
+        private String key;
+        @JsonProperty("upload_id")
+        private String uploadId;
+        @JsonProperty("part_number")
+        private Integer partNumber;
+    }
+
+    /** 分片 presigned URL 响应 */
+    @Data
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class PresignPartResponse {
+        /** 接收状态。0表示接收正常，非0表示接收异常 */
+        private Integer rtn;
+        /** 接收状态描述 */
+        private String message;
+        @JsonProperty("upload_url")
+        private String uploadUrl;
+        @JsonProperty("part_number")
+        private Integer partNumber;
+    }
+
     /** 处置类型 */
     public enum ProcessType {
         _0(0),
@@ -4295,6 +6037,18 @@ public class GeneratedModels {
         ProcessType(Object value) { this.value = value; }
         @JsonValue
         public Object getValue() { return value; }
+    }
+
+    /** 离线解析进度响应 */
+    @Data
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class ProgressResponse {
+        /** 接收状态。0表示接收正常，非0表示接收异常 */
+        private Integer rtn;
+        /** 接收状态描述 */
+        private String message;
+        private Object progress;
     }
 
     /** 查询权限请求 */
@@ -4327,18 +6081,6 @@ public class GeneratedModels {
         private List<Object> results;
     }
 
-    /** 实时追踪请求 */
-    @Data
-    @NoArgsConstructor
-    @AllArgsConstructor
-    public static class RealtimeTrackingRequest {
-        /** 人员姓名 */
-        private String name;
-        /** 档案 ID */
-        @JsonProperty("dossier_id")
-        private String dossierId;
-    }
-
     /** 矩形框 */
     @Data
     @NoArgsConstructor
@@ -4348,6 +6090,21 @@ public class GeneratedModels {
         private Integer y;
         private Integer width;
         private Integer height;
+    }
+
+    /** 刷新缓存响应 */
+    @Data
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class RefreshCacheResponse {
+        /** 接收状态。0表示接收正常，非0表示接收异常 */
+        private Integer rtn;
+        /** 接收状态描述 */
+        private String message;
+        @JsonProperty("refreshed_count")
+        private Integer refreshedCount;
+        @JsonProperty("total_cached")
+        private Integer totalCached;
     }
 
     /** 刷新 Token 响应 */
@@ -4471,20 +6228,6 @@ public class GeneratedModels {
         private RelationshipAnalysisDataOutput data;
     }
 
-    /** VF Master 上的远程任务 */
-    @Data
-    @NoArgsConstructor
-    @AllArgsConstructor
-    public static class RemoteTask {
-        @JsonProperty("atomic_event_id")
-        private String atomicEventId;
-        private String state;
-        @JsonProperty("worker_id")
-        private String workerId;
-        @JsonProperty("internal_status")
-        private String internalStatus;
-    }
-
     @Data
     @NoArgsConstructor
     @AllArgsConstructor
@@ -4603,6 +6346,47 @@ public class GeneratedModels {
         public Object getValue() { return value; }
     }
 
+    /** 解析请求输入 */
+    @Data
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class ResolveInput {
+        @JsonProperty("template_id")
+        private String templateId;
+        private String expression;
+    }
+
+    /** 解析响应 */
+    @Data
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class ResolveResponse {
+        /** 接收状态。0表示接收正常，非0表示接收异常 */
+        private Integer rtn;
+        /** 接收状态描述 */
+        private String message;
+        @JsonProperty("atomic_task_ref")
+        private String atomicTaskRef;
+        @JsonProperty("source_type")
+        private String sourceType;
+        @JsonProperty("source_type_code")
+        private Integer sourceTypeCode;
+        @JsonProperty("atomic_task")
+        private AtomicTaskInfo atomicTask;
+        @JsonProperty("function_dag")
+        private String functionDag;
+        @JsonProperty("zero_shot_type")
+        private String zeroShotType;
+        @JsonProperty("zero_shot_type_code")
+        private Integer zeroShotTypeCode;
+        @JsonProperty("zero_shot_description")
+        private String zeroShotDescription;
+        @JsonProperty("resolve_latency_ms")
+        private Integer resolveLatencyMs;
+        @JsonProperty("cache_hit")
+        private Boolean cacheHit;
+    }
+
     /** 资源引用结构，用于表示对其他资源的引用  总是包含 uri、id、cluster_id、type 全部字段 */
     @Data
     @NoArgsConstructor
@@ -4678,7 +6462,7 @@ public class GeneratedModels {
     @NoArgsConstructor
     @AllArgsConstructor
     public static class RetrievalResultItemInput {
-        /** 记录对象（人脸或人体记录） */
+        /** 记录对象（人脸、人体或车辆记录） */
         private CaptureFaceRecordInput record;
         /** 相似度分数（范围：0-100） */
         private Double similarity;
@@ -4689,7 +6473,7 @@ public class GeneratedModels {
     @NoArgsConstructor
     @AllArgsConstructor
     public static class RetrievalResultItemOutput {
-        /** 记录对象（人脸或人体记录） */
+        /** 记录对象（人脸、人体或车辆记录） */
         private CaptureFaceRecordOutput record;
         /** 相似度分数（范围：0-100） */
         private Double similarity;
@@ -4723,14 +6507,14 @@ public class GeneratedModels {
         private List<SuspectItem> results;
     }
 
-    /** 同行反查请求  功能：通过清晰同行人反向定位模糊嫌疑人  业务场景： 已知一个清晰图片的同行人（person_uri），反向查找与该人同行的其他人员， 用于确定模糊嫌疑人的身份信息。  字段说明： - person_uri: 已知同行人员档案 URI（转换后为 person_id） - time_start/time_end: 时间范围 - camera_list: 地点过滤（可选） - time_window_seconds: 时间窗口 - min_co_appearances: 最小共现次数（过滤阈值） */
+    /** 同行反查请求  功能：通过清晰同行人反向定位模糊嫌疑人  业务场景： 已知一个清晰图片的同行人（person_id），反向查找与该人同行的其他人员， 用于确定模糊嫌疑人的身份信息。  字段说明： - person_id: 已知同行人员档案 ID（纯 ID 格式） - time_start/time_end: 时间范围 - camera_list: 地点过滤（可选） - time_window_seconds: 时间窗口 - min_co_appearances: 最小共现次数（过滤阈值） */
     @Data
     @NoArgsConstructor
     @AllArgsConstructor
     public static class ReverseCompanionRequest {
-        /** 已知同行人员档案 URI（用于反查） */
-        @JsonProperty("person_uri")
-        private String personUri;
+        /** 已知同行人员档案 ID（纯 ID 格式，用于反查） */
+        @JsonProperty("person_id")
+        private String personId;
         /** 开始时间（Unix 秒） */
         @JsonProperty("time_start")
         private Integer timeStart;
@@ -4882,40 +6666,70 @@ public class GeneratedModels {
         public Object getValue() { return value; }
     }
 
-    /** L5 语义检索请求 */
+    /** L5 语义检索请求参数 (文搜图/图搜图/特征搜图) */
     @Data
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class SemanticRetrievalRequest {
-        /** 检索文本 */
+    public static class SemanticSearchParams {
+        /** 自然语言查询文本 (文搜图) */
         private String text;
-        /** 时间表达式 */
-        @JsonProperty("time_expr")
-        private String timeExpr;
-        /** 地点标签表达式 */
-        @JsonProperty("ocod_expr")
-        private String ocodExpr;
-        /** 页码 */
-        private Integer page;
-        /** 每页数量 */
-        private Integer limit;
+        /** 图片 base64 编码 (图搜图) */
+        @JsonProperty("image_base64")
+        private String imageBase64;
+        /** 图片 URL (图搜图) */
+        @JsonProperty("picture_uri")
+        private String pictureUri;
+        /** 裁剪框 (配合图搜图使用) */
+        private ModelsCaptureRecordFaceRect rect;
+        /** 预提取 CLIP 特征 base64 (特征搜图) */
+        @JsonProperty("feature_base64")
+        private String featureBase64;
+        /** 目标数据类型列表 */
+        @JsonProperty("data_types")
+        private List<String> dataTypes;
+        /** 相似度阈值 [0.0, 1.0] */
+        private Double threshold;
+        /** 返回结果数量 [1, 1000] */
+        @JsonProperty("top_k")
+        private Integer topK;
+        /** 设备 ID 过滤条件 */
+        @JsonProperty("device_ids")
+        private List<String> deviceIds;
+        /** 时间范围起始 (ISO 8601) */
+        @JsonProperty("time_start")
+        private String timeStart;
+        /** 时间范围结束 (ISO 8601) */
+        @JsonProperty("time_end")
+        private String timeEnd;
     }
 
-    /** 语义检索响应 */
+    /** L5 语义检索响应 */
     @Data
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class SemanticRetrievalResponse {
+    public static class SemanticSearchResponse {
         /** 接收状态。0表示接收正常，非0表示接收异常 */
         private Integer rtn;
         /** 接收状态描述 */
         private String message;
-        /** 操作类型 */
-        private String action;
-        /** 总数 */
+        /** 结果缓存 ID */
+        @JsonProperty("result_id")
+        private String resultId;
+        /** 总匹配数 */
         private Integer total;
-        /** 检索结果 */
-        private List<Object> result;
+        /** 结果列表 */
+        private List<SemanticSearchResultItem> results;
+    }
+
+    /** L5 语义检索结果条目 */
+    @Data
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class SemanticSearchResultItem {
+        /** 资源记录 */
+        private Object record;
+        /** 相似度分数 */
+        private Double similarity;
     }
 
     /** 单个权限响应 */
@@ -5081,6 +6895,45 @@ public class GeneratedModels {
         private Boolean enableLogQueryResult;
     }
 
+    /** 状态摘要 */
+    @Data
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class StatusSummaryModel {
+        @JsonProperty("total_tasks")
+        private Integer totalTasks;
+        private Integer pending;
+        private Integer running;
+        private Integer done;
+        private Integer failed;
+        private Integer stopped;
+        @JsonProperty("total_records")
+        private Integer totalRecords;
+        @JsonProperty("done_records")
+        private Integer doneRecords;
+        @JsonProperty("written_records")
+        private Integer writtenRecords;
+    }
+
+    /** 存储用量响应 */
+    @Data
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class StorageUsageResponse {
+        /** 接收状态。0表示接收正常，非0表示接收异常 */
+        private Integer rtn;
+        /** 接收状态描述 */
+        private String message;
+        @JsonProperty("used_bytes")
+        private Integer usedBytes;
+        @JsonProperty("quota_bytes")
+        private Integer quotaBytes;
+        @JsonProperty("usage_percent")
+        private Double usagePercent;
+        @JsonProperty("file_count")
+        private Integer fileCount;
+    }
+
     /** 子任务状态 */
     public enum SubTaskStatus {
         READY("READY"),
@@ -5181,6 +7034,15 @@ public class GeneratedModels {
         /** L5 语义布控的语义查询表达式 */
         @JsonProperty("semantic_query")
         private String semanticQuery;
+        /** L5 语义布控的运行参数配置 */
+        @JsonProperty("semantic_config")
+        private Object semanticConfig;
+        /** 输入源类型: rtsp (L5 模式) */
+        @JsonProperty("input_type")
+        private String inputType;
+        /** Worker 类型路由 */
+        @JsonProperty("target_worker_type")
+        private String targetWorkerType;
     }
 
     /** 布控任务完整模型 */
@@ -5242,6 +7104,15 @@ public class GeneratedModels {
         /** L5 语义布控的语义查询表达式 */
         @JsonProperty("semantic_query")
         private String semanticQuery;
+        /** L5 语义布控的运行参数配置 */
+        @JsonProperty("semantic_config")
+        private Object semanticConfig;
+        /** 输入源类型: rtsp (L5 模式) */
+        @JsonProperty("input_type")
+        private String inputType;
+        /** Worker 类型路由 */
+        @JsonProperty("target_worker_type")
+        private String targetWorkerType;
     }
 
     /** 创建/更新布控任务的输入模型 */
@@ -5260,7 +7131,7 @@ public class GeneratedModels {
         private SurveillanceScope surveillanceScope;
         @JsonProperty("surveillance_mode")
         private SurveillanceMode surveillanceMode;
-        /** 静态库URI列表（database_type为0时必填） */
+        /** 静态库URI列表（database_type 为 REPOSITORY 时必填，为 IMAGE 时可不填由系统自动创建） */
         @JsonProperty("repository_uris")
         private List<String> repositoryUris;
         /** 目标记录的标签ID列表（当提供 repository_uris 时，对这些库内记录按标签取交集筛选） */
@@ -5289,6 +7160,18 @@ public class GeneratedModels {
         /** L5 语义布控的语义查询表达式（surveillance_mode=L5 时可提供） */
         @JsonProperty("semantic_query")
         private String semanticQuery;
+        /** L5 语义布控的运行参数配置（surveillance_mode=L5 时可提供） */
+        @JsonProperty("semantic_config")
+        private Object semanticConfig;
+        /** 输入源类型: rtsp (L5 模式) */
+        @JsonProperty("input_type")
+        private String inputType;
+        /** Worker 类型路由 */
+        @JsonProperty("target_worker_type")
+        private String targetWorkerType;
+        /** 照片布控目标记录，仅 database_type=IMAGE 时使用 */
+        @JsonProperty("photo_target")
+        private PhotoTargetInput photoTarget;
     }
 
     @Data
@@ -5339,6 +7222,15 @@ public class GeneratedModels {
         /** L5 语义布控的语义查询表达式 */
         @JsonProperty("semantic_query")
         private String semanticQuery;
+        /** L5 语义布控的运行参数配置（PATCH 更新时可选传入） */
+        @JsonProperty("semantic_config")
+        private Object semanticConfig;
+        /** 输入源类型: rtsp (L5 模式) */
+        @JsonProperty("input_type")
+        private String inputType;
+        /** Worker 类型路由 */
+        @JsonProperty("target_worker_type")
+        private String targetWorkerType;
     }
 
     /** 布控类型 */
@@ -5371,33 +7263,108 @@ public class GeneratedModels {
         private DossierInfo suspectInfo;
     }
 
-    /** 从 VF Master 同步输入 */
+    /** 同步上传单条记录（图片入库，后端自动抽取特征） */
     @Data
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class SyncFromVfMasterInput {
-        @JsonProperty("create_missing")
-        private Boolean createMissing;
-        @JsonProperty("update_status")
-        private Boolean updateStatus;
+    public static class SyncUploadRecordInput {
+        /** 场景图 URI */
+        @JsonProperty("picture_uri")
+        private String pictureUri;
+        /** 场景图 Base64 编码数据 */
+        @JsonProperty("picture_image_content_base64")
+        private String pictureImageContentBase64;
+        /** 外部数据源 ID */
+        @JsonProperty("external_id")
+        private String externalId;
+        /** 图片类型，0 其他，1 证件照 */
+        @JsonProperty("face_image_type")
+        private Integer faceImageType;
+        /** 姓名 */
+        private String name;
+        /** 证件号 */
+        @JsonProperty("person_id")
+        private String personId;
+        /** 出生日期，格式 YYYY-MM-DD（例如 1994-01-01） */
+        private String birthday;
+        /** 性别，0 未知，1 男，2 女 */
+        private Integer gender;
+        /** 民族 */
+        private Integer nation;
+        /** 区域编号 */
+        private Integer region;
+        /** 用户类型 */
+        @JsonProperty("user_type")
+        private String userType;
+        /** 人员标签 */
+        @JsonProperty("person_flag")
+        private List<String> personFlag;
+        /** 全局唯一标识 */
+        private String guid;
     }
 
-    /** 从 VF Master 同步响应 */
+    /** 系统指标摘要 */
     @Data
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class SyncFromVfMasterResponse {
+    public static class SystemMetricsSummary {
+        /** 总 QPS */
+        @JsonProperty("total_requests_per_second")
+        private Double totalRequestsPerSecond;
+        /** 平均延迟 */
+        @JsonProperty("avg_latency_ms")
+        private Double avgLatencyMs;
+        /** 错误率 */
+        @JsonProperty("error_rate_percent")
+        private Double errorRatePercent;
+        /** 总活跃连接数 */
+        @JsonProperty("total_active_connections")
+        private Integer totalActiveConnections;
+    }
+
+    /** 系统概览 */
+    @Data
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class SystemOverview {
+        /** 时间戳 */
+        private Integer timestamp;
+        /** 整体状态 */
+        @JsonProperty("overall_status")
+        private String overallStatus;
+        /** 总组件数 */
+        @JsonProperty("total_components")
+        private Integer totalComponents;
+        /** 健康组件数 */
+        @JsonProperty("healthy_components")
+        private Integer healthyComponents;
+        /** 降级组件数 */
+        @JsonProperty("degraded_components")
+        private Integer degradedComponents;
+        /** 不健康组件数 */
+        @JsonProperty("unhealthy_components")
+        private Integer unhealthyComponents;
+        /** 活跃告警摘要 */
+        @JsonProperty("active_alerts")
+        private AlertSummary activeAlerts;
+        /** 系统指标 */
+        @JsonProperty("system_metrics")
+        private SystemMetricsSummary systemMetrics;
+        /** 24小时可用率 */
+        @JsonProperty("uptime_percent_24h")
+        private Double uptimePercent24h;
+    }
+
+    /** 系统概览响应 */
+    @Data
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class SystemOverviewResponse {
         /** 接收状态。0表示接收正常，非0表示接收异常 */
         private Integer rtn;
         /** 接收状态描述 */
         private String message;
-        private Integer discovered;
-        private Integer created;
-        private Integer updated;
-        @JsonProperty("already_exists")
-        private Integer alreadyExists;
-        @JsonProperty("created_task_ids")
-        private List<String> createdTaskIds;
+        private SystemOverview data;
     }
 
     /** 时空区域定义（用于时空碰撞分析）  每个区域包含地点列表和时间范围，用于指定一个时空窗口 */
@@ -5518,17 +7485,29 @@ public class GeneratedModels {
         private String value;
     }
 
-    /** 任务响应 */
+    /** 任务信息 */
     @Data
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class TaskResponse {
-        /** 是否成功 */
-        private Boolean success;
-        /** 响应消息 */
-        private String message;
-        /** 响应数据 */
-        private Object data;
+    public static class TaskInfoModel {
+        @JsonProperty("task_id")
+        private String taskId;
+        @JsonProperty("repo_type")
+        private String repoType;
+        @JsonProperty("dv_repo_id")
+        private Integer dvRepoId;
+        @JsonProperty("category_id")
+        private Integer categoryId;
+        private String status;
+        private Integer total;
+        private Integer done;
+        private Integer written;
+        private String checkpoint;
+        private String error;
+        @JsonProperty("created_at")
+        private String createdAt;
+        @JsonProperty("updated_at")
+        private String updatedAt;
     }
 
     /** 任务状态 */
@@ -5543,6 +7522,150 @@ public class GeneratedModels {
         TaskStatus(Object value) { this.value = value; }
         @JsonValue
         public Object getValue() { return value; }
+    }
+
+    /** 时间线事件（对齐前端 TimelineEvent） */
+    @Data
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class TimelineEvent {
+        /** 事件 ID */
+        private String id;
+        /** 时间 HH:mm:ss */
+        private String time;
+        /** visual|feature|behavior|rule|system|alert */
+        private String type;
+        /** 标题 */
+        private String title;
+        /** 描述 */
+        private String description;
+        /** blue|cyan|orange|purple|red */
+        private String color;
+        /** 对应时间轴 marker */
+        @JsonProperty("marker_id")
+        private String markerId;
+        /** 百分比范围 {start, end} */
+        @JsonProperty("marker_range")
+        private Object markerRange;
+        /** event|hit_record|system */
+        private String source;
+        /** 事件 URI */
+        @JsonProperty("event_uri")
+        private String eventUri;
+        /** 告警记录 URI */
+        @JsonProperty("hit_record_uri")
+        private String hitRecordUri;
+    }
+
+    /** 时间线事件查询请求 */
+    @Data
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class TimelineEventsQueryRequest {
+        /** 开始时间，支持 ISO8601 或 Unix 时间戳（秒） */
+        @JsonProperty("start_time")
+        private String startTime;
+        /** 结束时间 */
+        @JsonProperty("end_time")
+        private String endTime;
+        /** 事件类型过滤 */
+        private List<String> types;
+        /** 返回数量上限 */
+        private Integer limit;
+    }
+
+    /** 时间线事件响应 */
+    @Data
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class TimelineEventsResponse {
+        /** 接收状态。0表示接收正常，非0表示接收异常 */
+        private Integer rtn;
+        /** 接收状态描述 */
+        private String message;
+        /** 事件列表 */
+        private List<TimelineEvent> events;
+    }
+
+    /** 时间轴场景查询请求 */
+    @Data
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class TimelineScenariosQueryRequest {
+        /** 开始时间 */
+        @JsonProperty("start_time")
+        private String startTime;
+        /** 结束时间 */
+        @JsonProperty("end_time")
+        private String endTime;
+        /** 场景 ID 过滤 */
+        @JsonProperty("scenario_id")
+        private String scenarioId;
+        /** 是否包含 graphNodes/graphEdges */
+        @JsonProperty("include_graph")
+        private Boolean includeGraph;
+        /** 是否包含宏观告警 */
+        @JsonProperty("include_alerts")
+        private Boolean includeAlerts;
+    }
+
+    /** 时间轴场景响应 */
+    @Data
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class TimelineScenariosResponse {
+        /** 接收状态。0表示接收正常，非0表示接收异常 */
+        private Integer rtn;
+        /** 接收状态描述 */
+        private String message;
+        /** 摄像头列表 */
+        private List<Object> cameras;
+        /** 时间轴轨道 */
+        @JsonProperty("timeline_tracks")
+        private List<TimelineTrack> timelineTracks;
+        /** 地图轨迹 */
+        @JsonProperty("map_trajectories")
+        private List<Object> mapTrajectories;
+        /** 图节点 */
+        @JsonProperty("graph_nodes")
+        private List<Object> graphNodes;
+        /** 图边 */
+        @JsonProperty("graph_edges")
+        private List<Object> graphEdges;
+        /** 图场景 */
+        @JsonProperty("graph_scenes")
+        private List<GraphScene> graphScenes;
+        /** 宏观告警 */
+        @JsonProperty("macro_alerts")
+        private List<MacroAlert> macroAlerts;
+    }
+
+    @Data
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class TimelineTrack {
+        /** 轨道 ID */
+        private String id;
+        /** 轨道名称 */
+        private String name;
+        /** video|trajectory|event|alert */
+        private String type;
+        /** 动作列表 */
+        private List<TimelineTrackAction> actions;
+    }
+
+    @Data
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class TimelineTrackAction {
+        /** 动作 ID */
+        private String id;
+        /** 动作名称 */
+        private String name;
+        /** 开始百分比 0-100 */
+        private Double start;
+        /** 结束百分比 0-100 */
+        private Double end;
     }
 
     /** 训练数据集引用 */
@@ -5842,6 +7965,16 @@ public class GeneratedModels {
         private Integer updatedCount;
     }
 
+    /** 更新文件元信息请求 */
+    @Data
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class UpdateFileRequest {
+        @JsonProperty("file_name")
+        private String fileName;
+        private Object tags;
+    }
+
     /** 修改记录请求 */
     @Data
     @NoArgsConstructor
@@ -5894,6 +8027,43 @@ public class GeneratedModels {
         private Object metadata;
     }
 
+    /** 更新任务输入 */
+    @Data
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class UpdateTaskInput {
+        private List<DeviceBinding> devices;
+        @JsonProperty("input_type")
+        private String inputType;
+        @JsonProperty("kafka_config")
+        private KafkaInputConfig kafkaConfig;
+        @JsonProperty("offline_start_time")
+        private Double offlineStartTime;
+        @JsonProperty("offline_end_time")
+        private Double offlineEndTime;
+        @JsonProperty("offline_playback_speed")
+        private Double offlinePlaybackSpeed;
+        @JsonProperty("offline_decode_step")
+        private Integer offlineDecodeStep;
+    }
+
+    /** 更新任务响应 */
+    @Data
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class UpdateTaskResponse {
+        /** 接收状态。0表示接收正常，非0表示接收异常 */
+        private Integer rtn;
+        /** 接收状态描述 */
+        private String message;
+        @JsonProperty("task_id")
+        private String taskId;
+        @JsonProperty("device_count")
+        private Integer deviceCount;
+        private Integer status;
+        private Integer intent;
+    }
+
     /** 更新用户请求 */
     @Data
     @NoArgsConstructor
@@ -5921,6 +8091,75 @@ public class GeneratedModels {
         private String password;
     }
 
+    /** 检索升级启动请求 */
+    @Data
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class UpgradeStartRequest {
+        /** 要升级的类型列表，空则全部 (static/dynamic/semantic) */
+        @JsonProperty("repo_types")
+        private List<String> repoTypes;
+    }
+
+    /** 升级启动响应 */
+    @Data
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class UpgradeStartResponse {
+        /** 接收状态。0表示接收正常，非0表示接收异常 */
+        private Integer rtn;
+        /** 接收状态描述 */
+        private String message;
+        private List<TaskInfoModel> tasks;
+    }
+
+    /** 升级状态响应 */
+    @Data
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class UpgradeStatusResponse {
+        /** 接收状态。0表示接收正常，非0表示接收异常 */
+        private Integer rtn;
+        /** 接收状态描述 */
+        private String message;
+        private StatusSummaryModel summary;
+        private List<TaskInfoModel> tasks;
+    }
+
+    /** 升级停止响应 */
+    @Data
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class UpgradeStopResponse {
+        /** 接收状态。0表示接收正常，非0表示接收异常 */
+        private Integer rtn;
+        /** 接收状态描述 */
+        private String message;
+    }
+
+    /** 升级校验请求 */
+    @Data
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class UpgradeValidateRequest {
+        /** 校验级别: count | sample */
+        private String level;
+    }
+
+    /** 升级校验响应 */
+    @Data
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class UpgradeValidateResponse {
+        /** 接收状态。0表示接收正常，非0表示接收异常 */
+        private Integer rtn;
+        /** 接收状态描述 */
+        private String message;
+        @JsonProperty("all_passed")
+        private Boolean allPassed;
+        private List<ValidationDetailModel> details;
+    }
+
     /** 文件上传状态 */
     @Data
     @NoArgsConstructor
@@ -5943,6 +8182,31 @@ public class GeneratedModels {
         private String message;
         /** 上传状态 */
         private UploadStatus data;
+    }
+
+    /** 申请上传 URL 请求 */
+    @Data
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class UploadUrlRequest {
+        @JsonProperty("file_name")
+        private String fileName;
+        private String bucket;
+    }
+
+    /** 申请上传 URL 响应 */
+    @Data
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class UploadUrlResponse {
+        /** 接收状态。0表示接收正常，非0表示接收异常 */
+        private Integer rtn;
+        /** 接收状态描述 */
+        private String message;
+        @JsonProperty("upload_url")
+        private String uploadUrl;
+        private String bucket;
+        private String key;
     }
 
     /** 用户对象  用户设计： - id: 自增整数，唯一标识（配合 cluster_id） - username: 用户名（必需，唯一，在同一 cluster_id 下） - email: 邮箱（可选，提供时唯一，在同一 cluster_id 下） - Keycloak 只保存 username 和 password - Controller 保存其他所有信息 */
@@ -6027,6 +8291,139 @@ public class GeneratedModels {
         private Pagination pagination;
     }
 
+    /** 设备信息 */
+    @Data
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class VADeviceV2Info {
+        @JsonProperty("device_id")
+        private String deviceId;
+        @JsonProperty("source_uri")
+        private String sourceUri;
+        @JsonProperty("camera_id")
+        private Integer cameraId;
+        private Integer status;
+        private Integer intent;
+        @JsonProperty("error_code")
+        private Integer errorCode;
+        @JsonProperty("error_message")
+        private String errorMessage;
+        @JsonProperty("shard_id")
+        private Integer shardId;
+    }
+
+    /** VATask 任务信息 */
+    @Data
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class VATaskV2Info {
+        @JsonProperty("task_id")
+        private String taskId;
+        private String name;
+        @JsonProperty("template_id")
+        private String templateId;
+        private Integer status;
+        private Integer intent;
+        private String expression;
+        @JsonProperty("task_meta")
+        private Object taskMeta;
+        @JsonProperty("source_type")
+        private Integer sourceType;
+        @JsonProperty("atomic_task_ref")
+        private String atomicTaskRef;
+        @JsonProperty("device_count")
+        private Integer deviceCount;
+        @JsonProperty("created_at")
+        private Integer createdAt;
+        @JsonProperty("updated_at")
+        private Integer updatedAt;
+        @JsonProperty("target_worker_type")
+        private String targetWorkerType;
+        @JsonProperty("composite_events")
+        private String compositeEvents;
+        @JsonProperty("input_type")
+        private Integer inputType;
+        @JsonProperty("kafka_config")
+        private KafkaInputConfig kafkaConfig;
+        @JsonProperty("offline_start_time")
+        private Double offlineStartTime;
+        @JsonProperty("offline_end_time")
+        private Double offlineEndTime;
+        @JsonProperty("offline_playback_speed")
+        private Double offlinePlaybackSpeed;
+        @JsonProperty("offline_decode_step")
+        private Integer offlineDecodeStep;
+        @JsonProperty("slice_duration_sec")
+        private Double sliceDurationSec;
+        @JsonProperty("overlap_sec")
+        private Double overlapSec;
+    }
+
+    /** 任务摘要 */
+    @Data
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class VATaskV2Summary {
+        @JsonProperty("task_id")
+        private String taskId;
+        private String name;
+        @JsonProperty("template_id")
+        private String templateId;
+        private String expression;
+        @JsonProperty("task_meta")
+        private Object taskMeta;
+        private Integer status;
+        private Integer intent;
+        @JsonProperty("source_type")
+        private Integer sourceType;
+        @JsonProperty("device_count")
+        private Integer deviceCount;
+        @JsonProperty("created_at")
+        private Integer createdAt;
+        @JsonProperty("input_type")
+        private String inputType;
+    }
+
+    /** 模板信息 */
+    @Data
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class VATaskV2Template {
+        @JsonProperty("template_id")
+        private String templateId;
+        private String name;
+        private String category;
+        private String description;
+        private Integer version;
+        @JsonProperty("atomic_event_expr")
+        private String atomicEventExpr;
+        @JsonProperty("parameter_schema")
+        private String parameterSchema;
+        @JsonProperty("display_name")
+        private String displayName;
+        @JsonProperty("worker_type")
+        private String workerType;
+        @JsonProperty("input_mode")
+        private String inputMode;
+    }
+
+    /** 校验详情 */
+    @Data
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class ValidationDetailModel {
+        @JsonProperty("repo_type")
+        private String repoType;
+        @JsonProperty("dv_repo_id")
+        private Integer dvRepoId;
+        @JsonProperty("es_count")
+        private Integer esCount;
+        @JsonProperty("dv_feature_num")
+        private Integer dvFeatureNum;
+        private Boolean match;
+        private String message;
+    }
+
     @Data
     @NoArgsConstructor
     @AllArgsConstructor
@@ -6049,133 +8446,30 @@ public class GeneratedModels {
         private Integer totalVehicles;
     }
 
-    /** 视觉解析任务 */
+    /** 车辆检测结果（机动车/非机动车通用） */
     @Data
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class VisionTask {
-        private Integer id;
-        @JsonProperty("task_id")
-        private String taskId;
+    public static class VehicleResult {
+        private Rect2D rect;
+        /** 置信度，内部RPC返回0-1，API返回0-100 */
+        private Double confidence;
+        @JsonProperty("track_id")
+        private String trackId;
+        @JsonProperty("entity_id")
+        private String entityId;
+        private Feature feature;
+    }
+
+    /** 旧 3.x 登录入参。  password 字段必须是 md5(明文密码) 的 32 位小写 hex（与旧 3.x 行为一致）。 */
+    @Data
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class BusinessLoginInput {
+        /** 账号名 */
         private String name;
-        @JsonProperty("composite_event_expression")
-        private String compositeEventExpression;
-        @JsonProperty("composite_events")
-        private String compositeEvents;
-        @JsonProperty("business_algorithm_id")
-        private String businessAlgorithmId;
-        @JsonProperty("task_meta")
-        private String taskMeta;
-        @JsonProperty("surveillance_type")
-        private String surveillanceType;
-        @JsonProperty("traffic_config")
-        private String trafficConfig;
-        private Integer status;
-        @JsonProperty("is_deleted")
-        private Boolean isDeleted;
-        @JsonProperty("created_at")
-        private Integer createdAt;
-        @JsonProperty("updated_at")
-        private Integer updatedAt;
-        @JsonProperty("cluster_id")
-        private String clusterId;
-        private String description;
-        @JsonProperty("source_uri")
-        private String sourceUri;
-        @JsonProperty("algorithm_config")
-        private String algorithmConfig;
-        @JsonProperty("created_by")
-        private String createdBy;
-        @JsonProperty("started_at")
-        private Integer startedAt;
-        @JsonProperty("completed_at")
-        private Integer completedAt;
-        private String statistics;
-        @JsonProperty("runtime_status")
-        private String runtimeStatus;
-    }
-
-    /** 创建视觉解析任务输入 */
-    @Data
-    @NoArgsConstructor
-    @AllArgsConstructor
-    public static class VisionTaskInput {
-        private String name;
-        @JsonProperty("composite_event_expression")
-        private String compositeEventExpression;
-        @JsonProperty("composite_events")
-        private String compositeEvents;
-        @JsonProperty("business_algorithm_id")
-        private String businessAlgorithmId;
-        @JsonProperty("task_meta")
-        private String taskMeta;
-        @JsonProperty("surveillance_type")
-        private String surveillanceType;
-        @JsonProperty("traffic_config")
-        private String trafficConfig;
-        private Integer status;
-        @JsonProperty("cluster_id")
-        private String clusterId;
-        private String description;
-        @JsonProperty("source_uri")
-        private String sourceUri;
-        @JsonProperty("algorithm_config")
-        private String algorithmConfig;
-        @JsonProperty("created_by")
-        private String createdBy;
-    }
-
-    /** 任务列表响应 */
-    @Data
-    @NoArgsConstructor
-    @AllArgsConstructor
-    public static class VisionTaskListResponse {
-        /** 接收状态。0表示接收正常，非0表示接收异常 */
-        private Integer rtn;
-        /** 接收状态描述 */
-        private String message;
-        private List<VisionTask> tasks;
-        private Pagination pagination;
-    }
-
-    /** 单个任务响应 */
-    @Data
-    @NoArgsConstructor
-    @AllArgsConstructor
-    public static class VisionTaskResponse {
-        /** 接收状态。0表示接收正常，非0表示接收异常 */
-        private Integer rtn;
-        /** 接收状态描述 */
-        private String message;
-        private VisionTask task;
-    }
-
-    /** 更新视觉解析任务输入 */
-    @Data
-    @NoArgsConstructor
-    @AllArgsConstructor
-    public static class VisionTaskUpdateInput {
-        private String name;
-        @JsonProperty("composite_event_expression")
-        private String compositeEventExpression;
-        @JsonProperty("composite_events")
-        private String compositeEvents;
-        @JsonProperty("business_algorithm_id")
-        private String businessAlgorithmId;
-        @JsonProperty("task_meta")
-        private String taskMeta;
-        @JsonProperty("surveillance_type")
-        private String surveillanceType;
-        @JsonProperty("traffic_config")
-        private String trafficConfig;
-        private Integer status;
-        @JsonProperty("cluster_id")
-        private String clusterId;
-        private String description;
-        @JsonProperty("source_uri")
-        private String sourceUri;
-        @JsonProperty("algorithm_config")
-        private String algorithmConfig;
+        /** md5(明文密码) */
+        private String password;
     }
 
     /** 兼容格式：提供 type、id、cluster_id。 */
@@ -6251,6 +8545,83 @@ public class GeneratedModels {
         private Integer w;
         /** 高度 */
         private Integer h;
+    }
+
+    /** 列出模板响应 */
+    @Data
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class RoutersAlgomgrV2ListTemplatesResponse {
+        /** 接收状态。0表示接收正常，非0表示接收异常 */
+        private Integer rtn;
+        /** 接收状态描述 */
+        private String message;
+        private List<AlgoMgrTemplate> templates;
+        private Integer total;
+    }
+
+    @Data
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class RoutersSurveillanceTaskGetTaskResponse {
+        /** 接收状态。0表示接收正常，非0表示接收异常 */
+        private Integer rtn;
+        /** 接收状态描述 */
+        private String message;
+        private SurveillanceTaskOutput task;
+    }
+
+    @Data
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class RoutersSurveillanceTaskListTasksResponse {
+        /** 接收状态。0表示接收正常，非0表示接收异常 */
+        private Integer rtn;
+        /** 接收状态描述 */
+        private String message;
+        /** 布控任务列表 */
+        private List<SurveillanceTaskOutput> tasks;
+        /** 分页信息 */
+        private Pagination pagination;
+    }
+
+    /** 获取任务响应 */
+    @Data
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class RoutersVataskV2GetTaskResponse {
+        /** 接收状态。0表示接收正常，非0表示接收异常 */
+        private Integer rtn;
+        /** 接收状态描述 */
+        private String message;
+        private VATaskV2Info task;
+    }
+
+    /** 列出任务响应 */
+    @Data
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class RoutersVataskV2ListTasksResponse {
+        /** 接收状态。0表示接收正常，非0表示接收异常 */
+        private Integer rtn;
+        /** 接收状态描述 */
+        private String message;
+        private List<VATaskV2Summary> tasks;
+        private Integer total;
+        private Pagination pagination;
+    }
+
+    /** 列出模板响应 */
+    @Data
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class RoutersVataskV2ListTemplatesResponse {
+        /** 接收状态。0表示接收正常，非0表示接收异常 */
+        private Integer rtn;
+        /** 接收状态描述 */
+        private String message;
+        private List<VATaskV2Template> templates;
+        private Integer total;
     }
 
 }
