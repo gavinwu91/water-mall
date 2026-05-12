@@ -10,3 +10,21 @@ with date_range as (select trunc(sysdate) - LEVEL + 1 AS date_unit from dual con
 
 
         npm i -g opencode-ai
+
+
+        POST http://192.168.106.23:30081/api/v1/repositories HTTP/1.1
+        Content-Length: 97
+        Content-Type: application/json
+        Cookie: currentLanguage=cn; bodhi_token=qEIkyMs3_mBvjV9hTQdtWsJFcWPc4bSm1tbAv-mNzYA
+
+        {"name":"wztest","comment":"wztest","repo_type":"static","data_type":"face","security_level":"C"}
+        ---> END HTTP (97-byte body)
+        <--- HTTP/1.1 400 Bad Request (12ms)
+        content-length: 106
+        content-type: application/json
+        date: Tue, 12 May 2026 06:19:21 GMT
+        server: uvicorn
+        x-request-id: CCCCCC0000006A02C669F1C15A6DF0C4
+
+        {"rtn":400,"error":"bad_request","message":"创建失败","request_id":"CCCCCC0000006A02C669F1C15A6DF0C4"}
+        END HTTP (106-byte body)
