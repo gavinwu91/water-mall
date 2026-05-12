@@ -195,42 +195,6 @@ public class GeneratedModels {
     @Data
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class AlgorithmInput {
-        private ResourceReferenceFull reference;
-        /** 资源全局唯一标识符（type:id@cluster_id） */
-        private String uri;
-        @JsonProperty("created_at")
-        private String createdAt;
-        @JsonProperty("updated_at")
-        private String updatedAt;
-        /** 资源类型标识（如：camera、region、repository 等） */
-        private String type;
-        /** 算法名称 */
-        private String name;
-        /** 检测对象标识 */
-        private String detObj;
-        /** 检测对象中文名 */
-        private String detObjCn;
-        /** 最新版本号 */
-        private Integer latestVersion;
-        /** 训练状态（UN_TRAIN/TRAINING/TRAINED/TRAIN_FAILED） */
-        private String status;
-        /** 模型准确率/质量评分（0-1） */
-        private Double accuracy;
-        /** 训练开始时间戳（毫秒） */
-        private Integer startTrainTime;
-        /** 训练结束时间戳（毫秒），即最后更新时间 */
-        private Integer endTrainTime;
-        /** 训练耗时（毫秒） */
-        private Integer trainCostTime;
-        /** 发布状态（UN_PUBLISH/PUBLISHING/PUBLISHED） */
-        private String publishStatus;
-    }
-
-    /** 算法资源  算法是模型的定义，包含检测目标、版本等元信息。 */
-    @Data
-    @NoArgsConstructor
-    @AllArgsConstructor
     public static class AlgorithmOutput {
         /** 资源全局唯一标识符（type:id@cluster_id） */
         private String uri;
@@ -643,17 +607,6 @@ public class GeneratedModels {
     @Data
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class AuditLogListDataInput {
-        private List<AuditLogRecord> items;
-        private Integer page;
-        @JsonProperty("page_size")
-        private Integer pageSize;
-        private Integer total;
-    }
-
-    @Data
-    @NoArgsConstructor
-    @AllArgsConstructor
     public static class AuditLogListDataOutput {
         private List<AuditLogRecord> items;
         private Integer page;
@@ -760,7 +713,7 @@ public class GeneratedModels {
     @AllArgsConstructor
     public static class BatchAddRecordsRequest {
         /** 待导入记录列表 */
-        private List<CaptureFaceRecordInput2> records;
+        private List<CaptureFaceRecordInput> records;
     }
 
     @Data
@@ -794,15 +747,6 @@ public class GeneratedModels {
         private EventStatus status;
         /** 备注信息 */
         private String remark;
-    }
-
-    /** 批量特征抽取响应数据 */
-    @Data
-    @NoArgsConstructor
-    @AllArgsConstructor
-    public static class BatchFeatureExtractionDataInput {
-        private List<BatchResultItemInput> results;
-        private BatchSummary summary;
     }
 
     /** 批量特征抽取响应数据 */
@@ -894,18 +838,6 @@ public class GeneratedModels {
         private Integer removedCount;
         @JsonProperty("not_found_count")
         private Integer notFoundCount;
-    }
-
-    /** 批量处理单个结果 */
-    @Data
-    @NoArgsConstructor
-    @AllArgsConstructor
-    public static class BatchResultItemInput {
-        @JsonProperty("image_id")
-        private String imageId;
-        private Boolean success;
-        private FeatureExtractionDataInput result;
-        private String error;
     }
 
     /** 批量处理单个结果 */
@@ -1167,100 +1099,6 @@ public class GeneratedModels {
         private String uri;
         /** 失败时的错误信息 */
         private String error;
-    }
-
-    /** 摄像头资源模型  继承自 StandardResourceBase，包含 reference、created_at、updated_at 等基础字段。 */
-    @Data
-    @NoArgsConstructor
-    @AllArgsConstructor
-    public static class CameraInput {
-        private ResourceReferenceFull reference;
-        /** 资源全局唯一标识符（type:id@cluster_id） */
-        private String uri;
-        @JsonProperty("created_at")
-        private String createdAt;
-        @JsonProperty("updated_at")
-        private String updatedAt;
-        /** 摄像头名称 */
-        private String name;
-        /** 摄像头编码 */
-        private String code;
-        private CameraStatus status;
-        /** 视频流地址 */
-        @JsonProperty("stream_url")
-        private String streamUrl;
-        /** 快照地址 */
-        @JsonProperty("snapshot_url")
-        private String snapshotUrl;
-        /** 视频回放地址 */
-        @JsonProperty("playback_url")
-        private String playbackUrl;
-        private Location location;
-        /** 所属区域名称 */
-        @JsonProperty("region_name")
-        private String regionName;
-        @JsonProperty("location_type")
-        private LocationType locationType;
-        @JsonProperty("device_type")
-        private Integer deviceType;
-        /** 摄像机类型 */
-        @JsonProperty("camera_type")
-        private Integer cameraType;
-        @JsonProperty("checkpoint_type")
-        private CheckpointType checkpointType;
-        @JsonProperty("identification_type")
-        private IdentificationType identificationType;
-        /** 昨日抓拍数量 */
-        @JsonProperty("yesterday_capture_count")
-        private Integer yesterdayCaptureCount;
-        /** 取流地址（RTSP/HTTP等） */
-        @JsonProperty("stream_address")
-        private String streamAddress;
-        /** 设备IP地址 */
-        @JsonProperty("device_ip")
-        private String deviceIp;
-        @JsonProperty("transport_protocol")
-        private TransportProtocol transportProtocol;
-        /** 终端设备国标编码 */
-        @JsonProperty("terminal_gb_code")
-        private String terminalGbCode;
-        /** 平台国标编码 */
-        @JsonProperty("platform_gb_code")
-        private String platformGbCode;
-        private Resolution resolution;
-        /** 边缘设备ID */
-        @JsonProperty("edge_device_id")
-        private String edgeDeviceId;
-        /** 录制/启用开始时间 (ISO-8601). 选填. 离线: 视频录制开始; 在线: 设备投入使用 */
-        @JsonProperty("recorded_start_time")
-        private String recordedStartTime;
-        @JsonProperty("point_type")
-        private PointType pointType;
-        /** 管理单位名称 */
-        @JsonProperty("management_unit")
-        private String managementUnit;
-        /** 建设单位名称 */
-        @JsonProperty("construction_unit")
-        private String constructionUnit;
-        /** 管理人员姓名 */
-        @JsonProperty("manager_name")
-        private String managerName;
-        /** 联系方式（电话/邮箱等） */
-        @JsonProperty("contact_info")
-        private String contactInfo;
-        /** 公安机关代码 */
-        @JsonProperty("police_org_code")
-        private String policeOrgCode;
-        /** 公安机构名称 */
-        @JsonProperty("police_org_name")
-        private String policeOrgName;
-        /** 权限标签ID列表 */
-        private List<Integer> tags;
-        /** 附加自定义信息列表 */
-        @JsonProperty("additional_info")
-        private List<Object> additionalInfo;
-        /** 自定义元数据 */
-        private Object metadata;
     }
 
     /** 摄像头资源模型  继承自 StandardResourceBase，包含 reference、created_at、updated_at 等基础字段。 */
@@ -1642,110 +1480,6 @@ public class GeneratedModels {
     @Data
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class CaptureBodyRecordInput {
-        private ResourceReferenceFull reference;
-        /** 资源全局唯一标识符（type:id@cluster_id） */
-        private String uri;
-        @JsonProperty("created_at")
-        private String createdAt;
-        @JsonProperty("updated_at")
-        private String updatedAt;
-        /** 场景图URL/URI（完整的原始场景图片） */
-        @JsonProperty("scene_image_uri")
-        private String sceneImageUri;
-        /** 抓拍小图URL/URI（裁剪后的目标图片） */
-        @JsonProperty("capture_image_uri")
-        private String captureImageUri;
-        /** 外部数据源ID */
-        @JsonProperty("external_id")
-        private String externalId;
-        private String type;
-        /** 行人特征（加密后Base64） */
-        @JsonProperty("body_feature_base64")
-        private String bodyFeatureBase64;
-        /** 人体框信息，包含x/y/w/h */
-        @JsonProperty("pedestrian_rect")
-        private ModelsCaptureRecordFaceRect pedestrianRect;
-        /** 性别：0=未知，1=男，2=女 */
-        private Integer gender;
-        /** 年龄段：-1=未知，0=小孩，1=青年，2=中年，3=老年 */
-        @JsonProperty("age_code")
-        private Integer ageCode;
-        /** 上衣颜色编码 */
-        @JsonProperty("upper_body_color")
-        private Integer upperBodyColor;
-        /** 上衣长度：-1=未知，0=长袖，1=短袖 */
-        @JsonProperty("coat_length")
-        private Integer coatLength;
-        /** 上衣纹理：-1=未知，0=纯色，1=条纹，2=格子 */
-        @JsonProperty("coat_texture")
-        private Integer coatTexture;
-        /** 上衣风格/纹理编码：-1=未知，其他为算法编码 */
-        @JsonProperty("upper_body_style")
-        private Integer upperBodyStyle;
-        /** 下衣颜色编码 */
-        @JsonProperty("lower_body_color")
-        private Integer lowerBodyColor;
-        /** 下衣长度：-1=未知，0=短裤，1=长裤，2=短裙，3=长裙 */
-        @JsonProperty("trousers_length")
-        private Integer trousersLength;
-        /** 下衣纹理：-1=未知，0=纯色，1=条纹，2=格子 */
-        @JsonProperty("trousers_texture")
-        private Integer trousersTexture;
-        /** 背包：-1=未知，0=无，1=有 */
-        private Integer bag;
-        /** 手提包：-1=未知，0=无，1=有 */
-        private Integer handbag;
-        /** 帽子：-1=未知，0=无，1=有 */
-        private Integer hat;
-        /** 眼镜：-1=未知，0=无，1=有 */
-        private Integer glass;
-        /** 口罩：-1=未知，0=无，1=有 */
-        private Integer mask;
-        /** 头盔：-1=未知，0=无，1=有 */
-        private Integer helmet;
-        /** 太阳镜：-1=未知，0=无，1=有 */
-        private Integer sunglass;
-        /** 打伞：-1=未知，0=无，1=有 */
-        private Integer umbrella;
-        /** 抱小孩：-1=未知，0=无，1=有 */
-        @JsonProperty("hold_child")
-        private Integer holdChild;
-        /** 朝向：-1=未知，0=前，1=后，2=侧，3=侧后 */
-        private Integer orientation;
-        /** 发型：-1=未知，0=长发，1=短发，2=光头 */
-        @JsonProperty("hair_style")
-        private Integer hairStyle;
-        /** 打电话：-1=未知，0=无，1=有 */
-        private Integer calling;
-        /** 遮挡：-1=未知，0=无，1=有 */
-        private Integer occlusion;
-        /** 多人：-1=未知，0=否，1=是 */
-        private Integer multipeople;
-        /** 有关民族：-1=未知，0=非，1=是 */
-        private Integer ur;
-        /** 质量分（范围：0-100） */
-        private Double quality;
-        /** 是否低质量抓拍 */
-        @JsonProperty("is_low_quality")
-        private Boolean isLowQuality;
-        /** 摄像头URI标识，格式：camera:ID@cluster_id */
-        @JsonProperty("camera_uri")
-        private String cameraUri;
-        /** 抓拍时间戳（Unix时间戳，秒级） */
-        @JsonProperty("capture_at")
-        private Integer captureAt;
-        /** 数据处理链路时间戳profiling信息 */
-        private Object profiling;
-        /** 轨迹元数据类型：0=正常，1=其他 */
-        @JsonProperty("track_meta_type")
-        private Integer trackMetaType;
-    }
-
-    /** 行人抓拍/静态记录  可用于静态库与动态抓拍库 */
-    @Data
-    @NoArgsConstructor
-    @AllArgsConstructor
     public static class CaptureBodyRecordOutput {
         /** 资源全局唯一标识符（type:id@cluster_id） */
         private String uri;
@@ -1849,93 +1583,6 @@ public class GeneratedModels {
     @Data
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class CaptureFaceRecordInput {
-        private ResourceReferenceFull reference;
-        /** 资源全局唯一标识符（type:id@cluster_id） */
-        private String uri;
-        @JsonProperty("created_at")
-        private String createdAt;
-        @JsonProperty("updated_at")
-        private String updatedAt;
-        /** 场景图URL/URI（完整的原始场景图片） */
-        @JsonProperty("scene_image_uri")
-        private String sceneImageUri;
-        /** 抓拍小图URL/URI（裁剪后的目标图片） */
-        @JsonProperty("capture_image_uri")
-        private String captureImageUri;
-        /** 外部数据源ID */
-        @JsonProperty("external_id")
-        private String externalId;
-        private String type;
-        /** 人脸特征（加密后再进行base64编码） */
-        @JsonProperty("face_feature_base64")
-        private String faceFeatureBase64;
-        /** 姓名（静态库常见，动态抓拍可为空） */
-        private String name;
-        /** 证件号（身份证等），静态库常见 */
-        @JsonProperty("person_id")
-        private String personId;
-        /** 出生日期，格式为"YYYY-mm-dd" */
-        private String birthday;
-        /** 性别，0:未知；1:男；2:女 */
-        private Integer gender;
-        /** 民族，0表示未知 */
-        private Integer nation;
-        /** 区域编号 */
-        private Integer region;
-        /** 发型：-1=未知，0=长发，1=短发，2=光头 */
-        @JsonProperty("hair_style")
-        private Integer hairStyle;
-        /** 实名化定制：底库人员唯一标识（与 user_type 联用查询中间库实名信息） */
-        private String guid;
-        /** 实名化定制：底库人员类型（与 guid 联用查询中间库实名信息） */
-        @JsonProperty("user_type")
-        private String userType;
-        /** 图片类型，0表示未知 */
-        @JsonProperty("face_image_type")
-        private Integer faceImageType;
-        /** 表示框类型，0:脸框；1:头框 */
-        @JsonProperty("face_rect_type")
-        private Integer faceRectType;
-        /** 脸框信息，与 raw_head_rect 二选一 */
-        @JsonProperty("raw_face_rect")
-        private ModelsCaptureRecordFaceRect rawFaceRect;
-        /** 头框信息，与 raw_face_rect 二选一 */
-        @JsonProperty("raw_head_rect")
-        private ModelsCaptureRecordFaceRect rawHeadRect;
-        /** 人脸角度 */
-        @JsonProperty("face_angle")
-        private FaceAngle faceAngle;
-        /** 质量分（范围：0-100） */
-        private Double quality;
-        /** 是否低质量抓拍（过滤用） */
-        @JsonProperty("is_low_quality")
-        private Boolean isLowQuality;
-        /** 口罩，-1未知；0无；1有 */
-        @JsonProperty("rec_mask")
-        private Integer recMask;
-        /** 打电话：-1=未知，0=无，1=有 */
-        private Integer calling;
-        /** 摄像头URI标识，格式：camera:ID@cluster_id */
-        @JsonProperty("camera_uri")
-        private String cameraUri;
-        /** 摄像头名称/位置名称（如：小区大门、地铁站入口等） */
-        @JsonProperty("camera_name")
-        private String cameraName;
-        /** 抓拍时间戳（Unix时间戳，秒级） */
-        @JsonProperty("capture_at")
-        private Integer captureAt;
-        /** 数据处理链路时间戳profiling信息 */
-        private Object profiling;
-        /** 轨迹元数据类型：0=正常，1=其他 */
-        @JsonProperty("track_meta_type")
-        private Integer trackMetaType;
-    }
-
-    /** 人脸抓拍/静态记录  可用于静态库与动态抓拍库 */
-    @Data
-    @NoArgsConstructor
-    @AllArgsConstructor
     public static class CaptureFaceRecordOutput {
         /** 资源全局唯一标识符（type:id@cluster_id） */
         private String uri;
@@ -2022,7 +1669,7 @@ public class GeneratedModels {
     @Data
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class CaptureFaceRecordInput2 {
+    public static class CaptureFaceRecordInput {
         /** 人脸特征（Base64编码） */
         @JsonProperty("face_feature_base64")
         private String faceFeatureBase64;
@@ -2066,131 +1713,6 @@ public class GeneratedModels {
         /** 人员标签 */
         @JsonProperty("person_flag")
         private List<String> personFlag;
-    }
-
-    /** 车辆抓拍/静态记录  可用于静态库与动态抓拍库 */
-    @Data
-    @NoArgsConstructor
-    @AllArgsConstructor
-    public static class CaptureVehicleRecordInput {
-        private ResourceReferenceFull reference;
-        /** 资源全局唯一标识符（type:id@cluster_id） */
-        private String uri;
-        @JsonProperty("created_at")
-        private String createdAt;
-        @JsonProperty("updated_at")
-        private String updatedAt;
-        /** 场景图URL/URI（完整的原始场景图片） */
-        @JsonProperty("scene_image_uri")
-        private String sceneImageUri;
-        /** 抓拍小图URL/URI（裁剪后的目标图片） */
-        @JsonProperty("capture_image_uri")
-        private String captureImageUri;
-        /** 外部数据源ID */
-        @JsonProperty("external_id")
-        private String externalId;
-        private String type;
-        /** 车辆特征（加密后Base64） */
-        @JsonProperty("vehicle_feature_base64")
-        private String vehicleFeatureBase64;
-        /** 车辆记录ID */
-        @JsonProperty("record_id")
-        private String recordId;
-        /** 集群ID */
-        @JsonProperty("cluster_id")
-        private String clusterId;
-        /** 摄像头ID */
-        @JsonProperty("camera_id")
-        private Integer cameraId;
-        /** 抓拍时间戳（秒级） */
-        private Integer timestamp;
-        /** 摄像头URI标识，格式：camera:ID@cluster_id */
-        @JsonProperty("camera_uri")
-        private String cameraUri;
-        /** 抓拍时间戳（Unix时间戳，秒级） */
-        @JsonProperty("capture_at")
-        private Integer captureAt;
-        /** 车身颜色编码 */
-        private Integer color;
-        /** 车型/类别编码 */
-        private Integer category;
-        /** 行驶方向编码 */
-        private Integer direction;
-        /** 机动车品牌名称 */
-        @JsonProperty("brand_name")
-        private String brandName;
-        /** 机动车子品牌 */
-        @JsonProperty("sub_brand")
-        private String subBrand;
-        /** 机动车年款 */
-        @JsonProperty("year_brand")
-        private String yearBrand;
-        /** 车牌号 */
-        @JsonProperty("plate_chars")
-        private String plateChars;
-        /** 车牌类型 */
-        @JsonProperty("plate_type")
-        private Integer plateType;
-        /** 车牌颜色 */
-        @JsonProperty("plate_color")
-        private Integer plateColor;
-        /** 是否有车牌 */
-        @JsonProperty("has_plate")
-        private Integer hasPlate;
-        /** 是否临时车牌 */
-        @JsonProperty("is_provisional_plate")
-        private Integer isProvisionalPlate;
-        /** 特殊车辆类型 */
-        @JsonProperty("special_category")
-        private Integer specialCategory;
-        /** 主驾安全带状态 */
-        @JsonProperty("driver_safebelt")
-        private Integer driverSafebelt;
-        /** 副驾安全带状态 */
-        @JsonProperty("copilot_safebelt")
-        private Integer copilotSafebelt;
-        /** 主驾遮阳板状态 */
-        @JsonProperty("driver_sun_visor")
-        private Integer driverSunVisor;
-        /** 副驾遮阳板状态 */
-        @JsonProperty("copilot_sun_visor")
-        private Integer copilotSunVisor;
-        /** 主驾打电话状态 */
-        @JsonProperty("driver_is_calling")
-        private Integer driverIsCalling;
-        /** 挂件状态 */
-        private Integer pendant;
-        /** 机动车小图URI */
-        @JsonProperty("motor_vehicle_image_uri")
-        private String motorVehicleImageUri;
-        /** 是否戴头盔 */
-        private Integer hat;
-        /** 头盔样式 */
-        @JsonProperty("hat_style")
-        private Integer hatStyle;
-        /** 是否多人骑行 */
-        @JsonProperty("multi_person")
-        private Integer multiPerson;
-        /** 是否载人 */
-        @JsonProperty("has_person")
-        private Integer hasPerson;
-        /** 非机动车小图URI */
-        @JsonProperty("non_motor_vehicle_image_uri")
-        private String nonMotorVehicleImageUri;
-        /** 返回的特征key列表 */
-        @JsonProperty("feature_keys")
-        private List<String> featureKeys;
-        /** 原始特征映射 */
-        @JsonProperty("rec_feature_base64")
-        private Object recFeatureBase64;
-        /** 数据处理链路时间戳profiling信息 */
-        private Object profiling;
-        /** 轨迹元数据类型：0=正常，1=其他 */
-        @JsonProperty("track_meta_type")
-        private Integer trackMetaType;
-        /** 链路追踪ID */
-        @JsonProperty("trace_id")
-        private String traceId;
     }
 
     /** 车辆抓拍/静态记录  可用于静态库与动态抓拍库 */
@@ -2954,34 +2476,6 @@ public class GeneratedModels {
     @Data
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class DatasetInput {
-        private ResourceReferenceFull reference;
-        /** 资源全局唯一标识符（type:id@cluster_id） */
-        private String uri;
-        @JsonProperty("created_at")
-        private String createdAt;
-        @JsonProperty("updated_at")
-        private String updatedAt;
-        /** 资源类型标识（如：camera、region、repository 等） */
-        private String type;
-        /** 数据集名称 */
-        private String name;
-        /** 关联的算法 */
-        private String algorithmUri;
-        /** 正例数量 */
-        private Integer positiveCount;
-        /** 负例数量 */
-        private Integer negativeCount;
-        /** 总数量 */
-        private Integer totalCount;
-        /** 是否已提交 */
-        private Boolean committed;
-    }
-
-    /** 数据集资源  用于模型训练的数据集，包含样本采集、标注等。 */
-    @Data
-    @NoArgsConstructor
-    @AllArgsConstructor
     public static class DatasetOutput {
         /** 资源全局唯一标识符（type:id@cluster_id） */
         private String uri;
@@ -3289,69 +2783,6 @@ public class GeneratedModels {
         private Integer cameraId;
         @JsonProperty("external_id")
         private String externalId;
-    }
-
-    /** 档案完整模型 */
-    @Data
-    @NoArgsConstructor
-    @AllArgsConstructor
-    public static class DossierInput {
-        /** 资源的全局唯一标识符 */
-        private String uri;
-        /** 集群ID */
-        @JsonProperty("cluster_id")
-        private String clusterId;
-        /** 档案编号 */
-        @JsonProperty("dossier_no")
-        private String dossierNo;
-        /** 档案名称 */
-        private String name;
-        /** 中间库实名化标识（脱敏后用户GUID，从档案首条 record 透传） */
-        private String guid;
-        /** 中间库实名化用户类型（从档案首条 record 透传） */
-        @JsonProperty("user_type")
-        private String userType;
-        /** 身份证号（脱敏，原始来源 OPOD DossierMeta.citizen_id） */
-        @JsonProperty("citizen_id")
-        private String citizenId;
-        /** 档案封面图URI（用于中间库取图） */
-        @JsonProperty("cover_image_url")
-        private String coverImageUrl;
-        /** 档案类型 */
-        @JsonProperty("dossier_type")
-        private String dossierType;
-        /** 档案状态 */
-        private String status;
-        /** 档案优先级 */
-        private String priority;
-        /** 档案描述 */
-        private String description;
-        /** 档案包含的记录总数 */
-        @JsonProperty("record_count")
-        private Integer recordCount;
-        /** 档案关联的抓拍记录预览（仅返回最近 20 条，完整记录请参考 record_count） */
-        private List<Object> records;
-        /** 档案关联的图片URI列表 */
-        private List<String> images;
-        /** 档案关联的视频URI列表 */
-        private List<String> videos;
-        /** 档案关联的标签ID列表 */
-        @JsonProperty("tag_ids")
-        private List<Integer> tagIds;
-        /** 档案扩展元数据 */
-        private DossierMetadata metadata;
-        /** 创建人 */
-        @JsonProperty("created_by")
-        private String createdBy;
-        /** 最后更新人 */
-        @JsonProperty("updated_by")
-        private String updatedBy;
-        /** 创建时间 */
-        @JsonProperty("created_at")
-        private String createdAt;
-        /** 更新时间 */
-        @JsonProperty("updated_at")
-        private String updatedAt;
     }
 
     /** 档案完整模型 */
@@ -3996,32 +3427,6 @@ public class GeneratedModels {
     @Data
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class ExportTaskInput {
-        private ResourceReferenceFull reference;
-        /** 资源全局唯一标识符（type:id@cluster_id） */
-        private String uri;
-        @JsonProperty("created_at")
-        private String createdAt;
-        @JsonProperty("updated_at")
-        private String updatedAt;
-        /** 资源类型标识（如：camera、region、repository 等） */
-        private String type;
-        /** 算法 URI */
-        private String algorithmUri;
-        /** 算法版本 */
-        private Integer version;
-        /** 任务状态 */
-        private ExportTaskStatus status;
-        /** 模型名称 */
-        private String modelName;
-        /** 导出文件路径 */
-        private String filePath;
-    }
-
-    /** 模型导出任务  从算法版本导出可部署的模型包。 */
-    @Data
-    @NoArgsConstructor
-    @AllArgsConstructor
     public static class ExportTaskOutput {
         /** 资源全局唯一标识符（type:id@cluster_id） */
         private String uri;
@@ -4213,36 +3618,6 @@ public class GeneratedModels {
     @Data
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class FaceResultInput {
-        private Rect2D rect;
-        /** 置信度，内部RPC返回0-1，API返回0-100 */
-        private Double confidence;
-        @JsonProperty("face_quality")
-        private Double faceQuality;
-        private Double quality;
-        @JsonProperty("angle_x")
-        private Double angleX;
-        @JsonProperty("angle_y")
-        private Double angleY;
-        @JsonProperty("angle_z")
-        private Double angleZ;
-        @JsonProperty("rec_mask")
-        private Boolean recMask;
-        @JsonProperty("rec_mask_confidence")
-        private Double recMaskConfidence;
-        @JsonProperty("track_id")
-        private String trackId;
-        @JsonProperty("entity_id")
-        private String entityId;
-        @JsonProperty("face_alignment")
-        private FaceAlignment faceAlignment;
-        private Feature feature;
-    }
-
-    /** 人脸检测结果 */
-    @Data
-    @NoArgsConstructor
-    @AllArgsConstructor
     public static class FaceResultOutput {
         private Rect2D rect;
         /** 置信度，内部RPC返回0-1，API返回0-100 */
@@ -4279,30 +3654,6 @@ public class GeneratedModels {
         private String featureData;
         /** 特征维度 */
         private Integer dimension;
-    }
-
-    /** 特征抽取响应数据 */
-    @Data
-    @NoArgsConstructor
-    @AllArgsConstructor
-    public static class FeatureExtractionDataInput {
-        @JsonProperty("frame_id")
-        private String frameId;
-        private Double timestamp;
-        @JsonProperty("camera_id")
-        private String cameraId;
-        @JsonProperty("processing_time_ms")
-        private Double processingTimeMs;
-        @JsonProperty("task_id")
-        private String taskId;
-        @JsonProperty("face_results")
-        private List<FaceResultInput> faceResults;
-        @JsonProperty("body_results")
-        private List<BodyResult> bodyResults;
-        @JsonProperty("motor_vehicle_results")
-        private List<VehicleResult> motorVehicleResults;
-        @JsonProperty("non_motor_vehicle_results")
-        private List<VehicleResult> nonMotorVehicleResults;
     }
 
     /** 特征抽取响应数据 */
@@ -4735,139 +4086,6 @@ public class GeneratedModels {
         private Boolean dependenciesHealthy;
         /** 各依赖的详细状态 */
         private Object dependencies;
-    }
-
-    /** 告警记录模型 */
-    @Data
-    @NoArgsConstructor
-    @AllArgsConstructor
-    public static class HitRecordInput {
-        private ResourceReferenceFull reference;
-        /** 资源全局唯一标识符（type:id@cluster_id） */
-        private String uri;
-        @JsonProperty("created_at")
-        private String createdAt;
-        @JsonProperty("updated_at")
-        private String updatedAt;
-        /** 资源类型标识（如：camera、region、repository 等） */
-        private String type;
-        /** 布控任务ID */
-        @JsonProperty("surveillance_id")
-        private Integer surveillanceId;
-        /** 布控任务URI */
-        @JsonProperty("surveillance_uri")
-        private String surveillanceUri;
-        /** 布控任务名称 */
-        @JsonProperty("task_name")
-        private String taskName;
-        /** 摄像头URI */
-        @JsonProperty("camera_uri")
-        private String cameraUri;
-        /** 摄像头地址 */
-        @JsonProperty("camera_address")
-        private String cameraAddress;
-        /** 抓拍时间（Unix时间戳） */
-        private Integer timestamp;
-        /** 场景图URI */
-        @JsonProperty("picture_uri")
-        private String pictureUri;
-        /** 抓拍记录URI */
-        @JsonProperty("capture_record_uri")
-        private String captureRecordUri;
-        /** 人脸框位置 */
-        @JsonProperty("face_rect")
-        private ModelsSurveillanceTaskFaceRect faceRect;
-        /** 抓拍小图URI */
-        @JsonProperty("face_image_uri")
-        private String faceImageUri;
-        /** L4o人脸图URL */
-        @JsonProperty("face_image_url")
-        private String faceImageUrl;
-        /** L4o行人图URL */
-        @JsonProperty("pedes_image_url")
-        private String pedesImageUrl;
-        /** L4o场景图URL */
-        @JsonProperty("scene_image_url")
-        private String sceneImageUrl;
-        /** 轨迹开始时间 */
-        @JsonProperty("timestamp_begin")
-        private Integer timestampBegin;
-        /** 轨迹结束时间 */
-        @JsonProperty("timestamp_end")
-        private Integer timestampEnd;
-        /** 抓拍特征（base64） */
-        @JsonProperty("face_feature_base64")
-        private String faceFeatureBase64;
-        /** 命中的人像库URI */
-        @JsonProperty("hit_repository_uri")
-        private String hitRepositoryUri;
-        /** 相似度分数（范围：0-100） */
-        @JsonProperty("hit_similarity")
-        private Double hitSimilarity;
-        /** 命中类型 */
-        @JsonProperty("hit_type")
-        private Integer hitType;
-        /** 命中的底库记录URI */
-        @JsonProperty("hit_record_uri")
-        private String hitRecordUri;
-        /** 命中身份证号 */
-        @JsonProperty("hit_person_id")
-        private String hitPersonId;
-        /** 命中姓名 */
-        @JsonProperty("hit_name")
-        private String hitName;
-        /** 命中性别（0:未知，1:男，2:女） */
-        @JsonProperty("hit_gender")
-        private Integer hitGender;
-        /** 命中国籍 */
-        @JsonProperty("hit_nation")
-        private Integer hitNation;
-        /** 命中出生年份 */
-        @JsonProperty("hit_born_year")
-        private Integer hitBornYear;
-        /** 命中底库图URI */
-        @JsonProperty("hit_picture_uri")
-        private String hitPictureUri;
-        /** 命中人脸图URI */
-        @JsonProperty("hit_face_image_uri")
-        private String hitFaceImageUri;
-        /** 命中记录入库时间 */
-        @JsonProperty("hit_timestamp")
-        private Integer hitTimestamp;
-        /** 命中特征（base64） */
-        @JsonProperty("hit_face_feature_base64")
-        private String hitFaceFeatureBase64;
-        /** 实名化定制：命中底库人员唯一标识（用于查询中间库实名信息） */
-        @JsonProperty("hit_guid")
-        private String hitGuid;
-        /** 实名化定制：命中底库人员类型（与 hit_guid 联用查询中间库实名信息） */
-        @JsonProperty("hit_user_type")
-        private String hitUserType;
-        /** 图片MD5是否相同 */
-        @JsonProperty("md5_same")
-        private Boolean md5Same;
-        /** 身份证号是否相同 */
-        @JsonProperty("person_id_same")
-        private Boolean personIdSame;
-        /** 标注结果（-1:不同人，0:未标注，1:同一人） */
-        private Integer annotation;
-        /** 是否命中（0:计算中，1:命中，2:未命中） */
-        @JsonProperty("same_hit")
-        private Integer sameHit;
-        /** 性能分析时间戳（各处理阶段的耗时记录） */
-        private Object profiling;
-        /** 抓拍数据来源类型（0:视频流，>=1:图片流） */
-        @JsonProperty("track_meta_type")
-        private Integer trackMetaType;
-        /** 时间 HH:mm:ss 格式 */
-        private String time;
-        /** 风险级别（high/medium/low） */
-        private String level;
-        /** 事件名称（用于时间线 title） */
-        @JsonProperty("event_name")
-        private String eventName;
-        /** 描述（用于时间线 description） */
-        private String description;
     }
 
     /** 告警记录模型 */
@@ -5946,23 +5164,6 @@ public class GeneratedModels {
     @Data
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class RelationshipAnalysisDataInput {
-        /** 关系总数 */
-        private Integer total;
-        /** 目标人员档案 ID */
-        @JsonProperty("target_dossier_id")
-        private String targetDossierId;
-        /** 应用的关系类型过滤条件 */
-        @JsonProperty("relation_types_filter")
-        private List<String> relationTypesFilter;
-        /** 关系列表，按关系强度降序 */
-        private List<RelationItem> results;
-    }
-
-    /** 关系分析响应数据  包含目标人员的社会关系网络，按关系强度降序排列 */
-    @Data
-    @NoArgsConstructor
-    @AllArgsConstructor
     public static class RelationshipAnalysisDataOutput {
         /** 关系总数 */
         private Integer total;
@@ -6008,37 +5209,6 @@ public class GeneratedModels {
     @Data
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class RepositoryInput {
-        private ResourceReferenceFull reference;
-        /** 资源全局唯一标识符（type:id@cluster_id） */
-        private String uri;
-        @JsonProperty("created_at")
-        private String createdAt;
-        @JsonProperty("updated_at")
-        private String updatedAt;
-        /** 资源类型标识（如：camera、region、repository 等） */
-        private String type;
-        /** 库名称 */
-        private String name;
-        /** 备注 */
-        private String comment;
-        /** 库类型 */
-        @JsonProperty("repo_type")
-        private RepositoryType repoType;
-        /** 数据类型 */
-        @JsonProperty("data_type")
-        private DataType dataType;
-        /** 库内记录总数 */
-        @JsonProperty("record_count")
-        private Integer recordCount;
-        /** 保密等级 */
-        @JsonProperty("security_level")
-        private SecurityLevel securityLevel;
-    }
-
-    @Data
-    @NoArgsConstructor
-    @AllArgsConstructor
     public static class RepositoryOutput {
         /** 资源全局唯一标识符（type:id@cluster_id） */
         private String uri;
@@ -6070,7 +5240,7 @@ public class GeneratedModels {
     @Data
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class RepositoryInput2 {
+    public static class RepositoryInput {
         /** 库名称 */
         private String name;
         /** 备注 */
@@ -6229,36 +5399,11 @@ public class GeneratedModels {
     @Data
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class RetrievalResultItemInput {
-        /** 记录对象（人脸、人体或车辆记录） */
-        private CaptureFaceRecordInput record;
-        /** 相似度分数（范围：0-100） */
-        private Double similarity;
-    }
-
-    /** 单条检索结果 */
-    @Data
-    @NoArgsConstructor
-    @AllArgsConstructor
     public static class RetrievalResultItemOutput {
         /** 记录对象（人脸、人体或车辆记录） */
         private CaptureFaceRecordOutput record;
         /** 相似度分数（范围：0-100） */
         private Double similarity;
-    }
-
-    /** 同行反查响应数据  包含已识别的同行人和反查到的疑似嫌疑人列表 */
-    @Data
-    @NoArgsConstructor
-    @AllArgsConstructor
-    public static class ReverseCompanionDataInput {
-        /** 符合条件的嫌疑人总数 */
-        private Integer total;
-        /** 已识别的同行人（查询起点） */
-        @JsonProperty("identified_companion")
-        private IdentifiedCompanion identifiedCompanion;
-        /** 疑似嫌疑人列表，按伴随次数降序 */
-        private List<SuspectItem> results;
     }
 
     /** 同行反查响应数据  包含已识别的同行人和反查到的疑似嫌疑人列表 */
@@ -6314,25 +5459,6 @@ public class GeneratedModels {
         private Double executionTimeMs;
         /** 同行反查数据 */
         private ReverseCompanionDataOutput data;
-    }
-
-    /** 角色对象  角色设计： - id: 自增整数，唯一标识（配合 cluster_id） - role_name: 角色名称（不能重复，在同一 cluster_id 下） */
-    @Data
-    @NoArgsConstructor
-    @AllArgsConstructor
-    public static class RoleInput {
-        /** 角色名称（可包含中文，用于显示） */
-        @JsonProperty("role_name")
-        private String roleName;
-        /** 角色描述 */
-        private String description;
-        private ResourceReferenceFull reference;
-        /** 资源全局唯一标识符（type:id@cluster_id） */
-        private String uri;
-        @JsonProperty("created_at")
-        private String createdAt;
-        @JsonProperty("updated_at")
-        private String updatedAt;
     }
 
     /** 角色对象  角色设计： - id: 自增整数，唯一标识（配合 cluster_id） - role_name: 角色名称（不能重复，在同一 cluster_id 下） */
@@ -6544,23 +5670,6 @@ public class GeneratedModels {
     @Data
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class SpatiotemporalCollisionDataInput {
-        /** 碰撞人员总数 */
-        private Integer total;
-        /** 查询区域总数 */
-        @JsonProperty("zones_count")
-        private Integer zonesCount;
-        /** 最小匹配要求 */
-        @JsonProperty("min_match_count")
-        private Integer minMatchCount;
-        /** 碰撞结果列表，按得分降序 */
-        private List<CollisionItem> results;
-    }
-
-    /** 时空碰撞响应数据  包含在指定时空区域都出现过的人员列表，按碰撞得分降序排列 */
-    @Data
-    @NoArgsConstructor
-    @AllArgsConstructor
     public static class SpatiotemporalCollisionDataOutput {
         /** 碰撞人员总数 */
         private Integer total;
@@ -6713,77 +5822,6 @@ public class GeneratedModels {
     @Data
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class SurveillanceTaskInput {
-        private ResourceReferenceFull reference;
-        /** 资源全局唯一标识符（type:id@cluster_id） */
-        private String uri;
-        @JsonProperty("created_at")
-        private String createdAt;
-        @JsonProperty("updated_at")
-        private String updatedAt;
-        /** 资源类型标识（如：camera、region、repository 等） */
-        private String type;
-        /** 任务名称 */
-        private String name;
-        /** 是否启用任务 */
-        private Boolean enabled;
-        /** 扩展元信息 */
-        private Object meta;
-        /** 任务状态 */
-        @JsonProperty("task_status")
-        private TaskStatus taskStatus;
-        /** 布控范围 */
-        @JsonProperty("surveillance_scope")
-        private SurveillanceScope surveillanceScope;
-        @JsonProperty("surveillance_mode")
-        private SurveillanceMode surveillanceMode;
-        /** 静态库URI列表 */
-        @JsonProperty("repository_uris")
-        private List<String> repositoryUris;
-        /** 目标记录的标签ID列表 */
-        @JsonProperty("target_record_tag_ids")
-        private List<Integer> targetRecordTagIds;
-        /** 目标记录标签匹配模式 */
-        @JsonProperty("target_record_tag_match_mode")
-        private MatchMode targetRecordTagMatchMode;
-        /** 相似度阈值（范围：0-100） */
-        private Double threshold;
-        @JsonProperty("database_type")
-        private DatabaseType databaseType;
-        @JsonProperty("process_type")
-        private ProcessType processType;
-        @JsonProperty("surveillance_type")
-        private SurveillanceType surveillanceType;
-        /** 临时布控开始时间 */
-        @JsonProperty("start_timestamp")
-        private Integer startTimestamp;
-        /** 临时布控结束时间 */
-        @JsonProperty("end_timestamp")
-        private Integer endTimestamp;
-        /** 告警记录总数（只读） */
-        @JsonProperty("hit_count")
-        private Integer hitCount;
-        /** L4o 布控规则配置 */
-        @JsonProperty("l4o_rules")
-        private Object l4oRules;
-        /** L5 语义布控的语义查询表达式 */
-        @JsonProperty("semantic_query")
-        private String semanticQuery;
-        /** L5 语义布控的运行参数配置 */
-        @JsonProperty("semantic_config")
-        private Object semanticConfig;
-        /** 输入源类型: rtsp (L5 模式) */
-        @JsonProperty("input_type")
-        private String inputType;
-        /** Worker 类型路由 */
-        @JsonProperty("target_worker_type")
-        private String targetWorkerType;
-    }
-
-    /** 布控任务完整模型 */
-    @Data
-    @NoArgsConstructor
-    @AllArgsConstructor
     public static class SurveillanceTaskOutput {
         /** 资源全局唯一标识符（type:id@cluster_id） */
         private String uri;
@@ -6854,7 +5892,7 @@ public class GeneratedModels {
     @Data
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class SurveillanceTaskInput2 {
+    public static class SurveillanceTaskInput {
         /** 布控任务名称 */
         private String name;
         /** 是否启用布控 */
@@ -7122,39 +6160,6 @@ public class GeneratedModels {
     @Data
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class TagInput {
-        /** 资源类型 */
-        @JsonProperty("resource_type")
-        private String resourceType;
-        /** 父标签ID（None表示根节点） */
-        @JsonProperty("parent_id")
-        private Integer parentId;
-        /** 标签显示名称 */
-        @JsonProperty("tag_name")
-        private String tagName;
-        /** 标签描述 */
-        private String description;
-        /** 同级排序权重（数值越大越靠前） */
-        @JsonProperty("sort_order")
-        private Integer sortOrder;
-        /** 扩展元数据（可选，用于存储额外信息） */
-        private Object metadata;
-        private ResourceReferenceFull reference;
-        /** 资源全局唯一标识符（type:id@cluster_id） */
-        private String uri;
-        @JsonProperty("created_at")
-        private String createdAt;
-        @JsonProperty("updated_at")
-        private String updatedAt;
-        /** 标签路径（ltree格式，由id组成，如 1.2.3） */
-        @JsonProperty("tag_path")
-        private String tagPath;
-    }
-
-    /** 标签对象  标签设计： - id: 自增整数，唯一标识 - tag_path: 由 id 组成的 ltree 路径（如 1.2.3），用于数据库检索，由数据库触发器自动生成，禁止手动修改 - tag_name: 标签名称（可包含中文），用于显示 */
-    @Data
-    @NoArgsConstructor
-    @AllArgsConstructor
     public static class TagOutput {
         /** 资源类型 */
         @JsonProperty("resource_type")
@@ -7412,34 +6417,6 @@ public class GeneratedModels {
     @Data
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class TrainingJobInput {
-        private ResourceReferenceFull reference;
-        /** 资源全局唯一标识符（type:id@cluster_id） */
-        private String uri;
-        /** 创建时间 */
-        private Integer createdTime;
-        @JsonProperty("updated_at")
-        private String updatedAt;
-        /** 资源类型标识（如：camera、region、repository 等） */
-        private String type;
-        /** 任务名称 */
-        private String taskName;
-        /** 任务状态 */
-        private TrainingJobStatus status;
-        /** 子任务列表 */
-        private List<TrainingSubTask> subTasks;
-        /** 开始时间 */
-        private Integer startTrainTime;
-        /** 结束时间 */
-        private Integer endTrainTime;
-        /** 总耗时（毫秒） */
-        private Integer trainCostTime;
-    }
-
-    /** 训练任务资源  一个训练任务可以包含多个子任务，每个子任务训练一个算法。 */
-    @Data
-    @NoArgsConstructor
-    @AllArgsConstructor
     public static class TrainingJobOutput {
         /** 资源全局唯一标识符（type:id@cluster_id） */
         private String uri;
@@ -7497,17 +6474,6 @@ public class GeneratedModels {
         TrainingJobFromAlgorithmType(Object value) { this.value = value; }
         @JsonValue
         public Object getValue() { return value; }
-    }
-
-    /** 训练任务列表数据 */
-    @Data
-    @NoArgsConstructor
-    @AllArgsConstructor
-    public static class TrainingJobListDataInput {
-        /** 任务列表 */
-        private List<TrainingJobInput> trainTaskList;
-        /** 统计信息 */
-        private TrainingJobStats trainTaskMeta;
     }
 
     /** 训练任务列表数据 */
@@ -7897,40 +6863,6 @@ public class GeneratedModels {
         private String uploadUrl;
         private String bucket;
         private String key;
-    }
-
-    /** 用户对象  用户设计： - id: 自增整数，唯一标识（配合 cluster_id） - username: 用户名（必需，唯一，在同一 cluster_id 下） - email: 邮箱（可选，提供时唯一，在同一 cluster_id 下） - Keycloak 只保存 username 和 password - Controller 保存其他所有信息 */
-    @Data
-    @NoArgsConstructor
-    @AllArgsConstructor
-    public static class UserInput {
-        /** 用户名 */
-        private String username;
-        /** 邮箱（可选，提供时需唯一） */
-        private String email;
-        /** 全名 */
-        @JsonProperty("full_name")
-        private String fullName;
-        /** 电话号码 */
-        private String phone;
-        /** 头像URL */
-        @JsonProperty("avatar_url")
-        private String avatarUrl;
-        /** 用户状态（active/inactive/suspended） */
-        private String status;
-        /** 角色ID列表 */
-        private List<Integer> roles;
-        /** 标签ID列表 */
-        private List<Integer> tags;
-        /** 扩展元数据（可选，用于存储额外信息） */
-        private Object metadata;
-        private ResourceReferenceFull reference;
-        /** 资源全局唯一标识符（type:id@cluster_id） */
-        private String uri;
-        @JsonProperty("created_at")
-        private String createdAt;
-        @JsonProperty("updated_at")
-        private String updatedAt;
     }
 
     /** 用户对象  用户设计： - id: 自增整数，唯一标识（配合 cluster_id） - username: 用户名（必需，唯一，在同一 cluster_id 下） - email: 邮箱（可选，提供时唯一，在同一 cluster_id 下） - Keycloak 只保存 username 和 password - Controller 保存其他所有信息 */
