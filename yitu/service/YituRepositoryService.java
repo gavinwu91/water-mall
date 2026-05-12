@@ -1,7 +1,7 @@
 package com.yitu.vms.service;
 
 import com.yitu.vms.client.YituVmsClient;
-import com.yitu.vms.model.BaseResponse;
+import com.yitu.vms.model.GeneratedModels.BaseResponse;
 import com.yitu.vms.model.GeneratedModels.DataType;
 import com.yitu.vms.model.GeneratedModels.RepositoryInput2;
 import com.yitu.vms.model.GeneratedModels.RepositoryType;
@@ -45,20 +45,20 @@ public class YituRepositoryService {
 
         log.info("准备发起请求创建底库, 参数对象: {}", input);
 
-        // 4. 发起 HTTP 远程调用，IDE 能够完美推断出返回值类型是 BaseResponse<ResourceReferenceResponse>
-        BaseResponse<ResourceReferenceResponse> response = yituVmsClient.createRepoApiV1RepositoriesPost(input);
+        // 4. 发起 HTTP 远程调用，IDE 能够完美推断出返回值类型是 ResourceReferenceResponse
+        ResourceReferenceResponse response = yituVmsClient.createRepoApiV1RepositoriesPost(input);
 
-        // 5. 解析并处理依图后端的返回结果
-        if (response.getCode() != null && response.getCode() == 0 && response.getData() != null) {
+        // 5. 解析并处理依图后端的返回结果 (直接调用父类的 isSuccess 或 getRtn)
+        if (response.isSuccess() && response.getReference() != null) {
             
             // 直接通过 getUri() 获取，不再需要把 Object 强转成 Map 然后再 get("uri") 了！
-            String newRepoUri = response.getData().getUri();
+            String newRepoUri = response.getReference().getUri();
             
             log.info("底库创建成功！依图返回的全局唯一 URI 为: {}", newRepoUri);
             return newRepoUri;
             
         } else {
-            log.error("创建底库失败！错误码: {}, 错误信息: {}", response.getCode(), response.getMessage());
+            log.error("创建底库失败！错误码: {}, 错误信息: {}", response.getRtn(), response.getMessage());
             throw new RuntimeException("调用依图 VMS 创建底库失败: " + response.getMessage());
         }
     }

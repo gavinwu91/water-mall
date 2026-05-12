@@ -20,6 +20,32 @@ import java.util.Map;
 
 public class GeneratedModels {
 
+
+
+    @Data
+
+    public static class BaseResponse {
+
+        @JsonProperty("rtn")
+
+        private Integer rtn;
+
+        @JsonProperty("message")
+
+        private String message;
+
+        
+
+        public boolean isSuccess() {
+
+            return this.rtn != null && this.rtn == 0;
+
+        }
+
+    }
+
+
+
     /** 操作类型枚举 */
     public enum ActionEnum {
         CREATE("create"),
@@ -93,11 +119,8 @@ public class GeneratedModels {
     @Data
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class AlertListResponse {
-        /** 接收状态。0表示接收正常，非0表示接收异常 */
-        private Integer rtn;
-        /** 接收状态描述 */
-        private String message;
+    @lombok.EqualsAndHashCode(callSuper = true)
+    public static class AlertListResponse extends BaseResponse {
         private List<Alert> data;
         private Integer total;
     }
@@ -106,11 +129,8 @@ public class GeneratedModels {
     @Data
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class AlertResponse {
-        /** 接收状态。0表示接收正常，非0表示接收异常 */
-        private Integer rtn;
-        /** 接收状态描述 */
-        private String message;
+    @lombok.EqualsAndHashCode(callSuper = true)
+    public static class AlertResponse extends BaseResponse {
         private Alert data;
     }
 
@@ -246,11 +266,8 @@ public class GeneratedModels {
     @Data
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class AlgorithmDatasetListResponse {
-        /** 接收状态。0表示接收正常，非0表示接收异常 */
-        private Integer rtn;
-        /** 接收状态描述 */
-        private String message;
+    @lombok.EqualsAndHashCode(callSuper = true)
+    public static class AlgorithmDatasetListResponse extends BaseResponse {
         /** 数据集列表 */
         private List<TrainDatasetRef> data;
     }
@@ -334,11 +351,8 @@ public class GeneratedModels {
     @Data
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class AlgorithmModelListResponse {
-        /** 接收状态。0表示接收正常，非0表示接收异常 */
-        private Integer rtn;
-        /** 接收状态描述 */
-        private String message;
+    @lombok.EqualsAndHashCode(callSuper = true)
+    public static class AlgorithmModelListResponse extends BaseResponse {
         private List<AlgorithmModel> models;
         private Pagination pagination;
     }
@@ -371,11 +385,8 @@ public class GeneratedModels {
     @Data
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class AlgorithmResponse {
-        /** 接收状态。0表示接收正常，非0表示接收异常 */
-        private Integer rtn;
-        /** 接收状态描述 */
-        private String message;
+    @lombok.EqualsAndHashCode(callSuper = true)
+    public static class AlgorithmResponse extends BaseResponse {
         /** 算法详情 */
         private AlgorithmOutput data;
     }
@@ -396,11 +407,8 @@ public class GeneratedModels {
     @Data
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class AnnotateHitRecordsResponse {
-        /** 接收状态。0表示接收正常，非0表示接收异常 */
-        private Integer rtn;
-        /** 接收状态描述 */
-        private String message;
+    @lombok.EqualsAndHashCode(callSuper = true)
+    public static class AnnotateHitRecordsResponse extends BaseResponse {
         /** 成功标注的数量 */
         @JsonProperty("annotated_count")
         private Integer annotatedCount;
@@ -471,11 +479,8 @@ public class GeneratedModels {
     @Data
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class AreaScreeningResponse {
-        /** 接收状态。0表示接收正常，非0表示接收异常 */
-        private Integer rtn;
-        /** 接收状态描述 */
-        private String message;
+    @lombok.EqualsAndHashCode(callSuper = true)
+    public static class AreaScreeningResponse extends BaseResponse {
         /** 请求追踪 ID */
         @JsonProperty("request_id")
         private String requestId;
@@ -547,11 +552,8 @@ public class GeneratedModels {
     @Data
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class AtomicTaskListResponse {
-        /** 接收状态。0表示接收正常，非0表示接收异常 */
-        private Integer rtn;
-        /** 接收状态描述 */
-        private String message;
+    @lombok.EqualsAndHashCode(callSuper = true)
+    public static class AtomicTaskListResponse extends BaseResponse {
         private List<AtomicTask> tasks;
         private Pagination pagination;
     }
@@ -625,22 +627,16 @@ public class GeneratedModels {
     @Data
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class AuditLogCreateResponse {
-        /** 接收状态。0表示接收正常，非0表示接收异常 */
-        private Integer rtn;
-        /** 接收状态描述 */
-        private String message;
+    @lombok.EqualsAndHashCode(callSuper = true)
+    public static class AuditLogCreateResponse extends BaseResponse {
         private Object data;
     }
 
     @Data
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class AuditLogDetailResponse {
-        /** 接收状态。0表示接收正常，非0表示接收异常 */
-        private Integer rtn;
-        /** 接收状态描述 */
-        private String message;
+    @lombok.EqualsAndHashCode(callSuper = true)
+    public static class AuditLogDetailResponse extends BaseResponse {
         private AuditLogRecord data;
     }
 
@@ -669,11 +665,8 @@ public class GeneratedModels {
     @Data
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class AuditLogListResponse {
-        /** 接收状态。0表示接收正常，非0表示接收异常 */
-        private Integer rtn;
-        /** 接收状态描述 */
-        private String message;
+    @lombok.EqualsAndHashCode(callSuper = true)
+    public static class AuditLogListResponse extends BaseResponse {
         private AuditLogListDataOutput data;
     }
 
@@ -727,11 +720,8 @@ public class GeneratedModels {
     @Data
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class BasicResponse {
-        /** 接收状态。0表示接收正常，非0表示接收异常 */
-        private Integer rtn;
-        /** 接收状态描述 */
-        private String message;
+    @lombok.EqualsAndHashCode(callSuper = true)
+    public static class BasicResponse extends BaseResponse {
     }
 
     /** 批量添加设备输入 */
@@ -746,11 +736,8 @@ public class GeneratedModels {
     @Data
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class BatchAddDevicesResponse {
-        /** 接收状态。0表示接收正常，非0表示接收异常 */
-        private Integer rtn;
-        /** 接收状态描述 */
-        private String message;
+    @lombok.EqualsAndHashCode(callSuper = true)
+    public static class BatchAddDevicesResponse extends BaseResponse {
         @JsonProperty("added_count")
         private Integer addedCount;
         @JsonProperty("failed_count")
@@ -779,11 +766,8 @@ public class GeneratedModels {
     @Data
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class BatchAddRecordsResponse {
-        /** 接收状态。0表示接收正常，非0表示接收异常 */
-        private Integer rtn;
-        /** 接收状态描述 */
-        private String message;
+    @lombok.EqualsAndHashCode(callSuper = true)
+    public static class BatchAddRecordsResponse extends BaseResponse {
         /** 成功导入数量 */
         @JsonProperty("imported_count")
         private Integer importedCount;
@@ -870,9 +854,8 @@ public class GeneratedModels {
     @Data
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class BatchFeatureExtractionResponse {
-        private String message;
-        private Integer rtn;
+    @lombok.EqualsAndHashCode(callSuper = true)
+    public static class BatchFeatureExtractionResponse extends BaseResponse {
         private BatchFeatureExtractionDataOutput data;
     }
 
@@ -905,11 +888,8 @@ public class GeneratedModels {
     @Data
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class BatchRemoveDevicesResponse {
-        /** 接收状态。0表示接收正常，非0表示接收异常 */
-        private Integer rtn;
-        /** 接收状态描述 */
-        private String message;
+    @lombok.EqualsAndHashCode(callSuper = true)
+    public static class BatchRemoveDevicesResponse extends BaseResponse {
         @JsonProperty("removed_count")
         private Integer removedCount;
         @JsonProperty("not_found_count")
@@ -965,11 +945,8 @@ public class GeneratedModels {
     @Data
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class BatchSyncUploadResponse {
-        /** 接收状态。0表示接收正常，非0表示接收异常 */
-        private Integer rtn;
-        /** 接收状态描述 */
-        private String message;
+    @lombok.EqualsAndHashCode(callSuper = true)
+    public static class BatchSyncUploadResponse extends BaseResponse {
         /** 成功导入数量 */
         @JsonProperty("imported_count")
         private Integer importedCount;
@@ -993,11 +970,8 @@ public class GeneratedModels {
     @Data
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class BatchUploadResponse {
-        /** 接收状态。0表示接收正常，非0表示接收异常 */
-        private Integer rtn;
-        /** 接收状态描述 */
-        private String message;
+    @lombok.EqualsAndHashCode(callSuper = true)
+    public static class BatchUploadResponse extends BaseResponse {
         /** 批量上传结果 */
         private Object data;
     }
@@ -1141,11 +1115,8 @@ public class GeneratedModels {
     @Data
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class BulkCreateCamerasResponse {
-        /** 接收状态。0表示接收正常，非0表示接收异常 */
-        private Integer rtn;
-        /** 接收状态描述 */
-        private String message;
+    @lombok.EqualsAndHashCode(callSuper = true)
+    public static class BulkCreateCamerasResponse extends BaseResponse {
         @JsonProperty("created_count")
         private Integer createdCount;
         @JsonProperty("failed_count")
@@ -1169,11 +1140,8 @@ public class GeneratedModels {
     @Data
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class BulkUpsertCamerasResponse {
-        /** 接收状态。0表示接收正常，非0表示接收异常 */
-        private Integer rtn;
-        /** 接收状态描述 */
-        private String message;
+    @lombok.EqualsAndHashCode(callSuper = true)
+    public static class BulkUpsertCamerasResponse extends BaseResponse {
         /** 新建成功的数量 */
         @JsonProperty("created_count")
         private Integer createdCount;
@@ -1483,11 +1451,8 @@ public class GeneratedModels {
     @Data
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class CameraResponse {
-        /** 接收状态。0表示接收正常，非0表示接收异常 */
-        private Integer rtn;
-        /** 接收状态描述 */
-        private String message;
+    @lombok.EqualsAndHashCode(callSuper = true)
+    public static class CameraResponse extends BaseResponse {
         /** 摄像头详情 */
         private CameraOutput camera;
         /** 摄像头列表 */
@@ -1663,11 +1628,8 @@ public class GeneratedModels {
     @Data
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class CameraViewportQueryResponse {
-        /** 接收状态。0表示接收正常，非0表示接收异常 */
-        private Integer rtn;
-        /** 接收状态描述 */
-        private String message;
+    @lombok.EqualsAndHashCode(callSuper = true)
+    public static class CameraViewportQueryResponse extends BaseResponse {
         /** 是否超过阈值 */
         private Boolean overflow;
         /** 命中总数 */
@@ -2399,11 +2361,8 @@ public class GeneratedModels {
     @Data
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class ClusterInfoResponse {
-        /** 返回码         - 0: 成功         - 非0: 失败（具体错误码见错误码表） */
-        private Integer rtn;
-        /** 返回消息 */
-        private String message;
+    @lombok.EqualsAndHashCode(callSuper = true)
+    public static class ClusterInfoResponse extends BaseResponse {
         /** 集群信息 */
         private ClusterInfo cluster;
     }
@@ -2470,11 +2429,8 @@ public class GeneratedModels {
     @Data
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class CompanionAnalysisResponse {
-        /** 接收状态。0表示接收正常，非0表示接收异常 */
-        private Integer rtn;
-        /** 接收状态描述 */
-        private String message;
+    @lombok.EqualsAndHashCode(callSuper = true)
+    public static class CompanionAnalysisResponse extends BaseResponse {
         /** 请求追踪 ID */
         @JsonProperty("request_id")
         private String requestId;
@@ -2538,9 +2494,8 @@ public class GeneratedModels {
     @Data
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class Compare1v1Response {
-        private String message;
-        private Integer rtn;
+    @lombok.EqualsAndHashCode(callSuper = true)
+    public static class Compare1v1Response extends BaseResponse {
         private Compare1v1Data data;
     }
 
@@ -2598,11 +2553,8 @@ public class GeneratedModels {
     @Data
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class ComponentListResponse {
-        /** 接收状态。0表示接收正常，非0表示接收异常 */
-        private Integer rtn;
-        /** 接收状态描述 */
-        private String message;
+    @lombok.EqualsAndHashCode(callSuper = true)
+    public static class ComponentListResponse extends BaseResponse {
         private List<Component> data;
     }
 
@@ -2658,11 +2610,8 @@ public class GeneratedModels {
     @Data
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class ComponentMetricsResponse {
-        /** 接收状态。0表示接收正常，非0表示接收异常 */
-        private Integer rtn;
-        /** 接收状态描述 */
-        private String message;
+    @lombok.EqualsAndHashCode(callSuper = true)
+    public static class ComponentMetricsResponse extends BaseResponse {
         private ComponentMetrics data;
         @JsonProperty("time_series")
         private List<ComponentMetrics> timeSeries;
@@ -2672,11 +2621,8 @@ public class GeneratedModels {
     @Data
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class ComponentResponse {
-        /** 接收状态。0表示接收正常，非0表示接收异常 */
-        private Integer rtn;
-        /** 接收状态描述 */
-        private String message;
+    @lombok.EqualsAndHashCode(callSuper = true)
+    public static class ComponentResponse extends BaseResponse {
         private Component data;
     }
 
@@ -2716,11 +2662,8 @@ public class GeneratedModels {
     @Data
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class ControlTaskResponse {
-        /** 接收状态。0表示接收正常，非0表示接收异常 */
-        private Integer rtn;
-        /** 接收状态描述 */
-        private String message;
+    @lombok.EqualsAndHashCode(callSuper = true)
+    public static class ControlTaskResponse extends BaseResponse {
         @JsonProperty("new_status")
         private Integer newStatus;
         @JsonProperty("new_intent")
@@ -2751,11 +2694,8 @@ public class GeneratedModels {
     @Data
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class CreateAtomicTaskResponse {
-        /** 接收状态。0表示接收正常，非0表示接收异常 */
-        private Integer rtn;
-        /** 接收状态描述 */
-        private String message;
+    @lombok.EqualsAndHashCode(callSuper = true)
+    public static class CreateAtomicTaskResponse extends BaseResponse {
         @JsonProperty("atomic_task")
         private AtomicTaskInfo atomicTask;
     }
@@ -2817,11 +2757,8 @@ public class GeneratedModels {
     @Data
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class CreateEventResponse {
-        /** 接收状态。0表示接收正常，非0表示接收异常 */
-        private Integer rtn;
-        /** 接收状态描述 */
-        private String message;
+    @lombok.EqualsAndHashCode(callSuper = true)
+    public static class CreateEventResponse extends BaseResponse {
         /** 创建的事件详情 */
         private Object event;
         /** 事件 ID */
@@ -2927,11 +2864,8 @@ public class GeneratedModels {
     @Data
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class CreateTaskResponse {
-        /** 接收状态。0表示接收正常，非0表示接收异常 */
-        private Integer rtn;
-        /** 接收状态描述 */
-        private String message;
+    @lombok.EqualsAndHashCode(callSuper = true)
+    public static class CreateTaskResponse extends BaseResponse {
         @JsonProperty("task_id")
         private String taskId;
         @JsonProperty("device_count")
@@ -2973,11 +2907,8 @@ public class GeneratedModels {
     @Data
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class CreateUserResponse {
-        /** 接收状态。0表示接收正常，非0表示接收异常 */
-        private Integer rtn;
-        /** 接收状态描述 */
-        private String message;
+    @lombok.EqualsAndHashCode(callSuper = true)
+    public static class CreateUserResponse extends BaseResponse {
         private UserOutput user;
     }
 
@@ -3078,11 +3009,8 @@ public class GeneratedModels {
     @Data
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class DatasetAlgorithmListResponse {
-        /** 接收状态。0表示接收正常，非0表示接收异常 */
-        private Integer rtn;
-        /** 接收状态描述 */
-        private String message;
+    @lombok.EqualsAndHashCode(callSuper = true)
+    public static class DatasetAlgorithmListResponse extends BaseResponse {
         /** 使用此数据集的算法列表 */
         private List<AlgorithmDatasetRef> data;
     }
@@ -3144,11 +3072,8 @@ public class GeneratedModels {
     @Data
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class DatasetListResponse {
-        /** 接收状态。0表示接收正常，非0表示接收异常 */
-        private Integer rtn;
-        /** 接收状态描述 */
-        private String message;
+    @lombok.EqualsAndHashCode(callSuper = true)
+    public static class DatasetListResponse extends BaseResponse {
         /** 数据集列表 */
         private List<DatasetListItem> data;
         /** 总数 */
@@ -3182,11 +3107,8 @@ public class GeneratedModels {
     @Data
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class DatasetResourceListResponse {
-        /** 接收状态。0表示接收正常，非0表示接收异常 */
-        private Integer rtn;
-        /** 接收状态描述 */
-        private String message;
+    @lombok.EqualsAndHashCode(callSuper = true)
+    public static class DatasetResourceListResponse extends BaseResponse {
         /** 资源列表 */
         private List<DatasetResource> data;
         /** 总数 */
@@ -3220,11 +3142,8 @@ public class GeneratedModels {
     @Data
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class DatasetResponse {
-        /** 接收状态。0表示接收正常，非0表示接收异常 */
-        private Integer rtn;
-        /** 接收状态描述 */
-        private String message;
+    @lombok.EqualsAndHashCode(callSuper = true)
+    public static class DatasetResponse extends BaseResponse {
         /** 数据集详情 */
         private DatasetOutput data;
     }
@@ -3273,11 +3192,8 @@ public class GeneratedModels {
     @Data
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class DatasetVersionsResponse {
-        /** 接收状态。0表示接收正常，非0表示接收异常 */
-        private Integer rtn;
-        /** 接收状态描述 */
-        private String message;
+    @lombok.EqualsAndHashCode(callSuper = true)
+    public static class DatasetVersionsResponse extends BaseResponse {
         /** 版本列表 */
         private List<DatasetVersion> data;
     }
@@ -3286,11 +3202,8 @@ public class GeneratedModels {
     @Data
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class DeleteAtomicTaskResponse {
-        /** 接收状态。0表示接收正常，非0表示接收异常 */
-        private Integer rtn;
-        /** 接收状态描述 */
-        private String message;
+    @lombok.EqualsAndHashCode(callSuper = true)
+    public static class DeleteAtomicTaskResponse extends BaseResponse {
     }
 
     /** 删除权限请求 */
@@ -3544,11 +3457,8 @@ public class GeneratedModels {
     @Data
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class DossierIdsByTagResponse {
-        /** 接收状态。0表示接收正常，非0表示接收异常 */
-        private Integer rtn;
-        /** 接收状态描述 */
-        private String message;
+    @lombok.EqualsAndHashCode(callSuper = true)
+    public static class DossierIdsByTagResponse extends BaseResponse {
         /** 档案ID列表 */
         @JsonProperty("dossier_ids")
         private List<String> dossierIds;
@@ -3574,11 +3484,8 @@ public class GeneratedModels {
     @Data
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class DossierListResponse {
-        /** 接收状态。0表示接收正常，非0表示接收异常 */
-        private Integer rtn;
-        /** 接收状态描述 */
-        private String message;
+    @lombok.EqualsAndHashCode(callSuper = true)
+    public static class DossierListResponse extends BaseResponse {
         /** 档案列表 */
         private List<DossierOutput> dossiers;
         /** 分页信息 */
@@ -3681,11 +3588,8 @@ public class GeneratedModels {
     @Data
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class DossierResponse {
-        /** 接收状态。0表示接收正常，非0表示接收异常 */
-        private Integer rtn;
-        /** 接收状态描述 */
-        private String message;
+    @lombok.EqualsAndHashCode(callSuper = true)
+    public static class DossierResponse extends BaseResponse {
         /** 档案详细信息 */
         private DossierOutput dossier;
     }
@@ -3717,11 +3621,8 @@ public class GeneratedModels {
     @Data
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class DossierRetrievalResponse {
-        /** 接收状态。0表示接收正常，非0表示接收异常 */
-        private Integer rtn;
-        /** 接收状态描述 */
-        private String message;
+    @lombok.EqualsAndHashCode(callSuper = true)
+    public static class DossierRetrievalResponse extends BaseResponse {
         /** 检索查询ID */
         @JsonProperty("retrieval_query_id")
         private Integer retrievalQueryId;
@@ -3805,11 +3706,8 @@ public class GeneratedModels {
     @Data
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class DossierTagDefListResponse {
-        /** 接收状态。0表示接收正常，非0表示接收异常 */
-        private Integer rtn;
-        /** 接收状态描述 */
-        private String message;
+    @lombok.EqualsAndHashCode(callSuper = true)
+    public static class DossierTagDefListResponse extends BaseResponse {
         /** 标签定义列表 */
         private List<DossierTagDef> tags;
     }
@@ -3817,11 +3715,8 @@ public class GeneratedModels {
     @Data
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class DossierTagDefResponse {
-        /** 接收状态。0表示接收正常，非0表示接收异常 */
-        private Integer rtn;
-        /** 接收状态描述 */
-        private String message;
+    @lombok.EqualsAndHashCode(callSuper = true)
+    public static class DossierTagDefResponse extends BaseResponse {
         /** 标签定义 */
         private DossierTagDef tag;
     }
@@ -3917,11 +3812,8 @@ public class GeneratedModels {
     @Data
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class EnsureTagPathsResponse {
-        /** 接收状态。0表示接收正常，非0表示接收异常 */
-        private Integer rtn;
-        /** 接收状态描述 */
-        private String message;
+    @lombok.EqualsAndHashCode(callSuper = true)
+    public static class EnsureTagPathsResponse extends BaseResponse {
         @JsonProperty("root_id")
         private Integer rootId;
         /** 本次新建的 tag 节点数（节点级，去重后） */
@@ -3937,13 +3829,10 @@ public class GeneratedModels {
     @Data
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class ErrorResponse {
-        /** 接收状态。0表示接收正常，非0表示接收异常 */
-        private Integer rtn;
+    @lombok.EqualsAndHashCode(callSuper = true)
+    public static class ErrorResponse extends BaseResponse {
         /** 错误代码 */
         private String error;
-        /** 错误描述 */
-        private String message;
         /** 请求追踪ID */
         @JsonProperty("request_id")
         private String requestId;
@@ -3966,11 +3855,8 @@ public class GeneratedModels {
     @Data
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class EventDetailResponse {
-        /** 接收状态。0表示接收正常，非0表示接收异常 */
-        private Integer rtn;
-        /** 接收状态描述 */
-        private String message;
+    @lombok.EqualsAndHashCode(callSuper = true)
+    public static class EventDetailResponse extends BaseResponse {
         /** 事件详情 */
         private Object event;
     }
@@ -4038,11 +3924,8 @@ public class GeneratedModels {
     @Data
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class EventSearchResponse {
-        /** 接收状态。0表示接收正常，非0表示接收异常 */
-        private Integer rtn;
-        /** 接收状态描述 */
-        private String message;
+    @lombok.EqualsAndHashCode(callSuper = true)
+    public static class EventSearchResponse extends BaseResponse {
         /** 事件列表 */
         private List<Object> events;
         /** 总数 */
@@ -4164,11 +4047,8 @@ public class GeneratedModels {
     @Data
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class ExportTaskListResponse {
-        /** 接收状态。0表示接收正常，非0表示接收异常 */
-        private Integer rtn;
-        /** 接收状态描述 */
-        private String message;
+    @lombok.EqualsAndHashCode(callSuper = true)
+    public static class ExportTaskListResponse extends BaseResponse {
         /** 导出任务列表 */
         private List<ExportTaskOutput> data;
         /** 分页信息 */
@@ -4179,11 +4059,8 @@ public class GeneratedModels {
     @Data
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class ExportTaskResponse {
-        /** 接收状态。0表示接收正常，非0表示接收异常 */
-        private Integer rtn;
-        /** 接收状态描述 */
-        private String message;
+    @lombok.EqualsAndHashCode(callSuper = true)
+    public static class ExportTaskResponse extends BaseResponse {
         /** 导出任务详情 */
         private ExportTaskOutput data;
     }
@@ -4493,9 +4370,8 @@ public class GeneratedModels {
     @Data
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class FeatureExtractionResponse {
-        private String message;
-        private Integer rtn;
+    @lombok.EqualsAndHashCode(callSuper = true)
+    public static class FeatureExtractionResponse extends BaseResponse {
         private FeatureExtractionDataOutput data;
     }
 
@@ -4643,11 +4519,8 @@ public class GeneratedModels {
     @Data
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class FirstEntryResponse {
-        /** 接收状态。0表示接收正常，非0表示接收异常 */
-        private Integer rtn;
-        /** 接收状态描述 */
-        private String message;
+    @lombok.EqualsAndHashCode(callSuper = true)
+    public static class FirstEntryResponse extends BaseResponse {
         /** 请求追踪 ID */
         @JsonProperty("request_id")
         private String requestId;
@@ -4692,11 +4565,8 @@ public class GeneratedModels {
     @Data
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class FootholdAnalysisResponse {
-        /** 接收状态。0表示接收正常，非0表示接收异常 */
-        private Integer rtn;
-        /** 接收状态描述 */
-        private String message;
+    @lombok.EqualsAndHashCode(callSuper = true)
+    public static class FootholdAnalysisResponse extends BaseResponse {
         /** 请求追踪 ID */
         @JsonProperty("request_id")
         private String requestId;
@@ -4727,11 +4597,8 @@ public class GeneratedModels {
     @Data
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class GetAtomicTaskResponse {
-        /** 接收状态。0表示接收正常，非0表示接收异常 */
-        private Integer rtn;
-        /** 接收状态描述 */
-        private String message;
+    @lombok.EqualsAndHashCode(callSuper = true)
+    public static class GetAtomicTaskResponse extends BaseResponse {
         @JsonProperty("atomic_task")
         private AtomicTaskInfo atomicTask;
     }
@@ -4740,22 +4607,16 @@ public class GeneratedModels {
     @Data
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class GetDeviceResponse {
-        /** 接收状态。0表示接收正常，非0表示接收异常 */
-        private Integer rtn;
-        /** 接收状态描述 */
-        private String message;
+    @lombok.EqualsAndHashCode(callSuper = true)
+    public static class GetDeviceResponse extends BaseResponse {
         private VADeviceV2Info device;
     }
 
     @Data
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class GetRepoResponse {
-        /** 接收状态。0表示接收正常，非0表示接收异常 */
-        private Integer rtn;
-        /** 接收状态描述 */
-        private String message;
+    @lombok.EqualsAndHashCode(callSuper = true)
+    public static class GetRepoResponse extends BaseResponse {
         private RepositoryOutput repository;
     }
 
@@ -4763,11 +4624,8 @@ public class GeneratedModels {
     @Data
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class GetTaskDetailResponse {
-        /** 接收状态。0表示接收正常，非0表示接收异常 */
-        private Integer rtn;
-        /** 接收状态描述 */
-        private String message;
+    @lombok.EqualsAndHashCode(callSuper = true)
+    public static class GetTaskDetailResponse extends BaseResponse {
         private VATaskV2Info task;
         @JsonProperty("device_aggregation")
         private DeviceAggregation deviceAggregation;
@@ -4779,11 +4637,8 @@ public class GeneratedModels {
     @Data
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class GetTemplateResponse {
-        /** 接收状态。0表示接收正常，非0表示接收异常 */
-        private Integer rtn;
-        /** 接收状态描述 */
-        private String message;
+    @lombok.EqualsAndHashCode(callSuper = true)
+    public static class GetTemplateResponse extends BaseResponse {
         private VATaskV2Template template;
     }
 
@@ -4827,11 +4682,8 @@ public class GeneratedModels {
     @Data
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class HealthCheckResponse {
-        /** 接收状态。0表示接收正常，非0表示接收异常 */
-        private Integer rtn;
-        /** 接收状态描述 */
-        private String message;
+    @lombok.EqualsAndHashCode(callSuper = true)
+    public static class HealthCheckResponse extends BaseResponse {
         private String status;
         @JsonProperty("status_code")
         private Integer statusCode;
@@ -5218,11 +5070,8 @@ public class GeneratedModels {
     @Data
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class ImageUploadResponse {
-        /** 接收状态。0表示接收正常，非0表示接收异常 */
-        private Integer rtn;
-        /** 接收状态描述 */
-        private String message;
+    @lombok.EqualsAndHashCode(callSuper = true)
+    public static class ImageUploadResponse extends BaseResponse {
         /** 上传结果 */
         private ImageUploadResult data;
     }
@@ -5245,11 +5094,8 @@ public class GeneratedModels {
     @Data
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class ImportCheckResponse {
-        /** 接收状态。0表示接收正常，非0表示接收异常 */
-        private Integer rtn;
-        /** 接收状态描述 */
-        private String message;
+    @lombok.EqualsAndHashCode(callSuper = true)
+    public static class ImportCheckResponse extends BaseResponse {
         /** 检查结果 */
         private Object data;
     }
@@ -5281,11 +5127,8 @@ public class GeneratedModels {
     @Data
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class InitMultipartResponse {
-        /** 接收状态。0表示接收正常，非0表示接收异常 */
-        private Integer rtn;
-        /** 接收状态描述 */
-        private String message;
+    @lombok.EqualsAndHashCode(callSuper = true)
+    public static class InitMultipartResponse extends BaseResponse {
         @JsonProperty("upload_id")
         private String uploadId;
         private String bucket;
@@ -5345,11 +5188,8 @@ public class GeneratedModels {
     @Data
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class L4DossierRetrievalResponse {
-        /** 接收状态。0表示接收正常，非0表示接收异常 */
-        private Integer rtn;
-        /** 接收状态描述 */
-        private String message;
+    @lombok.EqualsAndHashCode(callSuper = true)
+    public static class L4DossierRetrievalResponse extends BaseResponse {
         /** 操作类型 */
         private String action;
         /** 总数 */
@@ -5362,19 +5202,15 @@ public class GeneratedModels {
     @Data
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class LagencyResponse {
-        /** 返回码，0表示成功 */
-        private Integer rtn;
-        /** 返回消息 */
-        private String message;
+    @lombok.EqualsAndHashCode(callSuper = true)
+    public static class LagencyResponse extends BaseResponse {
     }
 
     @Data
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class LicenseStatusResponse {
-        /** 返回码，0 表示成功 */
-        private Integer rtn;
+    @lombok.EqualsAndHashCode(callSuper = true)
+    public static class LicenseStatusResponse extends BaseResponse {
         /** License 状态: UNKNOWN/VALID/EXPIRED/UP_TO_LIMIT/ERROR */
         private String state;
         /** License 状态码 */
@@ -5386,8 +5222,6 @@ public class GeneratedModels {
         private String payload;
         /** License 过期时间戳（Unix 秒） */
         private Integer expiration;
-        /** 状态说明 */
-        private String message;
         /** 产品实例 ID */
         @JsonProperty("instance_id")
         private String instanceId;
@@ -5399,11 +5233,8 @@ public class GeneratedModels {
     @Data
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class ListAlgorithmsResponse {
-        /** 接收状态。0表示接收正常，非0表示接收异常 */
-        private Integer rtn;
-        /** 接收状态描述 */
-        private String message;
+    @lombok.EqualsAndHashCode(callSuper = true)
+    public static class ListAlgorithmsResponse extends BaseResponse {
         private List<AlgoMgrAlgorithm> algorithms;
         private Integer total;
     }
@@ -5412,11 +5243,8 @@ public class GeneratedModels {
     @Data
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class ListAtomicTasksResponse {
-        /** 接收状态。0表示接收正常，非0表示接收异常 */
-        private Integer rtn;
-        /** 接收状态描述 */
-        private String message;
+    @lombok.EqualsAndHashCode(callSuper = true)
+    public static class ListAtomicTasksResponse extends BaseResponse {
         @JsonProperty("atomic_tasks")
         private List<AtomicTaskInfo> atomicTasks;
         private Integer total;
@@ -5426,11 +5254,8 @@ public class GeneratedModels {
     @Data
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class ListCamerasResponse {
-        /** 接收状态。0表示接收正常，非0表示接收异常 */
-        private Integer rtn;
-        /** 接收状态描述 */
-        private String message;
+    @lombok.EqualsAndHashCode(callSuper = true)
+    public static class ListCamerasResponse extends BaseResponse {
         /** 摄像头列表 */
         private List<CameraOutput> cameras;
         /** 分页信息 */
@@ -5441,11 +5266,8 @@ public class GeneratedModels {
     @Data
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class ListDevicesResponse {
-        /** 接收状态。0表示接收正常，非0表示接收异常 */
-        private Integer rtn;
-        /** 接收状态描述 */
-        private String message;
+    @lombok.EqualsAndHashCode(callSuper = true)
+    public static class ListDevicesResponse extends BaseResponse {
         private List<VADeviceV2Info> devices;
         private Integer total;
     }
@@ -5476,11 +5298,8 @@ public class GeneratedModels {
     @Data
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class ListHitRecordsResponse {
-        /** 接收状态。0表示接收正常，非0表示接收异常 */
-        private Integer rtn;
-        /** 接收状态描述 */
-        private String message;
+    @lombok.EqualsAndHashCode(callSuper = true)
+    public static class ListHitRecordsResponse extends BaseResponse {
         /** 告警记录列表 */
         @JsonProperty("hit_records")
         private List<HitRecordOutput> hitRecords;
@@ -5492,11 +5311,8 @@ public class GeneratedModels {
     @Data
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class ListOfflineFilesResponse {
-        /** 接收状态。0表示接收正常，非0表示接收异常 */
-        private Integer rtn;
-        /** 接收状态描述 */
-        private String message;
+    @lombok.EqualsAndHashCode(callSuper = true)
+    public static class ListOfflineFilesResponse extends BaseResponse {
         private List<OfflineFileInfo> files;
         private Integer total;
     }
@@ -5505,11 +5321,8 @@ public class GeneratedModels {
     @Data
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class ListPartsResponse {
-        /** 接收状态。0表示接收正常，非0表示接收异常 */
-        private Integer rtn;
-        /** 接收状态描述 */
-        private String message;
+    @lombok.EqualsAndHashCode(callSuper = true)
+    public static class ListPartsResponse extends BaseResponse {
         private List<Object> parts;
         @JsonProperty("upload_id")
         private String uploadId;
@@ -5534,11 +5347,8 @@ public class GeneratedModels {
     @Data
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class ListRecordsResponse {
-        /** 接收状态。0表示接收正常，非0表示接收异常 */
-        private Integer rtn;
-        /** 接收状态描述 */
-        private String message;
+    @lombok.EqualsAndHashCode(callSuper = true)
+    public static class ListRecordsResponse extends BaseResponse {
         /** 记录列表 */
         private List<CaptureFaceRecordOutput> records;
         /** 分页信息 */
@@ -5548,11 +5358,8 @@ public class GeneratedModels {
     @Data
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class ListReposResponse {
-        /** 接收状态。0表示接收正常，非0表示接收异常 */
-        private Integer rtn;
-        /** 接收状态描述 */
-        private String message;
+    @lombok.EqualsAndHashCode(callSuper = true)
+    public static class ListReposResponse extends BaseResponse {
         /** 库列表 */
         private List<RepositoryOutput> repositories;
         /** 分页信息 */
@@ -5601,11 +5408,8 @@ public class GeneratedModels {
     @Data
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class LoginResponse {
-        /** 接收状态。0表示接收正常，非0表示接收异常 */
-        private Integer rtn;
-        /** 接收状态描述 */
-        private String message;
+    @lombok.EqualsAndHashCode(callSuper = true)
+    public static class LoginResponse extends BaseResponse {
         /** 用户ID */
         @JsonProperty("user_id")
         private Integer userId;
@@ -5667,11 +5471,8 @@ public class GeneratedModels {
     @Data
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class MeResponse {
-        /** 接收状态。0表示接收正常，非0表示接收异常 */
-        private Integer rtn;
-        /** 接收状态描述 */
-        private String message;
+    @lombok.EqualsAndHashCode(callSuper = true)
+    public static class MeResponse extends BaseResponse {
         /** 用户ID */
         @JsonProperty("user_id")
         private Integer userId;
@@ -5830,11 +5631,8 @@ public class GeneratedModels {
     @Data
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class OfflineFileResponse {
-        /** 接收状态。0表示接收正常，非0表示接收异常 */
-        private Integer rtn;
-        /** 接收状态描述 */
-        private String message;
+    @lombok.EqualsAndHashCode(callSuper = true)
+    public static class OfflineFileResponse extends BaseResponse {
         private OfflineFileInfo file;
     }
 
@@ -5885,11 +5683,8 @@ public class GeneratedModels {
     @Data
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class PermissionListResponse {
-        /** 接收状态。0表示接收正常，非0表示接收异常 */
-        private Integer rtn;
-        /** 接收状态描述 */
-        private String message;
+    @lombok.EqualsAndHashCode(callSuper = true)
+    public static class PermissionListResponse extends BaseResponse {
         /** 权限总数 */
         private Integer total;
         /** 权限列表 */
@@ -6016,11 +5811,8 @@ public class GeneratedModels {
     @Data
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class PresignPartResponse {
-        /** 接收状态。0表示接收正常，非0表示接收异常 */
-        private Integer rtn;
-        /** 接收状态描述 */
-        private String message;
+    @lombok.EqualsAndHashCode(callSuper = true)
+    public static class PresignPartResponse extends BaseResponse {
         @JsonProperty("upload_url")
         private String uploadUrl;
         @JsonProperty("part_number")
@@ -6043,11 +5835,8 @@ public class GeneratedModels {
     @Data
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class ProgressResponse {
-        /** 接收状态。0表示接收正常，非0表示接收异常 */
-        private Integer rtn;
-        /** 接收状态描述 */
-        private String message;
+    @lombok.EqualsAndHashCode(callSuper = true)
+    public static class ProgressResponse extends BaseResponse {
         private Object progress;
     }
 
@@ -6070,11 +5859,8 @@ public class GeneratedModels {
     @Data
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class QueryResponse {
-        /** 返回码，0表示成功 */
-        private Integer rtn;
-        /** 返回消息 */
-        private String message;
+    @lombok.EqualsAndHashCode(callSuper = true)
+    public static class QueryResponse extends BaseResponse {
         /** 结果总数 */
         private Integer total;
         /** 结果列表 */
@@ -6096,11 +5882,8 @@ public class GeneratedModels {
     @Data
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class RefreshCacheResponse {
-        /** 接收状态。0表示接收正常，非0表示接收异常 */
-        private Integer rtn;
-        /** 接收状态描述 */
-        private String message;
+    @lombok.EqualsAndHashCode(callSuper = true)
+    public static class RefreshCacheResponse extends BaseResponse {
         @JsonProperty("refreshed_count")
         private Integer refreshedCount;
         @JsonProperty("total_cached")
@@ -6111,11 +5894,8 @@ public class GeneratedModels {
     @Data
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class RefreshTokenResponse {
-        /** 接收状态。0表示接收正常，非0表示接收异常 */
-        private Integer rtn;
-        /** 接收状态描述 */
-        private String message;
+    @lombok.EqualsAndHashCode(callSuper = true)
+    public static class RefreshTokenResponse extends BaseResponse {
         /** 新的 Token */
         private String token;
     }
@@ -6213,11 +5993,8 @@ public class GeneratedModels {
     @Data
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class RelationshipAnalysisResponse {
-        /** 接收状态。0表示接收正常，非0表示接收异常 */
-        private Integer rtn;
-        /** 接收状态描述 */
-        private String message;
+    @lombok.EqualsAndHashCode(callSuper = true)
+    public static class RelationshipAnalysisResponse extends BaseResponse {
         /** 请求追踪 ID */
         @JsonProperty("request_id")
         private String requestId;
@@ -6360,11 +6137,8 @@ public class GeneratedModels {
     @Data
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class ResolveResponse {
-        /** 接收状态。0表示接收正常，非0表示接收异常 */
-        private Integer rtn;
-        /** 接收状态描述 */
-        private String message;
+    @lombok.EqualsAndHashCode(callSuper = true)
+    public static class ResolveResponse extends BaseResponse {
         @JsonProperty("atomic_task_ref")
         private String atomicTaskRef;
         @JsonProperty("source_type")
@@ -6406,11 +6180,8 @@ public class GeneratedModels {
     @Data
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class ResourceReferenceResponse {
-        /** 接收状态。0表示接收正常，非0表示接收异常 */
-        private Integer rtn;
-        /** 接收状态描述 */
-        private String message;
+    @lombok.EqualsAndHashCode(callSuper = true)
+    public static class ResourceReferenceResponse extends BaseResponse {
         private ResourceReferenceFull reference;
     }
 
@@ -6441,11 +6212,8 @@ public class GeneratedModels {
     @Data
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class RetrievalResponse {
-        /** 接收状态。0表示接收正常，非0表示接收异常 */
-        private Integer rtn;
-        /** 接收状态描述 */
-        private String message;
+    @lombok.EqualsAndHashCode(callSuper = true)
+    public static class RetrievalResponse extends BaseResponse {
         /** 检索查询ID（用于缓存复用） */
         @JsonProperty("retrieval_query_id")
         private Integer retrievalQueryId;
@@ -6536,11 +6304,8 @@ public class GeneratedModels {
     @Data
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class ReverseCompanionResponse {
-        /** 接收状态。0表示接收正常，非0表示接收异常 */
-        private Integer rtn;
-        /** 接收状态描述 */
-        private String message;
+    @lombok.EqualsAndHashCode(callSuper = true)
+    public static class ReverseCompanionResponse extends BaseResponse {
         /** 请求追踪 ID */
         @JsonProperty("request_id")
         private String requestId;
@@ -6592,11 +6357,8 @@ public class GeneratedModels {
     @Data
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class RoleListResponse {
-        /** 接收状态。0表示接收正常，非0表示接收异常 */
-        private Integer rtn;
-        /** 接收状态描述 */
-        private String message;
+    @lombok.EqualsAndHashCode(callSuper = true)
+    public static class RoleListResponse extends BaseResponse {
         /** 角色列表 */
         private List<RoleOutput> roles;
         /** 分页信息 */
@@ -6607,11 +6369,8 @@ public class GeneratedModels {
     @Data
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class SampleListResponse {
-        /** 接收状态。0表示接收正常，非0表示接收异常 */
-        private Integer rtn;
-        /** 接收状态描述 */
-        private String message;
+    @lombok.EqualsAndHashCode(callSuper = true)
+    public static class SampleListResponse extends BaseResponse {
         /** 样本数据 */
         private Object data;
     }
@@ -6643,11 +6402,8 @@ public class GeneratedModels {
     @Data
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class SearchReposResponse {
-        /** 接收状态。0表示接收正常，非0表示接收异常 */
-        private Integer rtn;
-        /** 接收状态描述 */
-        private String message;
+    @lombok.EqualsAndHashCode(callSuper = true)
+    public static class SearchReposResponse extends BaseResponse {
         /** 库列表 */
         private List<RepositoryOutput> repositories;
         /** 分页信息 */
@@ -6707,11 +6463,8 @@ public class GeneratedModels {
     @Data
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class SemanticSearchResponse {
-        /** 接收状态。0表示接收正常，非0表示接收异常 */
-        private Integer rtn;
-        /** 接收状态描述 */
-        private String message;
+    @lombok.EqualsAndHashCode(callSuper = true)
+    public static class SemanticSearchResponse extends BaseResponse {
         /** 结果缓存 ID */
         @JsonProperty("result_id")
         private String resultId;
@@ -6736,11 +6489,8 @@ public class GeneratedModels {
     @Data
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class SinglePermissionResponse {
-        /** 接收状态。0表示接收正常，非0表示接收异常 */
-        private Integer rtn;
-        /** 接收状态描述 */
-        private String message;
+    @lombok.EqualsAndHashCode(callSuper = true)
+    public static class SinglePermissionResponse extends BaseResponse {
         private Permission permission;
     }
 
@@ -6748,11 +6498,8 @@ public class GeneratedModels {
     @Data
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class SingleRoleResponse {
-        /** 接收状态。0表示接收正常，非0表示接收异常 */
-        private Integer rtn;
-        /** 接收状态描述 */
-        private String message;
+    @lombok.EqualsAndHashCode(callSuper = true)
+    public static class SingleRoleResponse extends BaseResponse {
         private RoleOutput role;
     }
 
@@ -6760,11 +6507,8 @@ public class GeneratedModels {
     @Data
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class SingleTagResponse {
-        /** 接收状态。0表示接收正常，非0表示接收异常 */
-        private Integer rtn;
-        /** 接收状态描述 */
-        private String message;
+    @lombok.EqualsAndHashCode(callSuper = true)
+    public static class SingleTagResponse extends BaseResponse {
         private TagOutput tag;
     }
 
@@ -6772,11 +6516,8 @@ public class GeneratedModels {
     @Data
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class SingleUserResponse {
-        /** 接收状态。0表示接收正常，非0表示接收异常 */
-        private Integer rtn;
-        /** 接收状态描述 */
-        private String message;
+    @lombok.EqualsAndHashCode(callSuper = true)
+    public static class SingleUserResponse extends BaseResponse {
         private UserOutput user;
     }
 
@@ -6849,11 +6590,8 @@ public class GeneratedModels {
     @Data
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class SpatiotemporalCollisionResponse {
-        /** 接收状态。0表示接收正常，非0表示接收异常 */
-        private Integer rtn;
-        /** 接收状态描述 */
-        private String message;
+    @lombok.EqualsAndHashCode(callSuper = true)
+    public static class SpatiotemporalCollisionResponse extends BaseResponse {
         /** 请求追踪 ID */
         @JsonProperty("request_id")
         private String requestId;
@@ -6919,11 +6657,8 @@ public class GeneratedModels {
     @Data
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class StorageUsageResponse {
-        /** 接收状态。0表示接收正常，非0表示接收异常 */
-        private Integer rtn;
-        /** 接收状态描述 */
-        private String message;
+    @lombok.EqualsAndHashCode(callSuper = true)
+    public static class StorageUsageResponse extends BaseResponse {
         @JsonProperty("used_bytes")
         private Integer usedBytes;
         @JsonProperty("quota_bytes")
@@ -7359,11 +7094,8 @@ public class GeneratedModels {
     @Data
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class SystemOverviewResponse {
-        /** 接收状态。0表示接收正常，非0表示接收异常 */
-        private Integer rtn;
-        /** 接收状态描述 */
-        private String message;
+    @lombok.EqualsAndHashCode(callSuper = true)
+    public static class SystemOverviewResponse extends BaseResponse {
         private SystemOverview data;
     }
 
@@ -7466,11 +7198,8 @@ public class GeneratedModels {
     @Data
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class TagListResponse {
-        /** 接收状态。0表示接收正常，非0表示接收异常 */
-        private Integer rtn;
-        /** 接收状态描述 */
-        private String message;
+    @lombok.EqualsAndHashCode(callSuper = true)
+    public static class TagListResponse extends BaseResponse {
         /** 标签列表 */
         private List<TagOutput> tags;
         /** 分页信息 */
@@ -7578,11 +7307,8 @@ public class GeneratedModels {
     @Data
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class TimelineEventsResponse {
-        /** 接收状态。0表示接收正常，非0表示接收异常 */
-        private Integer rtn;
-        /** 接收状态描述 */
-        private String message;
+    @lombok.EqualsAndHashCode(callSuper = true)
+    public static class TimelineEventsResponse extends BaseResponse {
         /** 事件列表 */
         private List<TimelineEvent> events;
     }
@@ -7613,11 +7339,8 @@ public class GeneratedModels {
     @Data
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class TimelineScenariosResponse {
-        /** 接收状态。0表示接收正常，非0表示接收异常 */
-        private Integer rtn;
-        /** 接收状态描述 */
-        private String message;
+    @lombok.EqualsAndHashCode(callSuper = true)
+    public static class TimelineScenariosResponse extends BaseResponse {
         /** 摄像头列表 */
         private List<Object> cameras;
         /** 时间轴轨道 */
@@ -7802,11 +7525,8 @@ public class GeneratedModels {
     @Data
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class TrainingJobListResponse {
-        /** 接收状态。0表示接收正常，非0表示接收异常 */
-        private Integer rtn;
-        /** 接收状态描述 */
-        private String message;
+    @lombok.EqualsAndHashCode(callSuper = true)
+    public static class TrainingJobListResponse extends BaseResponse {
         /** 任务列表数据 */
         private TrainingJobListDataOutput data;
     }
@@ -7815,11 +7535,8 @@ public class GeneratedModels {
     @Data
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class TrainingJobResponse {
-        /** 接收状态。0表示接收正常，非0表示接收异常 */
-        private Integer rtn;
-        /** 接收状态描述 */
-        private String message;
+    @lombok.EqualsAndHashCode(callSuper = true)
+    public static class TrainingJobResponse extends BaseResponse {
         /** 训练任务详情 */
         private TrainingJobOutput data;
     }
@@ -7859,11 +7576,8 @@ public class GeneratedModels {
     @Data
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class TrainingJobStatsResponse {
-        /** 接收状态。0表示接收正常，非0表示接收异常 */
-        private Integer rtn;
-        /** 接收状态描述 */
-        private String message;
+    @lombok.EqualsAndHashCode(callSuper = true)
+    public static class TrainingJobStatsResponse extends BaseResponse {
         /** 统计信息 */
         private TrainingJobStats data;
     }
@@ -7955,11 +7669,8 @@ public class GeneratedModels {
     @Data
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class UpdateEventStatusResponse {
-        /** 接收状态。0表示接收正常，非0表示接收异常 */
-        private Integer rtn;
-        /** 接收状态描述 */
-        private String message;
+    @lombok.EqualsAndHashCode(callSuper = true)
+    public static class UpdateEventStatusResponse extends BaseResponse {
         /** 成功更新的数量 */
         @JsonProperty("updated_count")
         private Integer updatedCount;
@@ -8051,11 +7762,8 @@ public class GeneratedModels {
     @Data
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class UpdateTaskResponse {
-        /** 接收状态。0表示接收正常，非0表示接收异常 */
-        private Integer rtn;
-        /** 接收状态描述 */
-        private String message;
+    @lombok.EqualsAndHashCode(callSuper = true)
+    public static class UpdateTaskResponse extends BaseResponse {
         @JsonProperty("task_id")
         private String taskId;
         @JsonProperty("device_count")
@@ -8105,11 +7813,8 @@ public class GeneratedModels {
     @Data
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class UpgradeStartResponse {
-        /** 接收状态。0表示接收正常，非0表示接收异常 */
-        private Integer rtn;
-        /** 接收状态描述 */
-        private String message;
+    @lombok.EqualsAndHashCode(callSuper = true)
+    public static class UpgradeStartResponse extends BaseResponse {
         private List<TaskInfoModel> tasks;
     }
 
@@ -8117,11 +7822,8 @@ public class GeneratedModels {
     @Data
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class UpgradeStatusResponse {
-        /** 接收状态。0表示接收正常，非0表示接收异常 */
-        private Integer rtn;
-        /** 接收状态描述 */
-        private String message;
+    @lombok.EqualsAndHashCode(callSuper = true)
+    public static class UpgradeStatusResponse extends BaseResponse {
         private StatusSummaryModel summary;
         private List<TaskInfoModel> tasks;
     }
@@ -8130,11 +7832,8 @@ public class GeneratedModels {
     @Data
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class UpgradeStopResponse {
-        /** 接收状态。0表示接收正常，非0表示接收异常 */
-        private Integer rtn;
-        /** 接收状态描述 */
-        private String message;
+    @lombok.EqualsAndHashCode(callSuper = true)
+    public static class UpgradeStopResponse extends BaseResponse {
     }
 
     /** 升级校验请求 */
@@ -8150,11 +7849,8 @@ public class GeneratedModels {
     @Data
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class UpgradeValidateResponse {
-        /** 接收状态。0表示接收正常，非0表示接收异常 */
-        private Integer rtn;
-        /** 接收状态描述 */
-        private String message;
+    @lombok.EqualsAndHashCode(callSuper = true)
+    public static class UpgradeValidateResponse extends BaseResponse {
         @JsonProperty("all_passed")
         private Boolean allPassed;
         private List<ValidationDetailModel> details;
@@ -8175,11 +7871,8 @@ public class GeneratedModels {
     @Data
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class UploadStatusResponse {
-        /** 接收状态。0表示接收正常，非0表示接收异常 */
-        private Integer rtn;
-        /** 接收状态描述 */
-        private String message;
+    @lombok.EqualsAndHashCode(callSuper = true)
+    public static class UploadStatusResponse extends BaseResponse {
         /** 上传状态 */
         private UploadStatus data;
     }
@@ -8198,11 +7891,8 @@ public class GeneratedModels {
     @Data
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class UploadUrlResponse {
-        /** 接收状态。0表示接收正常，非0表示接收异常 */
-        private Integer rtn;
-        /** 接收状态描述 */
-        private String message;
+    @lombok.EqualsAndHashCode(callSuper = true)
+    public static class UploadUrlResponse extends BaseResponse {
         @JsonProperty("upload_url")
         private String uploadUrl;
         private String bucket;
@@ -8280,11 +7970,8 @@ public class GeneratedModels {
     @Data
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class UserListResponse {
-        /** 接收状态。0表示接收正常，非0表示接收异常 */
-        private Integer rtn;
-        /** 接收状态描述 */
-        private String message;
+    @lombok.EqualsAndHashCode(callSuper = true)
+    public static class UserListResponse extends BaseResponse {
         /** 用户列表 */
         private List<UserOutput> users;
         /** 分页信息 */
@@ -8551,11 +8238,8 @@ public class GeneratedModels {
     @Data
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class RoutersAlgomgrV2ListTemplatesResponse {
-        /** 接收状态。0表示接收正常，非0表示接收异常 */
-        private Integer rtn;
-        /** 接收状态描述 */
-        private String message;
+    @lombok.EqualsAndHashCode(callSuper = true)
+    public static class RoutersAlgomgrV2ListTemplatesResponse extends BaseResponse {
         private List<AlgoMgrTemplate> templates;
         private Integer total;
     }
@@ -8563,22 +8247,16 @@ public class GeneratedModels {
     @Data
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class RoutersSurveillanceTaskGetTaskResponse {
-        /** 接收状态。0表示接收正常，非0表示接收异常 */
-        private Integer rtn;
-        /** 接收状态描述 */
-        private String message;
+    @lombok.EqualsAndHashCode(callSuper = true)
+    public static class RoutersSurveillanceTaskGetTaskResponse extends BaseResponse {
         private SurveillanceTaskOutput task;
     }
 
     @Data
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class RoutersSurveillanceTaskListTasksResponse {
-        /** 接收状态。0表示接收正常，非0表示接收异常 */
-        private Integer rtn;
-        /** 接收状态描述 */
-        private String message;
+    @lombok.EqualsAndHashCode(callSuper = true)
+    public static class RoutersSurveillanceTaskListTasksResponse extends BaseResponse {
         /** 布控任务列表 */
         private List<SurveillanceTaskOutput> tasks;
         /** 分页信息 */
@@ -8589,11 +8267,8 @@ public class GeneratedModels {
     @Data
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class RoutersVataskV2GetTaskResponse {
-        /** 接收状态。0表示接收正常，非0表示接收异常 */
-        private Integer rtn;
-        /** 接收状态描述 */
-        private String message;
+    @lombok.EqualsAndHashCode(callSuper = true)
+    public static class RoutersVataskV2GetTaskResponse extends BaseResponse {
         private VATaskV2Info task;
     }
 
@@ -8601,11 +8276,8 @@ public class GeneratedModels {
     @Data
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class RoutersVataskV2ListTasksResponse {
-        /** 接收状态。0表示接收正常，非0表示接收异常 */
-        private Integer rtn;
-        /** 接收状态描述 */
-        private String message;
+    @lombok.EqualsAndHashCode(callSuper = true)
+    public static class RoutersVataskV2ListTasksResponse extends BaseResponse {
         private List<VATaskV2Summary> tasks;
         private Integer total;
         private Pagination pagination;
@@ -8615,11 +8287,8 @@ public class GeneratedModels {
     @Data
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class RoutersVataskV2ListTemplatesResponse {
-        /** 接收状态。0表示接收正常，非0表示接收异常 */
-        private Integer rtn;
-        /** 接收状态描述 */
-        private String message;
+    @lombok.EqualsAndHashCode(callSuper = true)
+    public static class RoutersVataskV2ListTemplatesResponse extends BaseResponse {
         private List<VATaskV2Template> templates;
         private Integer total;
     }
