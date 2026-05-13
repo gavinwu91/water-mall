@@ -28,3 +28,6 @@ with date_range as (select trunc(sysdate) - LEVEL + 1 AS date_unit from dual con
 
         {"rtn":400,"error":"bad_request","message":"创建失败","request_id":"CCCCCC0000006A02C669F1C15A6DF0C4"}
         END HTTP (106-byte body)
+
+
+        Error:(2688,5) java: 已在类 com.ecloud.vms.module.biz.yitu.model.GeneratedModels.DeleteAtomicTaskResponse中定义了构造器 DeleteAtomicTaskResponse()
