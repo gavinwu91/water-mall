@@ -57,6 +57,8 @@ public class GeneratedModels {
         ActionEnum(Object value) { this.value = value; }
         @JsonValue
         public Object getValue() { return value; }
+        @Override
+        public String toString() { return String.valueOf(value); }
     }
 
     /** 告警 */
@@ -399,6 +401,8 @@ public class GeneratedModels {
         AnnotationLabel(Object value) { this.value = value; }
         @JsonValue
         public Object getValue() { return value; }
+        @Override
+        public String toString() { return String.valueOf(value); }
     }
 
     /** 区域摸排结果项  表示一个在指定区域和时间范围内符合标签条件的人员 */
@@ -672,7 +676,6 @@ public class GeneratedModels {
 
     @Data
     @NoArgsConstructor
-    @AllArgsConstructor
     @lombok.EqualsAndHashCode(callSuper = true)
     public static class BasicResponse extends BaseResponse {
     }
@@ -1313,6 +1316,8 @@ public class GeneratedModels {
         CameraSortField(Object value) { this.value = value; }
         @JsonValue
         public Object getValue() { return value; }
+        @Override
+        public String toString() { return String.valueOf(value); }
     }
 
     /** 摄像头状态  - active: 正常使用 - inactive: 已禁用 - trashed: 回收站 */
@@ -1325,6 +1330,8 @@ public class GeneratedModels {
         CameraStatus(Object value) { this.value = value; }
         @JsonValue
         public Object getValue() { return value; }
+        @Override
+        public String toString() { return String.valueOf(value); }
     }
 
     /** 更新摄像头请求 */
@@ -1849,6 +1856,8 @@ public class GeneratedModels {
         CheckpointType(Object value) { this.value = value; }
         @JsonValue
         public Object getValue() { return value; }
+        @Override
+        public String toString() { return String.valueOf(value); }
     }
 
     /** 集群信息对象 */
@@ -2447,6 +2456,8 @@ public class GeneratedModels {
         DataSetStatus(Object value) { this.value = value; }
         @JsonValue
         public Object getValue() { return value; }
+        @Override
+        public String toString() { return String.valueOf(value); }
     }
 
     /** 库的数据类型 */
@@ -2459,6 +2470,8 @@ public class GeneratedModels {
         DataType(Object value) { this.value = value; }
         @JsonValue
         public Object getValue() { return value; }
+        @Override
+        public String toString() { return String.valueOf(value); }
     }
 
     /** 数据库类型 */
@@ -2470,6 +2483,8 @@ public class GeneratedModels {
         DatabaseType(Object value) { this.value = value; }
         @JsonValue
         public Object getValue() { return value; }
+        @Override
+        public String toString() { return String.valueOf(value); }
     }
 
     /** 数据集资源  用于模型训练的数据集，包含样本采集、标注等。 */
@@ -2695,7 +2710,6 @@ public class GeneratedModels {
     /** 删除原子任务响应 */
     @Data
     @NoArgsConstructor
-    @AllArgsConstructor
     @lombok.EqualsAndHashCode(callSuper = true)
     public static class DeleteAtomicTaskResponse extends BaseResponse {
     }
@@ -3280,6 +3294,8 @@ public class GeneratedModels {
         EventClass(Object value) { this.value = value; }
         @JsonValue
         public Object getValue() { return value; }
+        @Override
+        public String toString() { return String.valueOf(value); }
     }
 
     /** 事件详情响应 */
@@ -3304,6 +3320,8 @@ public class GeneratedModels {
         EventLevel(Object value) { this.value = value; }
         @JsonValue
         public Object getValue() { return value; }
+        @Override
+        public String toString() { return String.valueOf(value); }
     }
 
     /** 事件搜索请求 */
@@ -3378,6 +3396,8 @@ public class GeneratedModels {
         EventStatus(Object value) { this.value = value; }
         @JsonValue
         public Object getValue() { return value; }
+        @Override
+        public String toString() { return String.valueOf(value); }
     }
 
     /** 事件状态更新请求 */
@@ -3421,6 +3441,8 @@ public class GeneratedModels {
         EventType(Object value) { this.value = value; }
         @JsonValue
         public Object getValue() { return value; }
+        @Override
+        public String toString() { return String.valueOf(value); }
     }
 
     /** 模型导出任务  从算法版本导出可部署的模型包。 */
@@ -3485,6 +3507,8 @@ public class GeneratedModels {
         ExportTaskStatus(Object value) { this.value = value; }
         @JsonValue
         public Object getValue() { return value; }
+        @Override
+        public String toString() { return String.valueOf(value); }
     }
 
     /** 人脸关键点 */
@@ -3745,6 +3769,8 @@ public class GeneratedModels {
         FeatureExtractionType(Object value) { this.value = value; }
         @JsonValue
         public Object getValue() { return value; }
+        @Override
+        public String toString() { return String.valueOf(value); }
     }
 
     /** 报警数据拉取请求 */
@@ -4246,6 +4272,8 @@ public class GeneratedModels {
         IdentificationType(Object value) { this.value = value; }
         @JsonValue
         public Object getValue() { return value; }
+        @Override
+        public String toString() { return String.valueOf(value); }
     }
 
     /** 已识别的同行人信息  同行反查中作为查询起点的已知同行人 */
@@ -4419,7 +4447,6 @@ public class GeneratedModels {
     /** 旧版 API 通用响应格式 */
     @Data
     @NoArgsConstructor
-    @AllArgsConstructor
     @lombok.EqualsAndHashCode(callSuper = true)
     public static class LagencyResponse extends BaseResponse {
     }
@@ -4609,6 +4636,8 @@ public class GeneratedModels {
         LocationType(Object value) { this.value = value; }
         @JsonValue
         public Object getValue() { return value; }
+        @Override
+        public String toString() { return String.valueOf(value); }
     }
 
     /** 登录请求 */
@@ -4683,6 +4712,8 @@ public class GeneratedModels {
         MatchMode(Object value) { this.value = value; }
         @JsonValue
         public Object getValue() { return value; }
+        @Override
+        public String toString() { return String.valueOf(value); }
     }
 
     /** 当前用户信息响应 */
@@ -5010,6 +5041,8 @@ public class GeneratedModels {
         PointType(Object value) { this.value = value; }
         @JsonValue
         public Object getValue() { return value; }
+        @Override
+        public String toString() { return String.valueOf(value); }
     }
 
     /** 获取分片 presigned URL 请求 */
@@ -5047,6 +5080,8 @@ public class GeneratedModels {
         ProcessType(Object value) { this.value = value; }
         @JsonValue
         public Object getValue() { return value; }
+        @Override
+        public String toString() { return String.valueOf(value); }
     }
 
     /** 离线解析进度响应 */
@@ -5262,6 +5297,8 @@ public class GeneratedModels {
         RepositoryType(Object value) { this.value = value; }
         @JsonValue
         public Object getValue() { return value; }
+        @Override
+        public String toString() { return String.valueOf(value); }
     }
 
     /** 更新库的输入模型，所有字段可选（用于 PATCH 部分更新） */
@@ -5291,6 +5328,8 @@ public class GeneratedModels {
         Resolution(Object value) { this.value = value; }
         @JsonValue
         public Object getValue() { return value; }
+        @Override
+        public String toString() { return String.valueOf(value); }
     }
 
     /** 解析请求输入 */
@@ -5511,6 +5550,8 @@ public class GeneratedModels {
         SampleType(Object value) { this.value = value; }
         @JsonValue
         public Object getValue() { return value; }
+        @Override
+        public String toString() { return String.valueOf(value); }
     }
 
     @Data
@@ -5546,6 +5587,8 @@ public class GeneratedModels {
         SecurityLevel(Object value) { this.value = value; }
         @JsonValue
         public Object getValue() { return value; }
+        @Override
+        public String toString() { return String.valueOf(value); }
     }
 
     /** L5 语义检索请求参数 (文搜图/图搜图/特征搜图) */
@@ -5792,6 +5835,8 @@ public class GeneratedModels {
         SubTaskStatus(Object value) { this.value = value; }
         @JsonValue
         public Object getValue() { return value; }
+        @Override
+        public String toString() { return String.valueOf(value); }
     }
 
     /** 布控模式 */
@@ -5804,6 +5849,8 @@ public class GeneratedModels {
         SurveillanceMode(Object value) { this.value = value; }
         @JsonValue
         public Object getValue() { return value; }
+        @Override
+        public String toString() { return String.valueOf(value); }
     }
 
     /** 布控范围配置  规则： - tags 和 camera_uris 至少提供一个 - 两者同时存在时，取并集 - tags: 关联所有 tags 字段与指定标签ID有交集的相机 - camera_uris: 直接指定具体相机 */
@@ -6015,6 +6062,8 @@ public class GeneratedModels {
         SurveillanceType(Object value) { this.value = value; }
         @JsonValue
         public Object getValue() { return value; }
+        @Override
+        public String toString() { return String.valueOf(value); }
     }
 
     /** 疑似嫌疑人信息  同行反查结果中，与已知同行人有伴随关系的疑似目标人员 */
@@ -6197,6 +6246,8 @@ public class GeneratedModels {
         TagAction(Object value) { this.value = value; }
         @JsonValue
         public Object getValue() { return value; }
+        @Override
+        public String toString() { return String.valueOf(value); }
     }
 
     /** 标签列表响应 */
@@ -6256,6 +6307,8 @@ public class GeneratedModels {
         TaskStatus(Object value) { this.value = value; }
         @JsonValue
         public Object getValue() { return value; }
+        @Override
+        public String toString() { return String.valueOf(value); }
     }
 
     /** 时间线事件（对齐前端 TimelineEvent） */
@@ -6474,6 +6527,8 @@ public class GeneratedModels {
         TrainingJobFromAlgorithmType(Object value) { this.value = value; }
         @JsonValue
         public Object getValue() { return value; }
+        @Override
+        public String toString() { return String.valueOf(value); }
     }
 
     /** 训练任务列表数据 */
@@ -6560,6 +6615,8 @@ public class GeneratedModels {
         TrainingJobStatus(Object value) { this.value = value; }
         @JsonValue
         public Object getValue() { return value; }
+        @Override
+        public String toString() { return String.valueOf(value); }
     }
 
     /** 训练子任务 */
@@ -6629,6 +6686,8 @@ public class GeneratedModels {
         TransportProtocol(Object value) { this.value = value; }
         @JsonValue
         public Object getValue() { return value; }
+        @Override
+        public String toString() { return String.valueOf(value); }
     }
 
     /** 更新事件状态响应 */
@@ -6797,7 +6856,6 @@ public class GeneratedModels {
     /** 升级停止响应 */
     @Data
     @NoArgsConstructor
-    @AllArgsConstructor
     @lombok.EqualsAndHashCode(callSuper = true)
     public static class UpgradeStopResponse extends BaseResponse {
     }
@@ -7123,6 +7181,8 @@ public class GeneratedModels {
         ModelsCameraSortOrder(Object value) { this.value = value; }
         @JsonValue
         public Object getValue() { return value; }
+        @Override
+        public String toString() { return String.valueOf(value); }
     }
 
     /** 人脸框位置信息 */
@@ -7149,6 +7209,8 @@ public class GeneratedModels {
         ModelsMossTrainSortOrder(Object value) { this.value = value; }
         @JsonValue
         public Object getValue() { return value; }
+        @Override
+        public String toString() { return String.valueOf(value); }
     }
 
     /** 人脸框位置 */
