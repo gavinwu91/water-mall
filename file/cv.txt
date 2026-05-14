@@ -1,0 +1,2 @@
+POST http://192.168.106.23:30081/api/v1/repositories/repository%3A11%40Oman-fp-001/records/synchronized/batch HTTP/1.1
+{"rtn":400,"error":"bad_request","message":"批量添加失败","request_id":"CCCCCC0000006A05686C10C9B45BA29E"}
