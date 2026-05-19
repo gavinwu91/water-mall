@@ -1,0 +1,37 @@
+{
+  "url": "http://192.168.103.100:8000/v1/chat/completions",
+  "id": "chatcmpl-8e2bb4fed075ee57",
+  "object": "chat.completion",
+  "created": 1779081323,
+  "model": "google/gemma-4-31B-it",
+  "choices": [
+    {
+      "index": 0,
+      "message": {
+        "role": "assistant",
+        "content": "你好！很高兴为你服务。请问有什么我可以帮你的吗？",
+        "refusal": null,
+        "annotations": null,
+        "audio": null,
+        "function_call": null,
+        "tool_calls": [],
+        "reasoning": null
+      },
+      "logprobs": null,
+      "finish_reason": "stop",
+      "stop_reason": 106,
+      "token_ids": null
+    }
+  ],
+  "service_tier": null,
+  "system_fingerprint": null,
+  "usage": {
+    "prompt_tokens": 14,
+    "total_tokens": 30,
+    "completion_tokens": 16,
+    "prompt_tokens_details": null
+  },
+  "prompt_logprobs": null,
+  "prompt_token_ids": null,
+  "kv_transfer_params": null
+}
