@@ -31,3 +31,63 @@ with date_range as (select trunc(sysdate) - LEVEL + 1 AS date_unit from dual con
 
 
         Error:(2688,5) java: 已在类 com.ecloud.vms.module.biz.yitu.model.GeneratedModels.DeleteAtomicTaskResponse中定义了构造器 DeleteAtomicTaskResponse()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{
+  "$schema": "https://opencode.ai/config.json",
+
+  "provider": {
+    "local-llm": {
+      "npm": "@ai-sdk/openai-compatible",
+
+      "options": {
+        "baseURL": "http://192.168.5.2:8000/v1",
+        "apiKey": "dummy"
+      },
+
+      "models": {
+        "gemma": {
+          "name": "google/gemma-4-31b-it"
+        }
+      }
+    }
+  },
+
+  "model": "local-llm/gemma"
+}
+
+{
+  "$schema": "https://opencode.ai/config.json",
+
+  "provider": {
+    "vllm": {
+      "npm": "@ai-sdk/openai-compatible",
+      "name": "vLLM",
+      "options": {
+        "baseURL": "http://127.0.0.1:8000/v1"
+      },
+
+      "models": {
+        "qwen": {
+          "name": "Qwen/Qwen2.5-7B-Instruct"
+        }
+      }
+    }
+  },
+
+  "model": "vllm/qwen"
+}
+
+
