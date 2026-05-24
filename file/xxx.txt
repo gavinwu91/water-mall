@@ -91,3 +91,14 @@ with date_range as (select trunc(sysdate) - LEVEL + 1 AS date_unit from dual con
 }
 
 
+{
+  "fields": [
+ "name","person_id","external_id","gender","nation","capture_image_uri","timestamp","quality","face_rect_type","rec_mask","face_angle","face_image_id","picture_uri","face_image_uri","created_at","guid","user_type"
+  ],
+  "condition": {
+    "name": "AARUSH RAHUL"
+  },
+  "page": 1,
+  "limit": 20
+}
+
