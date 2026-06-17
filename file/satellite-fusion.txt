@@ -1,0 +1,65 @@
+-- vmind.satellite_fusion_documents definition
+
+CREATE TABLE vmind.satellite_fusion_documents
+(
+
+    `data_id` UUID,
+
+    `document_id` String,
+
+    `created_at` Int64,
+
+    `file_timestamp` Nullable(Int64),
+
+    `interception_system` Nullable(String),
+
+    `system` Nullable(String),
+
+    `system_type` Nullable(String),
+
+    `service_type` Nullable(String),
+
+    `session_id` Nullable(String),
+
+    `imsi` Nullable(String),
+
+    `gps_lon` Nullable(Float64),
+
+    `gps_lat` Nullable(Float64),
+
+    `gps_timestamp` Nullable(Int64),
+
+    `related_id` Nullable(String),
+
+    `related_id_type` Nullable(String),
+
+    `related_system` Nullable(String),
+
+    `related_system_type` Nullable(String),
+
+    `related_lon` Nullable(Float64),
+
+    `related_lat` Nullable(Float64),
+
+    `position_timestamp` Nullable(Int64),
+
+    `correlation_state` Nullable(String),
+
+    `correlation_timestamp` Nullable(Int64),
+
+    `track_quality` Nullable(String),
+
+    `properties.property_type` Array(String),
+
+    `properties.property_value` Array(String),
+
+    `raw_xml` Nullable(String),
+
+    `date` Date MATERIALIZED toDate(file_timestamp),
+
+    `hour` DateTime MATERIALIZED toStartOfHour(toDateTime(file_timestamp))
+)
+ENGINE = Distributed('test_ck_cluster',
+ 'vmind',
+ 'satellite_fusion_documents_local',
+ rand());
