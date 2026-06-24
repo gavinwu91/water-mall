@@ -1,0 +1,1 @@
+SQL 错误 [22000]: Code: 386. DB::Exception: There is no supertype for types String, Array(String) because some of them are Array and some of them are not. (NO_COMMON_TYPE) (version 23.12.6.19 (official build))
