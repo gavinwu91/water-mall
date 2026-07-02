@@ -1,0 +1,56 @@
+{
+  "name": "车牌告警测试0702",
+  "enabled": true,
+  "meta": {
+    "additionalProp1": {}
+  },
+  "surveillance_scope": {
+    "tags": [
+      0
+    ],
+    "camera_uris": [
+      "camera:57@Oman-fp-001",
+      "camera:58@Oman-fp-001",
+      "camera:59@Oman-fp-001",
+      "camera:60@Oman-fp-001",
+      "camera:61@Oman-fp-001",
+      "camera:62@Oman-fp-001",
+      "camera:63@Oman-fp-001",
+      "camera:64@Oman-fp-001"
+    ]
+  },
+  "surveillance_mode": "plate",
+  "repository_uris": [],
+  "target_record_tag_ids": [
+    0
+  ],
+  "target_record_tag_match_mode": "any",
+  "threshold": 100,
+  "database_type": 0,
+  "process_type": 0,
+  "surveillance_type": 0,
+  "start_timestamp": 1782994695,
+  "end_timestamp": 1783210695,
+  "l4o_rules": {
+    "additionalProp1": {}
+  },
+  "semantic_query": "string",
+  "semantic_config": {
+    "additionalProp1": {}
+  },
+  "input_type": "rtsp",
+  "target_worker_type": "string",
+  "plate_rules": {
+    "plates": [
+      {
+        "plate_chars": "68172Y",
+        "plate_chars": "44361Y",
+        "plate_chars": "41486W",
+        "plate_chars": "6390AA",
+        "plate_chars": "6426BR",
+        "plate_chars": "9145TH",
+        "plate_chars": "2611CD"
+      }
+    ]
+  }
+}
