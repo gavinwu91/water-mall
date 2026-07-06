@@ -1,0 +1,49 @@
+{
+  "name": "SUR_PLATE_20260705115310386_wuzhe_0705V6",
+  "enabled": true,
+  "meta": null,
+  "threshold": null,
+  "surveillance_scope": {
+    "tags": null,
+    "camera_uris": [
+      "camera:64@Oman-fp-001",
+      "camera:58@Oman-fp-001",
+      "camera:57@Oman-fp-001",
+      "camera:61@Oman-fp-001",
+      "camera:63@Oman-fp-001",
+      "camera:60@Oman-fp-001",
+      "camera:59@Oman-fp-001",
+      "camera:62@Oman-fp-001"
+    ]
+  },
+  "surveillance_mode": "plate",
+  "repository_uris": null,
+  "target_record_tag_ids": null,
+  "target_record_tag_match_mode": "any",
+  "database_type": 0,
+  "process_type": 0,
+  "surveillance_type": 0,
+  "start_timestamp": null,
+  "end_timestamp": null,
+  "l4o_rules": null,
+  "semantic_query": null,
+  "semantic_config": null,
+  "input_type": null,
+  "target_worker_type": null,
+  "plate_rules": {
+    "plates": [
+      {
+        "plate_chars": "82264B"
+      },
+      {
+        "plate_chars": "8206TH"
+      },
+      {
+        "plate_chars": "2764TH"
+      },
+      {
+        "plate_chars": "20842D"
+      }
+    ]
+  }
+}
