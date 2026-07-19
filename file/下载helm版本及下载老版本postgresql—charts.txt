@@ -1,15 +1,23 @@
 1.下载老版本的helm   v3.2.3
     https://github.com/helm/helm/releases?page=14#release-v3.2.3 ->Installation and Upgrading->Windows amd64
 
-2.解压好helm后
- ---如果比较新的xxx软件charts版本：
+2.解压好helm后，在windows上下载postgresql 的charts
+ ---1---如果比较新的xxx软件charts版本：
     1.helm repo add bitnami https://charts.bitnami.com/bitnami
     2.helm repo update
     3.helm pull bitnami/postgresql --version 10.16.2
- ---如果比较老的xxx软件charts版本：
+ ---2---如果比较老的xxx软件charts版本：
     1.添加 Bitnami 归档索引仓库：helm repo add bitnami-full-index https://raw.githubusercontent.com/bitnami/charts/archive-full-index/bitnami
     2.更新一下这个新仓库：helm repo update
     3.从归档库下载指定版本（注意前缀变成了 bitnami-full-index）：helm pull bitnami-full-index/postgresql --version 10.16.2
+ ---3--- 解压与更新依赖（在 Windows 上执行）
+    tar -zxvf .\postgresql-10.16.2.tgz
+    cd postgresql
+    helm dependency update
+    这样在charts里边就多了个common-1.17.1.tgz
+    返回上级目录
+    helm package .\postgresql
+    这时候会在你的当前目录下生成一个新的 postgresql-10.16.2.tgz。
 
 3.由于helm的postgresql是postgresql-10.16.2.tgz，里边的版本对应的是11.14.0-debian-10-r28，官方已经过期，直接去下载
     # 1. 精准拉取官方现存的这个镜像
@@ -21,3 +29,12 @@
     # 3. 导出为离线 tar 包
     docker save -o postgresql-11-offline.tar bitnami/postgresql:11.14.0-debian-10-r28
 
+4、完成上述操作后，你只需要把两个东西用 U 盘或者内网传输工具拷贝到阿曼的那台离线 Linux 服务器上：
+
+  那个在有网的 Windows 上被重打过标签并导出的核心镜像包：postgresql-11-offline.tar。
+
+  刚刚在 Windows 上通过 helm package 重新打包生成的：postgresql-10.16.2.tgz（这个包里现在已经塞满了所有配置和依赖）。
+
+5、离线环境中操作
+    load镜像docker load -i postgresql-11-offline.tar
+    启动：helm install my-postgres ./postgresql-10.16.2.tgz -n infra --create-namespace
