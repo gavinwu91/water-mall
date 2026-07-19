@@ -1,0 +1,23 @@
+1.下载老版本的helm   v3.2.3
+    https://github.com/helm/helm/releases?page=14#release-v3.2.3 ->Installation and Upgrading->Windows amd64
+
+2.解压好helm后
+ ---如果比较新的xxx软件charts版本：
+    1.helm repo add bitnami https://charts.bitnami.com/bitnami
+    2.helm repo update
+    3.helm pull bitnami/postgresql --version 10.16.2
+ ---如果比较老的xxx软件charts版本：
+    1.添加 Bitnami 归档索引仓库：helm repo add bitnami-full-index https://raw.githubusercontent.com/bitnami/charts/archive-full-index/bitnami
+    2.更新一下这个新仓库：helm repo update
+    3.从归档库下载指定版本（注意前缀变成了 bitnami-full-index）：helm pull bitnami-full-index/postgresql --version 10.16.2
+
+3.由于helm的postgresql是postgresql-10.16.2.tgz，里边的版本对应的是11.14.0-debian-10-r28，官方已经过期，直接去下载
+    # 1. 精准拉取官方现存的这个镜像
+    docker pull bitnamilegacy/postgresql:11.14.0
+
+    # 2. 把它重命名，完美对齐你 Chart 包里的默认路径和完整 Tag
+    docker tag bitnamilegacy/postgresql:11.14.0 bitnami/postgresql:11.14.0-debian-10-r28
+
+    # 3. 导出为离线 tar 包
+    docker save -o postgresql-11-offline.tar bitnami/postgresql:11.14.0-debian-10-r28
+
